@@ -6,7 +6,7 @@ if(!window.jQuery) {
 
 const packages_list = window.roammonkey_package_list.trim().split('\n')
 
-console.log(packages_list)
+console.log('RoamMonkey: packages_list \n', packages_list)
 
 const packages = packages_list.forEach(loadPackage)
 
