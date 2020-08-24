@@ -5,7 +5,8 @@ function init() {
     include_script("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
   }
 
-  const packages_list = window.roammonkey_package_list.trim().split('\n')
+  const packages_list = window.roammonkey_packages_list.trim().split('\n')
+  // error if doesn't exist
 
   console.log('RoamMonkey: packages_list \n', packages_list)
 
