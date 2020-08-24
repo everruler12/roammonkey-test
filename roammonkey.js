@@ -6,9 +6,9 @@ if(!window.jQuery) {
 
 const package_list = window.roammonkey_package_list.trim().split('\n')
 
-const packages = package_list.forEach(loadPackage.packages)
+const packages = package_list.forEach(loadPackage)
 
-function loadPackage(url) {
+function loadPackage(packages) {
   console.log("RoamMonkey: Getting ", url)
   $.getScript(url, function(data){
       console.log("RoamMonkey: Loaded ", url)
