@@ -1,8 +1,7 @@
 {
-    "author": "@roamhacker",
-    "version": 1.0,
     "packages": [{
         "name": "roam42 3rd party libraries",
+        "author": "@roamhacker",
         "dependencies": [
             "https://code.jquery.com/jquery-3.5.1.min.js",
             "https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js",
@@ -21,6 +20,7 @@
         ]
     }, {
         "name": "roam42 common shared functions",
+        "author": "@roamhacker",
         "dependencies": [
             "https://roam42.glitch.me/css/styleRM.css",
             "https://roam42.glitch.me/common/commonFunctions.js",
@@ -29,22 +29,27 @@
         ]
     }, {
         "name": "quickReference",
+        "author": "@roamhacker",
         "source": "https://roam42.glitch.me/ext/quick-reference.js",
         "dependencies": ""
     }, {
         "name": "turnDown",
+        "author": "@roamhacker",
         "source": "https://roam42.glitch.me/ext/turndownservice.js",
         "dependencies": ""
     }, {
         "name": "dateProcessing",
+        "author": "@roamhacker",
         "source": "https://roam42.glitch.me/ext/dateProcessing.js",
         "dependencies": ""
     }, {
         "name": "typeAheadData",
+        "author": "@roamhacker",
         "source": "https://roam42.glitch.me/ext/typeaheadUI.js",
         "dependencies": ""
     }, {
         "name": "jumpToDate",
+        "author": "@roamhacker",
         "source": "https://roam42.glitch.me/ext/jump-to-date.js",
         "dependencies": ""
     }]
