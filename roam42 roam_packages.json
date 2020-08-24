@@ -44,10 +44,6 @@
         "source": "https://roam42.glitch.me/ext/typeaheadUI.js",
         "dependencies": ""
     }, {
-        "name": "templatePoc",
-        "source": "https://roam42.glitch.me/ext/templatepoc.js",
-        "dependencies": ""
-    }, {
         "name": "jumpToDate",
         "source": "https://roam42.glitch.me/ext/jump-to-date.js",
         "dependencies": ""
