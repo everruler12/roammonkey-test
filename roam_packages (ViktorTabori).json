@@ -1,11 +1,11 @@
 {
-    "author": "@ViktorTabori",
-    "version": 1.0,
     "packages": [{
         "name": "templatePoc",
+        "author": "@ViktorTabori",
         "source": "https://roam42.glitch.me/ext/templatepoc.js"
     }, {
         "name": "Roam Gallery",
+        "author": "@ViktorTabori",
         "source": "https://gist.githubusercontent.com/thesved/6574586e102332ab4a010e3dfaa9c4e7/raw/dc5c10ca771d11ce18cb89d4ed124efc99ec2480/roam-gallery.js"
     }]
 }
