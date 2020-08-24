@@ -1,0 +1,61 @@
+[
+    {
+        "name": "roam42 3rd party libraries",
+        "author": "roamhacker",
+        "dependencies": [
+            "https://code.jquery.com/jquery-3.5.1.min.js",
+            "https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js",
+            "https://unpkg.com/hotkeys-js/dist/hotkeys.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css",
+            "https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js",
+            "https://unpkg.com/turndown/dist/turndown.js",
+            "https://cdn.jsdelivr.net/npm/chrono-node@1.4.6/dist/chrono.min.js",
+            "https://cdn.jsdelivr.net/npm/flatpickr",
+            "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css",
+            "https://npmcdn.com/flatpickr/dist/themes/airbnb.css",
+            "https://cdn.jsdelivr.net/npm/jspanel4@4.11.0-beta/dist/jspanel.js",
+            "https://cdn.jsdelivr.net/npm/jspanel4@4.11.0-beta/dist/jspanel.css",
+            "https://unpkg.com/current-device/umd/current-device.min.js"
+        ]
+    }, {
+        "name": "roam42 common shared functions",
+        "author": "roamhacker",
+        "dependencies": [
+            "https://roam42.glitch.me/css/styleRM.css",
+            "https://roam42.glitch.me/common/commonFunctions.js",
+            "https://roam42.glitch.me/common/keyevents.js",
+            "https://roam42.glitch.me/message-s.js"
+        ]
+    }, {
+        "name": "quickReference",
+        "author": "roamhacker",
+        "source": "https://roam42.glitch.me/ext/quick-reference.js",
+        "dependencies": ""
+    }, {
+        "name": "turnDown",
+        "author": "roamhacker",
+        "source": "https://roam42.glitch.me/ext/turndownservice.js",
+        "dependencies": ""
+    }, {
+        "name": "dateProcessing",
+        "author": "roamhacker",
+        "source": "https://roam42.glitch.me/ext/dateProcessing.js",
+        "dependencies": ""
+    }, {
+        "name": "typeAheadData",
+        "author": "roamhacker",
+        "source": "https://roam42.glitch.me/ext/typeaheadUI.js",
+        "dependencies": ""
+    }, {
+        "name": "templatePoc",
+        "author": "roamhacker",
+        "source": "https://roam42.glitch.me/ext/templatepoc.js",
+        "dependencies": ""
+    }, {
+        "name": "jumpToDate",
+        "author": "roamhacker",
+        "source": "https://roam42.glitch.me/ext/jump-to-date.js",
+        "dependencies": ""
+    },
+]
