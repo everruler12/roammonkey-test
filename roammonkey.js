@@ -6,47 +6,61 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 roamMonkey_init()
 
-function roamMonkey_include(url, opt) {
-    opt = typeof opt == 'object' ? opt : {}
 
-    const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
+function roamMonkey_appendFile(url, attr) {
+    attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> or <link>
 
-    let tag
-    let urlAttr
+    const ext = url.split('.').pop() // extension "js" or "css"
 
-    if (type == "js") {
+    let tag // html tag <script> or <link>
+    let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+
+    if (ext == "js") {
         tag = 'script'
         urlAttr = 'src'
 
-    } else if (type == "css") {
+    } else if (ext == "css") {
         tag = 'link'
         urlAttr = 'href'
 
-        Object.assign(opt, {
+        Object.assign(attr, {
             rel: 'stylesheet',
             type: 'text/css'
         })
 
     } else {
-        alert(`Unknown type: ${type}`)
+        alert(`Unhandled file extension: ${ext}`)
         console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
         // continue loading other files if error
         return
     }
 
-    // skip if duplicate
-    const els = Array.from(document.getElementsByTagName(tag))
-    const duplicates = els.filter(el => el[urlAttr] == url)
+    // stop if file already added
+    const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
     if (duplicates.length > 0) return
 
     // add file
-    const el = document.createElement(tag)
-    el[urlAttr] = url
-    Object.assign(el, opt)
-    document.head.appendChild(el)
+    attr[urlAttr] = url
+    $(`<${tag}>`, attr).appendTo('head')
 }
 
+
 function roamMonkey_init() {
+    // refresh if someone stops then restarts roam/js script)
+    const duplicates = $('script').filter((i, el) => el.src == url)
+    if (duplicates.length > 0) {
+        function refreshAfterSync() {
+            setTimeout(function() {
+                if ($('.rm-synced').length > 0) // check that everything is synced, to prevent "unsaved changes" popup
+                    location.reload(true) // refresh page
+                else
+                    refreshAfterSync()
+            }, 100)
+        }
+        refreshAfterSync()
+        return // stop execution
+    }
+
     // remove duplicate button
     $('#roamMonkey-app').remove()
 
@@ -92,13 +106,13 @@ function roamMonkey_init() {
                 // check enabled
 
                 if (pack.dependencies) {
-                    if (typeof pack.dependencies == "string") roamMonkey_include(pack.dependencies)
-                    else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach(roamMonkey_include)
+                    if (typeof pack.dependencies == "string") roamMonkey_appendFile(pack.dependencies)
+                    else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach(roamMonkey_appendFile)
                 }
 
                 if (pack.source) {
-                    if (typeof pack.source == "string") roamMonkey_include(pack.source)
-                    else if (Array.isArray(pack.source)) pack.source.forEach(roamMonkey_include)
+                    if (typeof pack.source == "string") roamMonkey_appendFile(pack.source)
+                    else if (Array.isArray(pack.source)) pack.source.forEach(roamMonkey_appendFile)
                 }
 
             }
