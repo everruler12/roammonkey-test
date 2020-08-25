@@ -1,7 +1,7 @@
 {
     "packages": [{
-        "name": "templatePoc",
-        "author": "@ViktorTabori",
+        "name": "Roam Templates",
+        "author": "@ViktorTabori (with edits by @ErikNewhard and @roamhacker",
         "source": "https://roam42.glitch.me/ext/templatepoc.js",
         "dependencies": [
             "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js",
@@ -10,6 +10,12 @@
     }, {
         "name": "Roam Gallery",
         "author": "@ViktorTabori",
-        "source": "https://roammonkey-test.vercel.app/scripts/roam-gallery.js"
+        "source": "https://roammonkey-test.vercel.app/scripts/roam-gallery.js",
+        "dependencies": [
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.css"
+        ]
     }]
 }

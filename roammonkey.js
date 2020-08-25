@@ -6,38 +6,42 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 roammonkey_init()
 
-function roamMonkey_include(url, options) {
+function roamMonkey_include(url, opt) {
     const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
 
+    let tag
+    let urlAttr
+    opt = typeof opt == 'object' ? opt : {}
+
     if (type == "js") {
-
-        // remove duplicates
-        const els = Array.from(document.getElementsByTagName('script'))
-        els.filter(el => el.src == url).forEach(el => el.remove())
-
-        // add script
-        const el = document.createElement('script')
-        el.src = url
-        if (options) Object.assign(el, options)
-        document.getElementsByTagName('head')[0].appendChild(el)
+        tag = 'script'
+        urlAttr = 'src'
 
     } else if (type == "css") {
+        tag = 'link'
+        urlAttr = 'href'
 
-        // remove duplicates
-        const els = Array.from(document.getElementsByTagName('link'))
-        els.filter(el => el.href == url).forEach(el => el.remove())
-
-        // add css
-        const el = document.createElement('link')
-        el.href = url
-        el.rel = 'stylesheet'
-        el.type = 'text/css'
-        document.getElementsByTagName('head')[0].appendChild(el)
+        Object.assign(opt, {
+            rel: 'stylesheet',
+            type: 'text/css'
+        })
 
     } else {
         alert(`Unknown type: ${type}`)
-        // continue if error
+        // continue loading other files if error
+        return
     }
+
+    // skip if duplicate
+    const els = Array.from(document.getElementsByTagName(tag))
+    const duplicates = els.filter(el => el[urlAttr] == url)
+    if (duplicates.length > 0) return
+
+    // add file
+    const el = document.createElement(tag)
+    el[urlAttr] = url
+    Object.assign(el, opt)
+    document.head.appendChild(el)
 }
 
 function roammonkey_init() {
