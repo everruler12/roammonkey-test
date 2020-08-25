@@ -86,17 +86,17 @@ function roammonkey_init() {
                 this.packages.forEach(this.parsepackage)
                 // problem with templating engine running multiple times, even when removed
             },
-            parsepackage(package) {
+            parsepackage(pack) {
                 // check enabled
 
-                if (package.source) {
-                    if (typeof package.source == "string") roamMonkey_include(package.source)
-                    else if (Array.isArray(package.source)) package.source.forEach(roamMonkey_include)
+                if (pack.source) {
+                    if (typeof pack.source == "string") roamMonkey_include(pack.source)
+                    else if (Array.isArray(pack.source)) pack.source.forEach(roamMonkey_include)
                 }
 
-                if (package.dependencies) {
-                    if (typeof package.dependencies == "string") roamMonkey_include(package.dependencies)
-                    else if (Array.isArray(package.dependencies)) package.dependencies.forEach(roamMonkey_include)
+                if (pack.dependencies) {
+                    if (typeof pack.dependencies == "string") roamMonkey_include(pack.dependencies)
+                    else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach(roamMonkey_include)
                 }
 
             }
@@ -114,7 +114,7 @@ function roammonkey_init() {
                     .get(url)
                     .then(res => {
                         console.log(res.data)
-                        res.data.packages.forEach(package => roammonkey.packages.push(package))
+                        res.data.packages.forEach(pack => roammonkey.packages.push(pack))
                     })
                     .catch(err => console.log(err))
                 const json = $.getJSON(url)
