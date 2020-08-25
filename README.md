@@ -2,6 +2,8 @@
 
 # RoamMonkey
 
+Files are live at https://roammonkey-test.vercel.app/
+
 ### To Use:
 
 - copy this Roam page https://roamresearch.com/#/app/everruler/page/ADAaJc4Jv into your Roam
