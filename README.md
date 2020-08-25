@@ -1,10 +1,16 @@
 # RoamMonkey
 
-To use, copy this Roam page https://roamresearch.com/#/app/everruler/page/ADAaJc4Jv anywhere in your Roam
+![Image of RoamMonkey](https://raw.githubusercontent.com/everruler12/roammonkey-test/master/roammonkey_icon.png?token=APKQKGKERYK5GRFTBXGKX4C7IVETQ)
 
-Package format:
+### To Use:
 
-Make sure your files are on a server that serves the correct headers, and have the correct extension (only '.js' and '.css' supported for source and dependencies), otherwise they won't load properly. Vercel is a free way to do this. Or you can fork...
+- copy this Roam page https://roamresearch.com/#/app/everruler/page/ADAaJc4Jv into your Roam
+- or copy the code from https://github.com/everruler12/roammonkey-test/blob/master/roamjs%20block.js into a javascript code block indented under a `[[roam/js]]` block
+
+### Package Format:
+
+Make sure your files are on a server that serves the correct headers, and have the correct extension (only '.js' and '.css' supported for source and dependencies), otherwise they won't load properly. Vercel is a free way to do this.
 
 ### Guidelines
+
 If you use `console.log()` in your script, add your script name so people know which script it's from. Like: `console.log('RoamMonkey: ', data)`
