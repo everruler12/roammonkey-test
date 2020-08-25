@@ -105,6 +105,7 @@ async function roamMonkey_init() {
     $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
 
 
+
     // remove duplicate button
     $('#roamMonkey-app').remove()
 
@@ -129,6 +130,10 @@ async function roamMonkey_init() {
     searchBar.after(roamMonkey_button)
     roamMonkey_button.append(panel)
     roamMonkey_button.before(divider)
+
+    await roamMonkey_wait(function() {
+        return !!window.Vue
+    })
 
     // start Vue
     window.roamMonkey = new Vue({
