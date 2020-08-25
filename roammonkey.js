@@ -5,10 +5,10 @@ roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.m
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js")
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
-document.getElementById('#roammonkey-app').remove()
+$('#roammonkey-app').remove()
 
 $( /* html */ `
-<div id="#roammonkey-app" style="align-items: center;
+<div id="roammonkey-app" style="align-items: center;
 max-height: calc(100vh - 50px);
 color: white;
 bottom: 4px;
