@@ -100,24 +100,13 @@ function roammonkey_init() {
 
             packages_list.forEach(loadPackage)
 
-            async function loadPackage(url) {
+            function loadPackage(url) {
                 // fetch is built in on most popular browsers
-                fetch(url).then(data => {
-                    console.log(data); // JSON data parsed by `data.json()` call
-                });
-                // const json = res.json()
-                // console.log(json)
-                // json.packages.forEach(pack => roammonkey.packages.push(pack))
-
-                // axios
-                //     .get(url)
-                //     .then(res => {
-                //         console.log(res.data)
-                //         res.data.packages.)
-                //     })
-                //     .catch(err => console.log(err))
-                // const json = $.getJSON(url)
-                // console.log("RoamMonkey: getJSON ", json)
+                fetch(url).then(res => {
+                    const json = res.json()
+                    json.packages.forEach(pack => roammonkey.packages.push(pack))
+                    console.log("RoamMonkey: getJSON ", json)
+                })
             }
 
         }
