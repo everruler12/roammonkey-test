@@ -135,12 +135,12 @@ async function roamMonkey_init() {
             click() {
 
             },
-            parsepackage(pack) {
+            async parsepackage(pack) {
                 // check enabled
 
                 if (pack.dependencies) {
                     if (typeof pack.dependencies == "string") roamMonkey_appendFile(pack.dependencies)
-                    else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach(roamMonkey_appendFile)
+                    else if (Array.isArray(pack.dependencies)) await pack.dependencies.forEach(async (d) => await roamMonkey_appendFile(d))
                 }
 
                 if (pack.source) {
