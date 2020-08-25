@@ -1,19 +1,16 @@
 console.log('RoamMonkey: loaded')
 
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-$('#roammonkey-app').remove()
-
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-// if (!window.jQuery) {
-//     roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js", {
-//         onload: function() {
-//             roammonkey_init()
-//         }
-//     })
-// } else {
-roammonkey_init()
-// }
+// remove duplicate button
+$('#roammonkey-app').remove()
+
+roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js", {
+    onload: function() {
+        roammonkey_init()
+    }
+})
 
 function roamMonkey_include(url, options) {
     const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
@@ -52,10 +49,7 @@ function roamMonkey_include(url, options) {
 function roammonkey_init() {
 
     // roamMonkey_include("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-    roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
-
-    // remove duplicate button
-    $('#roammonkey-app').remove()
+    // roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
     const searchBar = $('.rm-find-or-create-wrapper').eq(0)
     const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
