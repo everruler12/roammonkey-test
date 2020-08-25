@@ -46,20 +46,7 @@ function roamMonkey_appendFile(url, attr) {
 
 
 function roamMonkey_init() {
-    // refresh if someone stops then restarts roam/js script)
-    const duplicates = $('script').filter((i, el) => el.src.match('roammonkey.js'))
-    if (duplicates.length > 1) {
-        function refreshAfterSync() {
-            setTimeout(function() {
-                if ($('.rm-synced').length > 0) // check that everything is synced, to prevent "unsaved changes" popup
-                    location.reload(true) // refresh page
-                else
-                    refreshAfterSync()
-            }, 100)
-        }
-        refreshAfterSync()
-        return // stop execution
-    }
+
 
     // remove duplicate button
     $('#roamMonkey-app').remove()
