@@ -1,17 +1,13 @@
 console.log('RoamMonkey: loaded')
 
 roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
 
 // If a module is evaluated once, then imported again, it's second evaluation is skipped and the resolved already exports are used.
 // import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 // import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-$(document).ready(function() {
-    roamMonkey_init()
-})
-
-// roamMonkey_init()
+roamMonkey_init()
 
 
 function roamMonkey_appendFile(url, attr) {
@@ -25,6 +21,7 @@ function roamMonkey_appendFile(url, attr) {
     if (ext == "js") {
         tag = 'script'
         urlAttr = 'src'
+        attr.async = false
     } else if (ext == "css") {
         tag = 'link'
         urlAttr = 'href'
