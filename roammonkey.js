@@ -27,7 +27,7 @@ z-index: 2;
 flex-direction: column;"><span class="bp3-popover-wrapper">
         <span class="bp3-popover-target">
             <button class="bp3-button bp3-minimal" tabindex="0" style="border-radius: 25px;">
-                <img src="https://roammonkey-test.vercel.app/roammonkey_icon.png">
+                <img src="https://roammonkey-test.vercel.app/roammonkey_icon.png" style="max-width: 20px;">
             </button>
         </span>
     </span>
