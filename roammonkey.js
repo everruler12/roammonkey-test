@@ -4,6 +4,7 @@ console.log('RoamMonkey: loaded')
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
+var roammonkey = {}
 roammonkey_init()
 
 function roamMonkey_include(url, options) {
@@ -61,7 +62,7 @@ function roammonkey_init() {
     roammonkey_button.before(divider)
 
     // start Vue
-    var roammonkey = new Vue({
+    roammonkey = new Vue({
         el: '#roammonkey-app',
         data: {
             packages: []
@@ -102,11 +103,12 @@ function roammonkey_init() {
 
             function loadPackage(url) {
                 // fetch is built in on most popular browsers
-                fetch(url).then(res => {
-                    const json = res.json()
-                    console.log("RoamMonkey: getJSON ", res, json)
-                    // json.packages.forEach(pack => roammonkey.packages.push(pack))
-                })
+                fetch(url)
+                    .then(res => res.json())
+                    .then((data) => {
+                        console.log("RoamMonkey: getJSON ", data)
+                        data.packages.forEach(pack => roammonkey.packages.push(pack))
+                    })
             }
 
         }
