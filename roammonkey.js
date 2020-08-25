@@ -58,18 +58,25 @@ function roamMonkey_init() {
 <span id="roamMonkey-app" class="bp3-popover-wrapper">
     <span class="bp3-popover-target">
         <span class="bp3-popover-target">
-            <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="click"></button>
+            <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
         </span>
     </span>
 </span>`)
 
+    const panel = $( /* html */ `
+<div v-show="showPanel">
+
+</div>`)
+
     searchBar.after(roamMonkey_button)
+    roamMonkey_button.append(panel)
     roamMonkey_button.before(divider)
 
     // start Vue
     window.roamMonkey = new Vue({
         el: '#roamMonkey-app',
         data: {
+            showPanel: false,
             packages: []
         },
         computed: {
