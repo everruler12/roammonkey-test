@@ -77,7 +77,7 @@ var roammonkey = new Vue({
                 .get(url)
                 .then(res => {
                     console.log(res.data)
-                    roammonkey.packages.concat(res.data.packages)
+                    roammonkey.packages.concat.apply([], res.data.packages)
                 })
                 .catch(err => console.log(err))
             const json = $.getJSON(url)
