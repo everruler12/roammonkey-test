@@ -102,8 +102,8 @@ function roammonkey_init() {
             function loadPackage(url) {
                 // fetch is built in on most popular browsers
                 fetch(url)
-                    .then(response => response.json())
-                    .then(data => console.log(data, data.json()))
+                    .then(response => console.log(response.json()))
+                    .then(data => console.log('data', data))
 
                 // axios
                 //     .get(url)
