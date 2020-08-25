@@ -1,8 +1,8 @@
 console.log('RoamMonkey: loaded')
 
-import $ from "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-import Vue from "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
-import axios from "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+import "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
 
 // if (!window.jQuery) {
 //     roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js", {
