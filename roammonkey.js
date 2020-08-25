@@ -61,7 +61,7 @@ var roammonkey = new Vue({
                 })
                 .catch(err => console.log(err))
             const json = $.getJSON(url)
-            console.log("RoamMonkey: getJSON ", jron)
+            console.log("RoamMonkey: getJSON ", json)
         }
 
     }
