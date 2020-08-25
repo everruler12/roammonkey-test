@@ -47,7 +47,7 @@ function roamMonkey_appendFile(url, attr) {
 
 function roamMonkey_init() {
     // refresh if someone stops then restarts roam/js script)
-    const duplicates = $('script').filter((i, el) => el.src == url)
+    const duplicates = $('script').filter((i, el) => el.src.match('roammonkey.js'))
     if (duplicates.length > 0) {
         function refreshAfterSync() {
             setTimeout(function() {
