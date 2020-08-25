@@ -80,21 +80,19 @@ function roammonkey_init() {
             parsepackage(pack) {
                 // check enabled
 
-                if (pack.source) {
-                    if (typeof pack.source == "string") roamMonkey_include(pack.source)
-                    else if (Array.isArray(pack.source)) pack.source.forEach(roamMonkey_include)
-                }
-
                 if (pack.dependencies) {
                     if (typeof pack.dependencies == "string") roamMonkey_include(pack.dependencies)
                     else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach(roamMonkey_include)
                 }
 
+                if (pack.source) {
+                    if (typeof pack.source == "string") roamMonkey_include(pack.source)
+                    else if (Array.isArray(pack.source)) pack.source.forEach(roamMonkey_include)
+                }
+
             }
         },
         mounted() {
-            // ls
-
             const packages_list = window.roammonkey_packages_list.trim().split('\n')
             // error if doesn't exist
 
@@ -107,6 +105,7 @@ function roammonkey_init() {
                     .then((data) => {
                         console.log("RoamMonkey: getJSON ", data)
                         data.packages.forEach(pack => roammonkey.packages.push(pack))
+                        // load localStorage, go through roammonkey.packages and overwrite each setting property if it exists in ls
                     })
             }
 
