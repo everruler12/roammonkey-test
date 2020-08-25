@@ -5,6 +5,8 @@ roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.m
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js")
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
+document.getElementById('#roammonkey-app').remove()
+
 $( /* html */ `
 <div id="#roammonkey-app" style="align-items: center;
 max-height: calc(100vh - 50px);
@@ -25,8 +27,7 @@ z-index: 2;
 flex-direction: column;"><span class="bp3-popover-wrapper">
         <span class="bp3-popover-target">
             <button class="bp3-button bp3-minimal" tabindex="0" style="border-radius: 25px;">
-                <span class="bp3-icon-large bp3-icon-help">
-                </span>
+                <img src="https://roammonkey-test.vercel.app/roammonkey_icon.png">
             </button>
         </span>
     </span>
