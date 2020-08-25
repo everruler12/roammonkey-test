@@ -69,9 +69,9 @@ function roamMonkey_init() {
 
 </div>`)
 
-    searchBar.after(roamMonkey_button)
+    searchBar.before(roamMonkey_button)
     roamMonkey_button.append(panel)
-    roamMonkey_button.before(divider)
+    roamMonkey_button.after(divider)
 
     // start Vue
     window.roamMonkey = new Vue({
