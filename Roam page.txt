@@ -1,0 +1,22 @@
+- 
+- {{[[roam/js]]}}
+    - ```javascript
+window.roammonkey_packages_list = `
+https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json
+https://roammonkey-test.vercel.app/roam_packages(roamhacker).json
+`
+
+function include_script(url) {
+    // remove duplicates
+    const scripts = Array.from(document.getElementsByTagName('script'))
+    scripts.filter(s => s.src == url).forEach(s => s.remove())
+
+    // add script
+    var script = document.createElement('script')
+    script.src = url
+    script.type="module"
+    document.getElementsByTagName('head')[0].appendChild(script)
+}
+
+include_script("https://roammonkey-test.vercel.app/roammonkey.js")```
+- 
