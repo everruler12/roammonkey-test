@@ -1,7 +1,7 @@
 console.log('RoamMonkey: loaded')
 
 // if(!window.jQuery)
-roammonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js")
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
