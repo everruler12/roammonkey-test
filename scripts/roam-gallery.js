@@ -16,7 +16,7 @@
     var zoom = 3; // level of zoom on svg images
 
     'click touchstart touchmove touchend'.split(' ').forEach(type => {
-        console.log('gallery looking for', type);
+        console.log('Roam Gallery: looking for', type);
         document.addEventListener(type, function(e) {
             window._gallery(e);
         });
@@ -65,11 +65,11 @@
         var rect = target.getBoundingClientRect();
         var x = e.pageX - rect.left;
         var y = e.pageY - rect.top;
-        console.log(x, y, x > 0.8 * rect.width && y < 0.2 * rect.height); // top right corner
+        console.log('Roam Gallery: ', x, y, x > 0.8 * rect.width && y < 0.2 * rect.height); // top right corner
         if (window.innerWidth < 500 && x > 0.8 * rect.width && y < 0.2 * rect.height) return; // we don't fire for top right corner for mobile
 
         // prevent click, so editing is not initiated
-        console.log(e.type, target, e);
+        console.log('Roam Gallery: ', e.type, target, e);
         e.preventDefault();
         e.stopPropagation();
 
