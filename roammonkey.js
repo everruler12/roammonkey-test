@@ -1,16 +1,10 @@
 console.log('RoamMonkey: loaded')
 
+// If a module is evaluated once, then imported again, it's second evaluation is skipped and the resolved already exports are used.
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-// remove duplicate button
-$('#roammonkey-app').remove()
-
-roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js", {
-    onload: function() {
-        roammonkey_init()
-    }
-})
+roammonkey_init()
 
 function roamMonkey_include(url, options) {
     const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
@@ -47,10 +41,10 @@ function roamMonkey_include(url, options) {
 }
 
 function roammonkey_init() {
+    // remove duplicate button
+    $('#roammonkey-app').remove()
 
-    // roamMonkey_include("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-    // roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
-
+    // add button
     const searchBar = $('.rm-find-or-create-wrapper').eq(0)
     const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
@@ -66,6 +60,7 @@ function roammonkey_init() {
     searchBar.after(roammonkey_button)
     roammonkey_button.before(divider)
 
+    // start Vue
     var roammonkey = new Vue({
         el: '#roammonkey-app',
         data: {
@@ -105,15 +100,20 @@ function roammonkey_init() {
             packages_list.forEach(loadPackage)
 
             function loadPackage(url) {
-                axios
-                    .get(url)
-                    .then(res => {
-                        console.log(res.data)
-                        res.data.packages.forEach(pack => roammonkey.packages.push(pack))
-                    })
-                    .catch(err => console.log(err))
-                const json = $.getJSON(url)
-                console.log("RoamMonkey: getJSON ", json)
+                // fetch is built in on most popular browsers
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => console.log(data, data.json()))
+
+                // axios
+                //     .get(url)
+                //     .then(res => {
+                //         console.log(res.data)
+                //         res.data.packages.forEach(pack => roammonkey.packages.push(pack))
+                //     })
+                //     .catch(err => console.log(err))
+                // const json = $.getJSON(url)
+                // console.log("RoamMonkey: getJSON ", json)
             }
 
         }
