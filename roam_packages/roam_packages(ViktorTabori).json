@@ -1,7 +1,7 @@
 {
     "packages": [{
         "name": "Roam Templates",
-        "author": "@ViktorTabori (with edits by @ErikNewhard and @roamhacker",
+        "author": "@ViktorTabori (with edits by @ErikNewhard and @roamhacker)",
         "source": "https://roammonkey-test.vercel.app/scripts/roam-templates.js",
         "dependencies": [
             "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js",

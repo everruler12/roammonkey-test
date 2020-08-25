@@ -28,6 +28,7 @@ function roamMonkey_include(url, opt) {
 
     } else {
         alert(`Unknown type: ${type}`)
+        console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
         // continue loading other files if error
         return
     }
