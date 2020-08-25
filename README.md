@@ -1,15 +1,19 @@
-![Image of RoamMonkey](https://raw.githubusercontent.com/everruler12/roammonkey-test/master/roammonkey_icon.png?token=APKQKGKERYK5GRFTBXGKX4C7IVETQ)
+![Image of RoamMonkey](https://github.com/everruler12/roammonkey-test/raw/master/roammonkey_icon.png)
 
 # RoamMonkey
+
+Files are live at https://roammonkey-test.vercel.app/
 
 ### To Use:
 
 - copy this Roam page https://roamresearch.com/#/app/everruler/page/ADAaJc4Jv into your Roam
 - or copy the code from https://github.com/everruler12/roammonkey-test/blob/master/roamjs%20block.js into a javascript code block indented under a `[[roam/js]]` block
 
-### Package Format:
+### roam_packages.json Format:
 
 Make sure your files are on a server that serves the correct headers, and have the correct extension (only '.js' and '.css' supported for source and dependencies), otherwise they won't load properly. Vercel is a free way to do this.
+
+For an example, see https://github.com/everruler12/roammonkey-test/blob/master/roam_packages/roam_packages(ViktorTabori).json
 
 ### Guidelines
 
