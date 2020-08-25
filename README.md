@@ -1,4 +1,4 @@
-![Image of RoamMonkey](https://raw.githubusercontent.com/everruler12/roammonkey-test/master/roammonkey_icon.png?token=APKQKGKERYK5GRFTBXGKX4C7IVETQ)
+![Image of RoamMonkey](https://raw.githubusercontent.com/everruler12/roammonkey-test/master/roammonkey_icon.png)
 
 # RoamMonkey
 
