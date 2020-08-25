@@ -3,7 +3,10 @@
         "name": "templatePoc",
         "author": "@ViktorTabori",
         "source": "https://roam42.glitch.me/ext/templatepoc.js",
-        "dependencies": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        "dependencies": [
+            "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js",
+            "https://roam42.glitch.me/common/commonFunctions.js"
+        ]
     }, {
         "name": "Roam Gallery",
         "author": "@ViktorTabori",
