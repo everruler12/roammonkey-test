@@ -7,7 +7,11 @@ roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
 // import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 // import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-roamMonkey_init()
+$(document).ready(function() {
+    roamMonkey_init()
+})
+
+// roamMonkey_init()
 
 
 function roamMonkey_appendFile(url, attr) {
