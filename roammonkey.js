@@ -104,8 +104,8 @@ function roammonkey_init() {
                 // fetch is built in on most popular browsers
                 fetch(url).then(res => {
                     const json = res.json()
-                    json.packages.forEach(pack => roammonkey.packages.push(pack))
                     console.log("RoamMonkey: getJSON ", json)
+                    // json.packages.forEach(pack => roammonkey.packages.push(pack))
                 })
             }
 
