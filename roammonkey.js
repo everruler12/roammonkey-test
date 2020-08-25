@@ -8,7 +8,7 @@ roamMonkey_init()
 
 
 function roamMonkey_appendFile(url, attr) {
-    attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> or <link>
+    attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
     const ext = url.split('.').pop() // extension "js" or "css"
 
@@ -18,24 +18,18 @@ function roamMonkey_appendFile(url, attr) {
     if (ext == "js") {
         tag = 'script'
         urlAttr = 'src'
-
     } else if (ext == "css") {
         tag = 'link'
         urlAttr = 'href'
-
-        Object.assign(attr, {
-            rel: 'stylesheet',
-            type: 'text/css'
-        })
-
+        attr.rel = 'stylesheet'
+        attr.type = 'text/css'
     } else {
         alert(`Unhandled file extension: ${ext}`)
         console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
-        // continue loading other files if error
         return
     }
 
-    // stop if file already added
+    // stop if file already exists
     const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
     if (duplicates.length > 0) return
 
@@ -46,8 +40,6 @@ function roamMonkey_appendFile(url, attr) {
 
 
 function roamMonkey_init() {
-
-
     // remove duplicate button
     $('#roamMonkey-app').remove()
 
