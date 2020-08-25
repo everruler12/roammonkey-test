@@ -4,7 +4,6 @@ import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 $('#roammonkey-app').remove()
 
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
-import axios from "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
 
 // if (!window.jQuery) {
 //     roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js", {
@@ -53,7 +52,7 @@ function roamMonkey_include(url, options) {
 function roammonkey_init() {
 
     // roamMonkey_include("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-    // roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
+    roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
     // remove duplicate button
     $('#roammonkey-app').remove()
