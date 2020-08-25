@@ -16,11 +16,10 @@ function roamMonkey_include(url, options) {
         els.filter(el => el.src == url).forEach(el => el.remove())
 
         // add script
-        import url
-        // const el = document.createElement('script')
-        // el.src = url
-        // if (options) Object.assign(el, options)
-        // document.getElementsByTagName('head')[0].appendChild(el)
+        const el = document.createElement('script')
+        el.src = url
+        if (options) Object.assign(el, options)
+        document.getElementsByTagName('head')[0].appendChild(el)
 
     } else if (type == "css") {
 
