@@ -1,8 +1,11 @@
 console.log('RoamMonkey: loaded')
 
+roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+
 // If a module is evaluated once, then imported again, it's second evaluation is skipped and the resolved already exports are used.
-import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+// import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+// import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 roamMonkey_init()
 
