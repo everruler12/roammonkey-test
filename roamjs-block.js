@@ -6,7 +6,7 @@ https://roammonkey-test.vercel.app/roam_packages/roam_packages(ViktorTabori).jso
 appendScript("https://roammonkey-test.vercel.app/roammonkey.js")
 
 function appendScript(url) {
-  // refresh if roam/js script is stopped then restarted)
+  // refresh if roam/js script is stopped then restarted
   const els = Array.from(document.getElementsByTagName('script'))
   const duplicates = els.filter(el => el.src.match('roammonkey.js'))
   if (duplicates.length > 0) { // wait for Roam to sync, then refresh (to prevent "unsaved changes" popup)
