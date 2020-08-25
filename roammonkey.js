@@ -56,7 +56,6 @@ function roamMonkey_appendFile(url, attr) {
         if (ext == "js") {
             tag = 'script'
             urlAttr = 'src'
-            attr.onload = resolve('script loaded')
         } else if (ext == "css") {
             tag = 'link'
             urlAttr = 'href'
@@ -74,9 +73,10 @@ function roamMonkey_appendFile(url, attr) {
         if (duplicates.length > 0) return
 
         // add file
-        opt[urlAttr] = url
+        attr[urlAttr] = url
+        attr.onload = resolve('script loaded')
         const el = document.createElement(tag)
-        Object.assign(el, opt)
+        Object.assign(el, attr)
         document.head.appendChild(el)
     })
 
