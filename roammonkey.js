@@ -74,6 +74,7 @@ function roammonkey_init() {
         methods: {
             click() {
                 this.packages.forEach(this.parsepackage)
+                alert('parsed packages')
                 // problem with templating engine running multiple times, even when removed
             },
             parsepackage(pack) {
@@ -99,11 +100,10 @@ function roammonkey_init() {
 
             packages_list.forEach(loadPackage)
 
-            function loadPackage(url) {
+            async function loadPackage(url) {
                 // fetch is built in on most popular browsers
-                fetch(url)
-                    .then(response => console.log(response.json()))
-                    .then(data => console.log('data', data))
+                const json = await fetch(url).json()
+                console.log(json)
 
                 // axios
                 //     .get(url)
