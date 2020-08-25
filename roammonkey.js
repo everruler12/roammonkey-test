@@ -110,7 +110,7 @@ function roamMonkey_init() {
                         console.log("RoamMonkey: getJSON ", data)
                         data.packages.forEach(pack => roamMonkey.packages.push(pack))
                         // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-                        roamMonkey.packages.forEach(this.parsepackage) // if enabled
+                        roamMonkey.packages.forEach(roamMonkey.parsepackage) // if enabled
                     })
             }
 
