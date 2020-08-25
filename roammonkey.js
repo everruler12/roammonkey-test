@@ -1,6 +1,16 @@
 console.log('RoamMonkey: loaded')
 
-function roamMonkey_include(url) {
+if (!window.jQuery) {
+    roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js", {
+        onload: function() {
+            roammonkey_init()
+        }
+    })
+} else {
+    roammonkey_init()
+}
+
+function roamMonkey_include(url, options) {
     const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
 
     if (type == "js") {
@@ -12,6 +22,7 @@ function roamMonkey_include(url) {
         // add script
         const el = document.createElement('script')
         el.src = url
+        if (options) Object.assign(el, options)
         document.getElementsByTagName('head')[0].appendChild(el)
 
     } else if (type == "css") {
@@ -33,13 +44,8 @@ function roamMonkey_include(url) {
     }
 }
 
-roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+function roammonkey_init() {
 
-setTimeout(init, 100)
-
-function init() {
-
-    // if(!window.jQuery)
     roamMonkey_include("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
     roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
