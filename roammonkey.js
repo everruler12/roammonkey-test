@@ -8,8 +8,7 @@ console.log('RoamMonkey: loaded')
 
 roamMonkey_init()
 
-
-function roamMonkey_appendFile(url, attr) {
+function $roamMonkey_appendFile(url, attr) {
     return new Promise(resolve => {
         attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
@@ -40,6 +39,45 @@ function roamMonkey_appendFile(url, attr) {
         // add file
         attr[urlAttr] = url
         $(`<${tag}>`, attr).appendTo('head')
+        document.head.appendChild()
+    })
+
+}
+
+function roamMonkey_appendFile(url, attr) {
+    return new Promise(resolve => {
+        attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
+
+        const ext = url.split('.').pop() // extension "js" or "css"
+
+        let tag // html tag <script> or <link>
+        let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+
+        if (ext == "js") {
+            tag = 'script'
+            urlAttr = 'src'
+            attr.onload = resolve('script loaded')
+        } else if (ext == "css") {
+            tag = 'link'
+            urlAttr = 'href'
+            attr.rel = 'stylesheet'
+            attr.type = 'text/css'
+        } else {
+            alert(`Unhandled file extension: ${ext}`)
+            console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
+            return
+        }
+
+        // stop if file already exists
+        const els = Array.from(document.getElementsByTagName(tag))
+        const duplicates = els.filter(el => el[urlAttr] == url)
+        if (duplicates.length > 0) return
+
+        // add file
+        opt[urlAttr] = url
+        const el = document.createElement(tag)
+        Object.assign(el, opt)
+        document.head.appendChild(el)
     })
 
 }
