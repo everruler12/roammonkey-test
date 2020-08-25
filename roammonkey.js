@@ -4,14 +4,15 @@ console.log('RoamMonkey: loaded')
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-roammonkey_init()
+roamMonkey_init()
 
 function roamMonkey_include(url, opt) {
+    opt = typeof opt == 'object' ? opt : {}
+
     const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
 
     let tag
     let urlAttr
-    opt = typeof opt == 'object' ? opt : {}
 
     if (type == "js") {
         tag = 'script'
@@ -45,16 +46,16 @@ function roamMonkey_include(url, opt) {
     document.head.appendChild(el)
 }
 
-function roammonkey_init() {
+function roamMonkey_init() {
     // remove duplicate button
-    $('#roammonkey-app').remove()
+    $('#roamMonkey-app').remove()
 
     // add button
     const searchBar = $('.rm-find-or-create-wrapper').eq(0)
     const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
-    const roammonkey_button = $( /* html */ `
-<span id="roammonkey-app" class="bp3-popover-wrapper">
+    const roamMonkey_button = $( /* html */ `
+<span id="roamMonkey-app" class="bp3-popover-wrapper">
     <span class="bp3-popover-target">
         <span class="bp3-popover-target">
             <button class="bp3-button bp3-minimal bp3-icon-add-to-artifact bp3-small" tabindex="0" @click="click"></button>
@@ -62,12 +63,12 @@ function roammonkey_init() {
     </span>
 </span>`)
 
-    searchBar.after(roammonkey_button)
-    roammonkey_button.before(divider)
+    searchBar.after(roamMonkey_button)
+    roamMonkey_button.before(divider)
 
     // start Vue
-    window.roammonkey = new Vue({
-        el: '#roammonkey-app',
+    window.roamMonkey = new Vue({
+        el: '#roamMonkey-app',
         data: {
             packages: []
         },
@@ -78,9 +79,7 @@ function roammonkey_init() {
         },
         methods: {
             click() {
-                this.packages.forEach(this.parsepackage)
-                alert('parsed packages')
-                // problem with templating engine running multiple times, even when removed
+
             },
             parsepackage(pack) {
                 // check enabled
@@ -98,7 +97,7 @@ function roammonkey_init() {
             }
         },
         mounted() {
-            const packages_list = window.roammonkey_packages_list.trim().split('\n')
+            const packages_list = window.roamMonkey_packages_list.trim().split('\n')
             // error if doesn't exist
 
             packages_list.forEach(loadPackage)
@@ -109,8 +108,9 @@ function roammonkey_init() {
                     .then(res => res.json())
                     .then((data) => {
                         console.log("RoamMonkey: getJSON ", data)
-                        data.packages.forEach(pack => roammonkey.packages.push(pack))
-                        // load localStorage, go through roammonkey.packages and overwrite each setting property if it exists in ls
+                        data.packages.forEach(pack => roamMonkey.packages.push(pack))
+                        // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
+                        roamMonkey.packages.forEach(this.parsepackage) // if enabled
                     })
             }
 
