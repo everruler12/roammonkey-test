@@ -3,22 +3,25 @@ https://roammonkey-test.vercel.app/roam_packages/roam_packages(ViktorTabori).jso
 
 `
 
-function include_script(url) {
-    // check for duplicates
-    const scripts = Array.from(document.getElementsByTagName('script'))
-    const duplicates = scripts.filter(s => s.src == url)
-    if (duplicates.length > 0) {
-      setTimeout(function() {
-        location.reload(true) // refresh page
-        duplicates.forEach(s => s.remove()) // remove duplicates if not refreshed
-      }, 1000) // timeout to try and prevent "unsaved changes" popup
-    }
-  
-    // add script
-    var script = document.createElement('script')
-    script.src = url
-    script.type="module"
-    document.getElementsByTagName('head')[0].appendChild(script)
-}
+appendScript("https://roammonkey-test.vercel.app/roammonkey.js")
 
-include_script("https://roammonkey-test.vercel.app/roammonkey.js")
+function appendScript(url) {
+  // refresh if roam/js script is stopped then restarted)
+  const els = Array.from(document.getElementsByTagName('script'))
+  const duplicates = els.filter(el => el.src.match('roammonkey.js'))
+  if (duplicates.length > 0) { // wait for Roam to sync, then refresh (to prevent "unsaved changes" popup)
+    function refreshAfterSync() {
+      const syncing = document.getElementsByClassName('rm-saving-remote').length
+      if (syncing) setTimeout(refreshAfterSync, 50)
+      else location.reload(true) // refresh page
+    }
+    setTimeout(refreshAfterSync, 100)
+    return
+  }
+
+  // append script
+  let s = document.createElement('script')
+  s.src = url
+  s.type = "module"
+  document.head.appendChild(s)
+}
