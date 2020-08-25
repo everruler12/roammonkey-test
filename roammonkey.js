@@ -1,7 +1,6 @@
 console.log('RoamMonkey: loaded')
 
-roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+
 
 // If a module is evaluated once, then imported again, it's second evaluation is skipped and the resolved already exports are used.
 // import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -11,39 +10,45 @@ roamMonkey_init()
 
 
 function roamMonkey_appendFile(url, attr) {
-    attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
+    return new Promise(resolve => {
+        attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
-    const ext = url.split('.').pop() // extension "js" or "css"
+        const ext = url.split('.').pop() // extension "js" or "css"
 
-    let tag // html tag <script> or <link>
-    let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+        let tag // html tag <script> or <link>
+        let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
 
-    if (ext == "js") {
-        tag = 'script'
-        urlAttr = 'src'
-        attr.async = false
-    } else if (ext == "css") {
-        tag = 'link'
-        urlAttr = 'href'
-        attr.rel = 'stylesheet'
-        attr.type = 'text/css'
-    } else {
-        alert(`Unhandled file extension: ${ext}`)
-        console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
-        return
-    }
+        if (ext == "js") {
+            tag = 'script'
+            urlAttr = 'src'
+            attr.onload = resolve('script loaded')
+        } else if (ext == "css") {
+            tag = 'link'
+            urlAttr = 'href'
+            attr.rel = 'stylesheet'
+            attr.type = 'text/css'
+        } else {
+            alert(`Unhandled file extension: ${ext}`)
+            console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
+            return
+        }
 
-    // stop if file already exists
-    const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
-    if (duplicates.length > 0) return
+        // stop if file already exists
+        const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
+        if (duplicates.length > 0) return
 
-    // add file
-    attr[urlAttr] = url
-    $(`<${tag}>`, attr).appendTo('head')
+        // add file
+        attr[urlAttr] = url
+        $(`<${tag}>`, attr).appendTo('head')
+    })
+
 }
 
 
-function roamMonkey_init() {
+async function roamMonkey_init() {
+    await roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    await roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+
     // remove duplicate button
     $('#roamMonkey-app').remove()
 
