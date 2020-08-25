@@ -12,11 +12,11 @@ roamMonkey_init()
 function roamMonkey_wait(condition) {
     return new Promise(resolve => {
         function wait() {
-            console.log(condition())
-            if (!condition()) setTimeout(wait, 100)
+            // console.log(condition())
+            if (!condition()) setTimeout(wait, 50)
             else resolve('wait done')
         }
-        setTimeout(wait, 100)
+        wait()
     })
 }
 
@@ -99,9 +99,7 @@ function roamMonkey_appendFile(url, attr) {
 
 async function roamMonkey_init() {
     roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    await roamMonkey_wait(function() {
-        return !!window.jQuery
-    })
+    await roamMonkey_wait(() => window.jQuery)
     $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
 
 
@@ -131,9 +129,7 @@ async function roamMonkey_init() {
     roamMonkey_button.append(panel)
     roamMonkey_button.before(divider)
 
-    await roamMonkey_wait(function() {
-        return !!window.Vue
-    })
+    await roamMonkey_wait(() => window.Vue)
 
     // start Vue
     window.roamMonkey = new Vue({
