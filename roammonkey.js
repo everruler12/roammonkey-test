@@ -5,8 +5,10 @@ roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.m
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js")
 roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
+// remove duplicate button
 $('#roammonkey-app').remove()
 
+// add button
 $( /* html */ `
 <div id="roammonkey-app" style="align-items: center;
 max-height: calc(100vh - 50px);
@@ -26,7 +28,7 @@ bottom: 10px !important;
 z-index: 2;
 flex-direction: column;"><span class="bp3-popover-wrapper">
         <span class="bp3-popover-target">
-            <button class="bp3-button bp3-minimal" tabindex="0" style="border-radius: 25px;">
+            <button class="bp3-button bp3-minimal" tabindex="0" style="border-radius: 25px;" @click="click">
                 <img src="https://roammonkey-test.vercel.app/roammonkey_icon.png" style="max-width: 20px;">
             </button>
         </span>
@@ -44,7 +46,23 @@ var roammonkey = new Vue({
         // }
     },
     methods: {
+        click() {
+            this.packages.forEach(this.parsepackage)
+        },
+        parsepackage(package) {
+            // check enabled
 
+            if (package.source) {
+                if (typeof package.source == "string") roamMonkey_include(package.source)
+                else if (Array.isArray(package.source)) package.source.forEach(roamMonkey_include)
+            }
+
+            if (package.dependencies) {
+                if (typeof package.dependencies == "string") roamMonkey_include(package.dependencies)
+                else if (Array.isArray(package.dependencies)) package.dependencies.forEach(roamMonkey_include)
+            }
+
+        }
     },
     mounted() {
         // ls
@@ -59,6 +77,7 @@ var roammonkey = new Vue({
                 .get(url)
                 .then(res => {
                     console.log(res.data)
+                    roammonkey.packages.push(res.data.packages)
                 })
                 .catch(err => console.log(err))
             const json = $.getJSON(url)
