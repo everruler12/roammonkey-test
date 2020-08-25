@@ -11,7 +11,8 @@ roamMonkey_init()
 
 function roamMonkey_wait(condition) {
     return new Promise(resolve => {
-        if (condition()) setTimeout(roamMonkey_wait, 100)
+        console.log(condition())
+        if (!condition()) setTimeout(roamMonkey_wait, 100)
         else resolve('wait done')
         setTimeout(roamMonkey_wait, 100)
     })
