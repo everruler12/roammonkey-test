@@ -1,14 +1,18 @@
 console.log('RoamMonkey: loaded')
 
-if (!window.jQuery) {
-    roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js", {
-        onload: function() {
-            roammonkey_init()
-        }
-    })
-} else {
-    roammonkey_init()
-}
+import $ from "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+import Vue from "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+import axios from "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+
+// if (!window.jQuery) {
+//     roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js", {
+//         onload: function() {
+//             roammonkey_init()
+//         }
+//     })
+// } else {
+roammonkey_init()
+// }
 
 function roamMonkey_include(url, options) {
     const type = url.split('.').pop() // extension "js" or "css" // or go by ajax header
@@ -46,8 +50,8 @@ function roamMonkey_include(url, options) {
 
 function roammonkey_init() {
 
-    roamMonkey_include("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-    roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
+    // roamMonkey_include("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+    // roamMonkey_include("https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js")
 
     // remove duplicate button
     $('#roammonkey-app').remove()
