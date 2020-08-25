@@ -53,8 +53,6 @@ function $roamMonkey_appendFile(url, attr) {
     // add file
     attr[urlAttr] = url
     $(`<${tag}>`, attr).appendTo('head')
-    document.head.appendChild()
-
 }
 
 function roamMonkey_appendFile(url, attr) {
