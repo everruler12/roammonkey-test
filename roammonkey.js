@@ -102,14 +102,16 @@ function roammonkey_init() {
 
             async function loadPackage(url) {
                 // fetch is built in on most popular browsers
-                const json = await fetch(url).json()
+                const res = await fetch(url)
+                const json = res.json()
                 console.log(json)
+                json.packages.forEach(pack => roammonkey.packages.push(pack))
 
                 // axios
                 //     .get(url)
                 //     .then(res => {
                 //         console.log(res.data)
-                //         res.data.packages.forEach(pack => roammonkey.packages.push(pack))
+                //         res.data.packages.)
                 //     })
                 //     .catch(err => console.log(err))
                 // const json = $.getJSON(url)
