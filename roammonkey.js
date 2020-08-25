@@ -1,5 +1,6 @@
 console.log('RoamMonkey: loaded')
 
+;
 (function() {
 
     // if(!window.jQuery)
