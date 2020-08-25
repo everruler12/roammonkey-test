@@ -34,7 +34,10 @@ function $roamMonkey_appendFile(url, attr) {
 
         // stop if file already exists
         const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
-        if (duplicates.length > 0) return
+        if (duplicates.length > 0) {
+            console.log(`RoamMonkey: ${url} already exists.`)
+            return
+        }
 
         // add file
         attr[urlAttr] = url
@@ -70,7 +73,10 @@ function roamMonkey_appendFile(url, attr) {
         // stop if file already exists
         const els = Array.from(document.getElementsByTagName(tag))
         const duplicates = els.filter(el => el[urlAttr] == url)
-        if (duplicates.length > 0) return
+        if (duplicates.length > 0) {
+            console.log(`RoamMonkey: ${url} already exists.`)
+            return
+        }
 
         // add file
         attr[urlAttr] = url
@@ -84,8 +90,9 @@ function roamMonkey_appendFile(url, attr) {
 
 
 async function roamMonkey_init() {
-    console.log(await roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"))
     await roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    await roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+
 
     // remove duplicate button
     $('#roamMonkey-app').remove()
