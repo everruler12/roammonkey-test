@@ -4,7 +4,6 @@ console.log('RoamMonkey: loaded')
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-var roammonkey = {}
 roammonkey_init()
 
 function roamMonkey_include(url, options) {
@@ -62,7 +61,7 @@ function roammonkey_init() {
     roammonkey_button.before(divider)
 
     // start Vue
-    roammonkey = new Vue({
+    window.roammonkey = new Vue({
         el: '#roammonkey-app',
         data: {
             packages: []
@@ -113,6 +112,5 @@ function roammonkey_init() {
 
         }
     })
-
 
 }
