@@ -11,7 +11,7 @@
             "https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js",
             "https://unpkg.com/turndown/dist/turndown.js",
             "https://cdn.jsdelivr.net/npm/chrono-node@1.4.6/dist/chrono.min.js",
-            "https://cdn.jsdelivr.net/npm/flatpickr",
+            "https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.js",
             "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css",
             "https://npmcdn.com/flatpickr/dist/themes/airbnb.css",
             "https://cdn.jsdelivr.net/npm/jspanel4@4.11.0-beta/dist/jspanel.js",
