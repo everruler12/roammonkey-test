@@ -38,11 +38,11 @@ async function $roamMonkey_appendFile(url, attr) {
 
         if (ext == "js") {
             // try importing as module first
-            const res = await importModule(url)
-            if (res === true) {
+            const result = await importModule(url)
+            if (result === true) {
                 console.log(`RoamMonkey: imported\n${url}`)
                 resolve(true)
-            } else console.error(`RoamMonkey: import error\n${url}\n${res}`)
+            } else console.error(`RoamMonkey: import error\n${url}\n${result}`)
 
             tag = 'script'
             urlAttr = 'src'
