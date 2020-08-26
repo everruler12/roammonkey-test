@@ -43,16 +43,17 @@ function $roamMonkey_appendFile(url, attr) {
         return
     }
 
-    // stop if file already exists
-    const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
-    if (duplicates.length > 0) {
-        console.log(`RoamMonkey: ${url} already exists.`)
-        return
-    }
+    return new Promise(resolve => {
 
-    // add file
-    attr[urlAttr] = url
-    $(`<${tag}>`, attr).appendTo('head')
+        // stop if file already exists
+        const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
+        if (duplicates.length > 0) resolve(`RoamMonkey: ${url} already exists.`)
+
+        // add file
+        attr[urlAttr] = url
+        $(`<${tag}>`, attr).appendTo('head')
+        resolve(`RoamMonkey: ${url} appended.`)
+    })
 }
 
 function roamMonkey_appendFile(url, attr) {
@@ -100,7 +101,7 @@ function roamMonkey_appendFile(url, attr) {
 async function roamMonkey_init() {
     roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
     await roamMonkey_wait(() => window.jQuery)
-    $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+    await $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
 
 
 
@@ -128,8 +129,6 @@ async function roamMonkey_init() {
     searchBar.after(roamMonkey_button)
     roamMonkey_button.append(panel)
     roamMonkey_button.before(divider)
-
-    await roamMonkey_wait(() => window.Vue)
 
     // start Vue
     window.roamMonkey = new Vue({
