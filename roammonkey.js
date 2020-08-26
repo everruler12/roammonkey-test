@@ -19,16 +19,18 @@ function roamMonkey_wait(condition) {
 }
 
 async function $roamMonkey_appendFile(url, attr) {
-    async function importModule(url) {
-        try {
-            await import(url)
-            return true
-        } catch (err) {
-            return err
-        }
-    }
+
 
     return new Promise(resolve => {
+        async function importModule2(url) {
+            try {
+                await import(url)
+                return true
+            } catch (err) {
+                return err
+            }
+        }
+
         attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
         const ext = url.split('.').pop() // extension "js" or "css"
@@ -38,7 +40,7 @@ async function $roamMonkey_appendFile(url, attr) {
 
         if (ext == "js") {
             // try importing as module first
-            const result = await importModule(url)
+            const result = await importModule2(url)
             if (result === true) {
                 console.log(`RoamMonkey: imported\n${url}`)
                 resolve(true)
