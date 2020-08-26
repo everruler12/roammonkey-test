@@ -19,55 +19,60 @@ function roamMonkey_wait(condition) {
 }
 
 async function $roamMonkey_appendFile(url, attr) {
-    attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
-
-    const ext = url.split('.').pop() // extension "js" or "css"
-
-    let tag // html tag <script> or <link>
-    let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
-
-    if (ext == "js") {
-        // try importing as module first
-        const mess = await importModule(url)
-        console.error(`RoamMonkey: importModule: ${url}\n${mess}`)
-        if (mess === true) return
-
-        tag = 'script'
-        urlAttr = 'src'
-        // attr.onload = resolve('script loaded')
-    } else if (ext == "css") {
-        tag = 'link'
-        urlAttr = 'href'
-        attr.rel = 'stylesheet'
-        attr.type = 'text/css'
-    } else {
-        alert(`Unhandled file extension: ${ext}`)
-        console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
-        return
-    }
-
-    return new Promise(resolve => {
-        // stop if file already exists
-        const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
-        if (duplicates.length > 0) resolve(`RoamMonkey: ${url} already exists.`)
-
-        // add file
-        attr[urlAttr] = url
-        attr.onload = function() {
-            console.log(`RoamMonkey: ${url} loaded`)
-            resolve(`RoamMonkey: ${url} appended.`)
-        }
-        $(`<${tag}>`, attr).appendTo('head')
-    })
-
     async function importModule(url) {
         try {
             await import(url)
             return true
         } catch (err) {
-            return `${err}`
+            return err
         }
     }
+
+    return new Promise(resolve => {
+        attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
+
+        const ext = url.split('.').pop() // extension "js" or "css"
+
+        let tag // html tag <script> or <link>
+        let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+
+        if (ext == "js") {
+            // try importing as module first
+            const res = await importModule(url)
+            if (res === true) {
+                console.log(`RoamMonkey: imported\n${url}`)
+                resolve(true)
+            } else console.error(`RoamMonkey: import error\n${url}\n${res}`)
+
+            tag = 'script'
+            urlAttr = 'src'
+            // attr.onload = resolve('script loaded')
+        } else if (ext == "css") {
+            tag = 'link'
+            urlAttr = 'href'
+            attr.rel = 'stylesheet'
+            attr.type = 'text/css'
+        } else {
+            alert(`Unhandled file extension: ${ext}`)
+            console.log(`RoamMonkey: Unhandled file, not '.js' or '.css' extension\n${url}`)
+            return
+        }
+
+        // stop if file already exists
+        const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
+        if (duplicates.length > 0) {
+            console.log(`RoamMonkey: already appended\n${url}`)
+            resolve(true)
+        }
+
+        // add file
+        attr[urlAttr] = url
+        attr.onload = function() {
+            console.log(`RoamMonkey: appended\n${url}`)
+            resolve(true)
+        }
+        $(`<${tag}>`, attr).appendTo('head')
+    })
 }
 
 // function roamMonkey_appendFile(url, attr) {
