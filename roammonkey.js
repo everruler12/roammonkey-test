@@ -51,8 +51,7 @@ function $roamMonkey_appendFile(url, attr) {
 
         // add file
         attr[urlAttr] = url
-        attr.onload = resolve(`RoamMonkey: ${url} appended.`)
-        $(`<${tag}>`, attr).appendTo('head')
+        $(`<${tag}>`, attr).load(() => resolve(`RoamMonkey: ${url} appended.`)).appendTo('head')
     })
 }
 
