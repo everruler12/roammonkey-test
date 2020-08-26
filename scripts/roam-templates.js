@@ -19,7 +19,7 @@
  */
 
 function replace_variables(tmp) {
-    variables = [{
+    const variables = [{
         syntax: "::current_time::",
         fn() {
             return moment().format('HH:mm')
