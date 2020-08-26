@@ -30,7 +30,7 @@ async function $roamMonkey_appendFile(url, attr) {
 
     if (ext == "js") {
         const mess = await importModule(url)
-        console.error(mess)
+        console.error(`RoamMonkey: importModule: ${url}\n${mess}`)
         if (mess === true) return
 
         tag = 'script'
@@ -66,7 +66,7 @@ async function $roamMonkey_appendFile(url, attr) {
             await import(url)
             return true
         } catch (err) {
-            return `importModule ${url} failed. ${err}`
+            return `${err}`
         }
     }
 }
@@ -165,13 +165,13 @@ async function roamMonkey_init() {
                 // check enabled
 
                 if (pack.dependencies) {
-                    if (typeof pack.dependencies == "string") roamMonkey_appendFile(pack.dependencies)
-                    else if (Array.isArray(pack.dependencies)) await pack.dependencies.forEach(async (d) => await roamMonkey_appendFile(d))
+                    if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
+                    else if (Array.isArray(pack.dependencies)) await pack.dependencies.forEach($roamMonkey_appendFile)
                 }
 
                 if (pack.source) {
-                    if (typeof pack.source == "string") roamMonkey_appendFile(pack.source)
-                    else if (Array.isArray(pack.source)) pack.source.forEach(roamMonkey_appendFile)
+                    if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
+                    else if (Array.isArray(pack.source)) pack.source.forEach($roamMonkey_appendFile)
                 }
 
             }
