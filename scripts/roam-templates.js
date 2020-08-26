@@ -84,7 +84,7 @@ window._templateHook = async function(e) {
         text = text.replace(_, line);
 
         // handle heading
-        heading = (line.match(/^\s*- (#*) /) || ['', ''])[1].length;
+        var heading = (line.match(/^\s*- (#*) /) || ['', ''])[1].length;
         if (heading > 0) {
             console.log('Roam Templates: heading:', heading, line.match(/^\s*- (#*) /));
             KeyboardLib.changeHeading(heading);
