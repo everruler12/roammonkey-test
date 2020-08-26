@@ -50,9 +50,9 @@ function $roamMonkey_appendFile(url, attr) {
 
         // add file
         attr[urlAttr] = url
-        $(`<${tag}>`, attr).appendTo('head').on("load", function() {
+        $(`<${tag}>`, attr).load(function() {
             resolve(`RoamMonkey: ${url} appended.`)
-        })
+        }).appendTo('head')
     })
 }
 
@@ -101,10 +101,7 @@ function roamMonkey_appendFile(url, attr) {
 async function roamMonkey_init() {
     roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
     await roamMonkey_wait(() => window.jQuery)
-    const b = $roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    console.log(b)
-    const a = await $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-    console.log(a)
+    await $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
 
 
 
