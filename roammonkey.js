@@ -101,7 +101,9 @@ function roamMonkey_appendFile(url, attr) {
 async function roamMonkey_init() {
     roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
     await roamMonkey_wait(() => window.jQuery)
-    console.log(await $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js"))
+    $roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    const a = await $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
+    console.log(a)
 
 
 
