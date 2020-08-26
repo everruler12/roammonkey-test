@@ -20,7 +20,7 @@ function roamMonkey_wait(condition) {
     })
 }
 
-function $roamMonkey_appendFile(url, attr) {
+async function $roamMonkey_appendFile(url, attr) {
     attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
     const ext = url.split('.').pop() // extension "js" or "css"
@@ -29,6 +29,10 @@ function $roamMonkey_appendFile(url, attr) {
     let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
 
     if (ext == "js") {
+        const mess = await importModule(url)
+        console.error(mess)
+        if (mess === true) return
+
         tag = 'script'
         urlAttr = 'src'
         // attr.onload = resolve('script loaded')
@@ -56,6 +60,15 @@ function $roamMonkey_appendFile(url, attr) {
         }
         $(`<${tag}>`, attr).appendTo('head')
     })
+
+    async function importModule(url) {
+        try {
+            await import(url)
+            return true
+        } catch (err) {
+            return `importModule ${url} failed. ${err}`
+        }
+    }
 }
 
 function roamMonkey_appendFile(url, attr) {
