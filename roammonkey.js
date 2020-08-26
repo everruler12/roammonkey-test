@@ -2,9 +2,47 @@ console.log('RoamMonkey: loaded')
 
 // If a module is evaluated once, then imported again, it's second evaluation is skipped and the resolved already exports are used.
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-// import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 roamMonkey_init()
+
+function roamMonkey_init() {
+    const packages_list = window.roamMonkey_packages_list.trim().split('\n')
+
+    let packages = packages_list.forEach(loadPackage).reduce((a, b) => a.concat(b), [])
+
+    // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
+    packages.forEach(parsePackage) // only if enabled
+
+    async function loadPackage(url) {
+
+        let res = await fetch(url) // fetch is built in on most popular browsers
+        let data = await res.json()
+
+        console.log("RoamMonkey: getJSON ", data)
+        return data.packages //.forEach(pack => packages.push(pack))
+
+    }
+
+    async function parsePackage(pack) {
+        // check enabled
+
+        if (pack.dependencies) {
+            if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
+            else if (Array.isArray(pack.dependencies)) await pack.dependencies.forEach($roamMonkey_appendFile)
+        }
+
+        if (pack.source) {
+            if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
+            else if (Array.isArray(pack.source)) pack.source.forEach($roamMonkey_appendFile)
+        }
+
+    }
+
+    roamMonkey_initVue(packages)
+}
+
+
 
 
 function roamMonkey_wait(condition) {
@@ -19,10 +57,8 @@ function roamMonkey_wait(condition) {
 }
 
 async function $roamMonkey_appendFile(url, attr) {
-
-
     return new Promise(resolve => {
-        async function importModule2(url) {
+        async function importModule(url) {
             try {
                 await import(url)
                 return true
@@ -40,7 +76,7 @@ async function $roamMonkey_appendFile(url, attr) {
 
         if (ext == "js") {
             // try importing as module first
-            const result = await importModule2(url)
+            const result = importModule(url)
             if (result === true) {
                 console.log(`RoamMonkey: imported\n${url}`)
                 resolve(true)
@@ -77,55 +113,7 @@ async function $roamMonkey_appendFile(url, attr) {
     })
 }
 
-// function roamMonkey_appendFile(url, attr) {
-//     // return new Promise(resolve => {
-//     attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
-
-//     const ext = url.split('.').pop() // extension "js" or "css"
-
-//     let tag // html tag <script> or <link>
-//     let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
-
-//     if (ext == "js") {
-//         tag = 'script'
-//         urlAttr = 'src'
-//     } else if (ext == "css") {
-//         tag = 'link'
-//         urlAttr = 'href'
-//         attr.rel = 'stylesheet'
-//         attr.type = 'text/css'
-//     } else {
-//         alert(`Unhandled file extension: ${ext}`)
-//         console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
-//         return
-//     }
-
-//     // stop if file already exists
-//     const els = Array.from(document.getElementsByTagName(tag))
-//     const duplicates = els.filter(el => el[urlAttr] == url)
-//     if (duplicates.length > 0) {
-//         console.log(`RoamMonkey: ${url} already exists.`)
-//         return
-//     }
-
-//     // add file
-//     attr[urlAttr] = url
-//     // attr.onload = resolve('script loaded')
-//     const el = document.createElement(tag)
-//     Object.assign(el, attr)
-//     document.head.appendChild(el)
-//     // })
-
-// }
-
-
-async function roamMonkey_init() {
-    // roamMonkey_appendFile("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    // await roamMonkey_wait(() => window.jQuery)
-    await $roamMonkey_appendFile("https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-
-
-
+async function roamMonkey_initVue(packages) {
     // remove duplicate button
     $('#roamMonkey-app').remove()
 
@@ -156,7 +144,7 @@ async function roamMonkey_init() {
         el: '#roamMonkey-app',
         data: {
             showPanel: false,
-            packages: []
+            packages: packages || []
         },
         computed: {
             // tags: function () {
@@ -167,39 +155,24 @@ async function roamMonkey_init() {
             click() {
 
             },
-            async parsepackage(pack) {
-                // check enabled
 
-                if (pack.dependencies) {
-                    if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
-                    else if (Array.isArray(pack.dependencies)) await pack.dependencies.forEach($roamMonkey_appendFile)
-                }
-
-                if (pack.source) {
-                    if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
-                    else if (Array.isArray(pack.source)) pack.source.forEach($roamMonkey_appendFile)
-                }
-
-            }
         },
         mounted() {
-            const packages_list = window.roamMonkey_packages_list.trim().split('\n')
+            // const packages_list = window.roamMonkey_packages_list.trim().split('\n')
             // error if doesn't exist
 
-            packages_list.forEach(loadPackage)
+            // packages_list.forEach(loadPackage)
 
-            function loadPackage(url) {
-                // fetch is built in on most popular browsers
-                fetch(url)
-                    .then(res => res.json())
-                    .then((data) => {
-                        console.log("RoamMonkey: getJSON ", data)
-                        data.packages.forEach(pack => roamMonkey.packages.push(pack))
-                        // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-                        roamMonkey.packages.forEach(roamMonkey.parsepackage) // if enabled
-                    })
-            }
-
+            // function loadPackage(url) {
+            //     fetch(url)
+            //         .then(res => res.json())
+            //         .then((data) => {
+            //             console.log("RoamMonkey: getJSON ", data)
+            //             data.packages.forEach(pack => roamMonkey.packages.push(pack))
+            //             // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
+            //             roamMonkey.packages.forEach(roamMonkey.parsepackage) // if enabled
+            //         })
+            // }
         }
     })
 
