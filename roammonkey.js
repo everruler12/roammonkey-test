@@ -26,12 +26,12 @@ async function roamMonkey_init() {
         // check enabled
 
         if (pack.dependencies) {
-            if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
+            if (typeof pack.dependencies == "string") roamMonkey_appendFile(pack.dependencies)
             else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey_appendFile)
         }
 
         if (pack.source) {
-            if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
+            if (typeof pack.source == "string") roamMonkey_appendFile(pack.source)
             else if (Array.isArray(pack.source)) pack.source.map(roamMonkey_appendFile)
         }
 
