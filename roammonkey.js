@@ -14,7 +14,7 @@ async function roamMonkey_init() {
     console.log('packages', packages)
 
     // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-    packages.forEach(parsePackage) // only if enabled
+    packages.map(parsePackage) // only if enabled
 
     async function loadPackage(url) {
         let res = await fetch(url) // fetch is built in on most popular browsers
@@ -27,18 +27,17 @@ async function roamMonkey_init() {
 
         if (pack.dependencies) {
             if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
-            else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach($roamMonkey_appendFile)
+            else if (Array.isArray(pack.dependencies)) pack.dependencies.map($roamMonkey_appendFile)
         }
 
         if (pack.source) {
             if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
-            else if (Array.isArray(pack.source)) pack.source.forEach($roamMonkey_appendFile)
+            else if (Array.isArray(pack.source)) pack.source.map($roamMonkey_appendFile)
         }
 
     }
 
     roamMonkey_initVue(packages)
-
 }
 
 
