@@ -12,9 +12,9 @@ async function roamMonkey_init() {
     let packages = await Promise.all(packages_list.map(loadPackage))
     packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
     console.log('packages', packages)
-    packages.map(parsePackage)
 
-
+    // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
+    packages.forEach(parsePackage) // only if enabled
 
     async function loadPackage(url) {
         let res = await fetch(url) // fetch is built in on most popular browsers
@@ -22,7 +22,20 @@ async function roamMonkey_init() {
         return json.packages //.forEach(pack => packages.push(pack))
     }
 
+    function parsePackage(pack) {
+        // check enabled
 
+        if (pack.dependencies) {
+            if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
+            else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach($roamMonkey_appendFile)
+        }
+
+        if (pack.source) {
+            if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
+            else if (Array.isArray(pack.source)) pack.source.forEach($roamMonkey_appendFile)
+        }
+
+    }
 
     roamMonkey_initVue(packages)
 
@@ -100,30 +113,6 @@ async function $roamMonkey_appendFile(url, attr) {
 }
 
 async function roamMonkey_initVue(packages) {
-    // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-    packages.forEach(parsePackage) // only if enabled
-
-    function parsePackage(pack) {
-        // check enabled
-
-        if (pack.dependencies) {
-            if (typeof pack.dependencies == "string") $roamMonkey_appendFile(pack.dependencies)
-            else if (Array.isArray(pack.dependencies)) pack.dependencies.forEach($roamMonkey_appendFile)
-        }
-
-        if (pack.source) {
-            if (typeof pack.source == "string") $roamMonkey_appendFile(pack.source)
-            else if (Array.isArray(pack.source)) pack.source.forEach($roamMonkey_appendFile)
-        }
-
-    }
-
-
-
-
-
-
-
     // remove duplicate button
     $('#roamMonkey-app').remove()
 
