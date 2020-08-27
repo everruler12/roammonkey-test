@@ -22,40 +22,40 @@
         "name": "roam42 common shared functions",
         "author": "@roamhacker",
         "dependencies": [
-            "https://roam42.glitch.me/css/styleRM.css",
-            "https://roam42.glitch.me/common/commonFunctions.js",
-            "https://roam42.glitch.me/common/keyevents.js",
-            "https://roammonkey-test.vercel.app/scripts/roam42/messages.js"
+            "https://roammonkey-test.vercel.app/roam42/css/styleRM.css",
+            "https://roammonkey-test.vercel.app/roam42/common/commonFunctions.js",
+            "https://roammonkey-test.vercel.app/roam42/common/keyevents.js",
+            "https://roammonkey-test.vercel.app/roam42/messages.js"
         ]
     }, {
         "name": "quickReference",
         "author": "@roamhacker",
-        "source": "https://roam42.glitch.me/ext/quick-reference.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/quick-reference.js",
         "dependencies": ""
     }, {
         "name": "turnDown",
         "author": "@roamhacker",
-        "source": "https://roam42.glitch.me/ext/turndownservice.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/turndownservice.js",
         "dependencies": ""
     }, {
         "name": "dateProcessing",
         "author": "@roamhacker",
-        "source": "https://roam42.glitch.me/ext/dateProcessing.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/dateProcessing.js",
         "dependencies": ""
     }, {
         "name": "typeAheadData",
         "author": "@roamhacker",
-        "source": "https://roam42.glitch.me/ext/typeaheadUI.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/typeaheadUI.js",
         "dependencies": ""
     }, {
         "name": "jumpToDate",
         "author": "@roamhacker",
-        "source": "https://roam42.glitch.me/ext/jump-to-date.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/jump-to-date.js",
         "dependencies": ""
     }, {
         "name": "main",
         "author": "@roamhacker",
-        "source": "https://roammonkey-test.vercel.app/scripts/roam42/main.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/main.js",
         "dependencies": ""
     }]
 }
