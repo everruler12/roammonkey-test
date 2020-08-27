@@ -1,0 +1,61 @@
+{
+    "packages": [{
+        "name": "roam42 3rd party libraries",
+        "author": "@roamhacker",
+        "dependencies": [
+            "https://code.jquery.com/jquery-3.5.1.min.js",
+            "https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js",
+            "https://unpkg.com/hotkeys-js/dist/hotkeys.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css",
+            "https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js",
+            "https://unpkg.com/turndown/dist/turndown.js",
+            "https://cdn.jsdelivr.net/npm/chrono-node@1.4.6/dist/chrono.min.js",
+            "https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.js",
+            "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css",
+            "https://npmcdn.com/flatpickr/dist/themes/airbnb.css",
+            "https://cdn.jsdelivr.net/npm/jspanel4@4.11.0-beta/dist/jspanel.js",
+            "https://cdn.jsdelivr.net/npm/jspanel4@4.11.0-beta/dist/jspanel.css",
+            "https://unpkg.com/current-device/umd/current-device.min.js"
+        ]
+    }, {
+        "name": "roam42 common shared functions",
+        "author": "@roamhacker",
+        "dependencies": [
+            "https://roammonkey-test.vercel.app/roam42/css/styleRM.css",
+            "https://roammonkey-test.vercel.app/roam42/common/commonFunctions.js",
+            "https://roammonkey-test.vercel.app/roam42/common/keyevents.js",
+            "https://roammonkey-test.vercel.app/roam42/messages.js"
+        ]
+    }, {
+        "name": "quickReference",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/quick-reference.js",
+        "dependencies": ""
+    }, {
+        "name": "turnDown",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/turndownservice.js",
+        "dependencies": ""
+    }, {
+        "name": "dateProcessing",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/dateProcessing.js",
+        "dependencies": ""
+    }, {
+        "name": "typeAheadData",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/typeaheadUI.js",
+        "dependencies": ""
+    }, {
+        "name": "jumpToDate",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/roam42/ext/jump-to-date.js",
+        "dependencies": ""
+    }, {
+        "name": "main",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/roam42/main-edited.js",
+        "dependencies": ""
+    }]
+}
