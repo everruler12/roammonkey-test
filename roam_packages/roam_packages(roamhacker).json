@@ -52,5 +52,10 @@
         "author": "@roamhacker",
         "source": "https://roam42.glitch.me/ext/jump-to-date.js",
         "dependencies": ""
+    }, {
+        "name": "main",
+        "author": "@roamhacker",
+        "source": "https://roammonkey-test.vercel.app/scripts/roam42-main.js",
+        "dependencies": ""
     }]
 }
