@@ -8,7 +8,7 @@ setTimeout(() => {
     setTimeout(() => {
         if (device.mobile() == false) {
             //these tools don't work well on mobile device
-            roamMonkey_appendFile('https://roam42.glitch.me/ext/roam-live-preview.js')
+            // roamMonkey_appendFile('https://roam42.glitch.me/ext/roam-live-preview.js')
             // roamMonkey_appendFile('https://roam42.glitch.me/ext/dailynotespopup.js')
         }
 
