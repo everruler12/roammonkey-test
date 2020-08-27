@@ -168,7 +168,7 @@ async function roamMonkey_initVue(packages) {
 
     const panel = $( /* html */ `
 <div v-show="showPanel">
-
+not ready yet
 </div>`)
 
     searchBar.after(roamMonkey_button)
@@ -188,9 +188,7 @@ async function roamMonkey_initVue(packages) {
             // }
         },
         methods: {
-            click() {
-                alert('not ready yet')
-            },
+
 
         },
         mounted() {
