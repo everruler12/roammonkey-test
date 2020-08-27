@@ -55,7 +55,7 @@
     }, {
         "name": "main",
         "author": "@roamhacker",
-        "source": "https://roammonkey-test.vercel.app/roam42/main.js",
+        "source": "https://roammonkey-test.vercel.app/roam42/main-edited.js",
         "dependencies": ""
     }]
 }
