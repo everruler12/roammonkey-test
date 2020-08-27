@@ -5,8 +5,8 @@ setTimeout(function() {
 
     if (device.mobile() == false) {
         //these tools don't work well on mobile device
-        // addScriptToPage('livePreview', URLScriptServer + 'ext/roam-live-preview.js') // reloads roam/js, causing roamMonkey to reload
-        addScriptToPage('dailyNote', URLScriptServer + 'ext/dailynotespopup.js')
+        // roamMonkey_appendFile('livePreview', URLScriptServer + 'ext/roam-live-preview.js') // reloads roam/js, causing roamMonkey to reload, and duplicates templatepoc
+        roamMonkey_appendFile('dailyNote', URLScriptServer + 'ext/dailynotespopup.js')
     }
 
     // Dont display in iframe
