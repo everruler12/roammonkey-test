@@ -5,8 +5,8 @@ setTimeout(function() {
 
     if (device.mobile() == false) {
         //these tools don't work well on mobile device
-        // roamMonkey_appendFile('livePreview', URLScriptServer + 'ext/roam-live-preview.js') // reloads roam/js, causing roamMonkey to reload, and duplicates templatepoc
-        roamMonkey_appendFile('dailyNote', URLScriptServer + 'ext/dailynotespopup.js')
+        // roamMonkey_appendFile('https://roammonkey-test.vercel.app/roam42/ext/roam-live-preview.js') // reloads roam/js, causing roamMonkey to reload, and duplicates templatepoc
+        roamMonkey_appendFile('https://roammonkey-test.vercel.app/roam42/ext/dailynotespopup.js')
     }
 
     // Dont display in iframe
