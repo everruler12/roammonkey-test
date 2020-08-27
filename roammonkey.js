@@ -6,22 +6,21 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 roamMonkey_init()
 
-function roamMonkey_init() {
+async function roamMonkey_init() {
     const packages_list = window.roamMonkey_packages_list.trim().split('\n')
 
-    let packages = packages_list.forEach(loadPackage).reduce((a, b) => a.concat(b), [])
+    let packages = await Promise.all(packages_list.map(loadPackage))
+    packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+    console.log('packages', packages)
+    packages.map(parsePackage)
 
     // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
     packages.forEach(parsePackage) // only if enabled
 
     async function loadPackage(url) {
-
         let res = await fetch(url) // fetch is built in on most popular browsers
-        let data = await res.json()
-
-        console.log("RoamMonkey: getJSON ", data)
-        return data.packages //.forEach(pack => packages.push(pack))
-
+        let json = await res.json()
+        return json.packages //.forEach(pack => packages.push(pack))
     }
 
     async function parsePackage(pack) {
@@ -39,7 +38,8 @@ function roamMonkey_init() {
 
     }
 
-    roamMonkey_initVue(packages)
+    //roamMonkey_initVue(packages)
+
 }
 
 
