@@ -164,8 +164,21 @@ async function roamMonkey_initVue(packages) {
 </span>`)
 
     const panel = $( /* html */ `
-<div v-show="showPanel">
-not ready yet
+<div class="bp3-overlay bp3-overlay-open bp3-overlay-inline" v-show="showPanel">
+    <div class="bp3-transition-container bp3-popover-enter-done" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-260px, 0px, 0px);">
+        <div class="bp3-popover bp3-minimal rm-fill" style="transform-origin: center top;">
+            <div class="bp3-popover-content">
+                <div class="bp3-tabs">
+                    <ul class="bp3-tab-list" role="tablist">
+                        <li class="bp3-tab" role="tab" aria-selected="true">Selected tab</li>
+                        <li class="bp3-tab" role="tab">Another tab</li>
+                    </ul>
+                    <div class="bp3-tab-panel" role="tabpanel">Selected panel</div>
+                    <div class="bp3-tab-panel" role="tabpanel" aria-hidden="true">Another panel</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>`)
 
     searchBar.after(roamMonkey_button)
