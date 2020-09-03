@@ -171,11 +171,11 @@ async function roamMonkey_initVue(packages) {
 
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'scripts'">Scripts</li>
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'packages'">Packages</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'">Scripts</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'">Packages</li>
             </ul>
 
-            <div class="bp3-tab-panel" v-show="panel_tab == 'scripts'">
+            <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
                 <h3 class="bp3-heading">Scripts</h3>
             
                 <label class="bp3-control bp3-switch">
@@ -191,7 +191,7 @@ async function roamMonkey_initVue(packages) {
                 </label>
             </div>
 
-            <div class="bp3-tab-panel" v-show="panel_tab == 'packages'">
+            <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
                 <h3 class="bp3-heading">Packages</h3>
 
                 <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json">
@@ -223,7 +223,8 @@ async function roamMonkey_initVue(packages) {
         el: '#roamMonkey-app',
         data: {
             showPanel: false,
-            packages: packages || []
+            packages: packages || [],
+            panel_tab: "Scripts"
         },
         computed: {
             // tags: function () {
