@@ -164,7 +164,7 @@ async function roamMonkey_initVue(packages) {
 </span>`)
 
     const panel = $( /* html */ `
-<div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container">
+<div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
     <div class="bp3-card bp3-elevation-4 docs-overlay-example-transition bp3-overlay-content bp3-overlay-enter-done" tabindex="0">
         <h3 class="bp3-heading">I'm an Overlay!</h3>
@@ -186,7 +186,8 @@ async function roamMonkey_initVue(packages) {
         </div>
 
         <p>Click the "Focus button" below to transfer focus to the "Show overlay" trigger button outside of this overlay. If persistent focus is enabled, focus will be constrained to the overlay. Use the <code class="bp3-code">tab</code> key to move to the next focusable element to illustrate this effect.</p>
-        <p>Click the "Make me scroll" button below to make this overlay's content really tall, which will make the overlay's container (but not the page) scrollable</p><br>
+        <p>Click the "Make me scroll" button below to make this overlay's content really tall, which will make the overlay's container (but not the page) scrollable</p>
+        <br>
         <div class="bp3-dialog-footer-actions">
             <button type="button" class="bp3-button bp3-intent-danger">
                 <span class="bp3-button-text">Close</span>
@@ -195,19 +196,7 @@ async function roamMonkey_initVue(packages) {
             <button type="button" class="bp3-button">
                 <span class="bp3-button-text">Focus button</span>
             </button>
-
-            <button type="button" class="bp3-button">
-                <span icon="double-chevron-down" class="bp3-icon bp3-icon-double-chevron-down"><svg data-icon="double-chevron-down" width="16" height="16" viewBox="0 0 16 16">
-                        <desc>double-chevron-down</desc>
-                        <path d="M7.29 8.71c.18.18.43.29.71.29s.53-.11.71-.29l4-4a1.003 1.003 0 00-1.42-1.42L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4zM12 8c-.28 0-.53.11-.71.29L8 11.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 8z" fill-rule="evenodd"></path>
-                    </svg>
-                </span>
-                <span class="bp3-button-text">Make me scroll</span><span icon="double-chevron-down" class="bp3-icon bp3-icon-double-chevron-down"><svg data-icon="double-chevron-down" width="16" height="16" viewBox="0 0 16 16">
-                        <desc>double-chevron-down</desc>
-                        <path d="M7.29 8.71c.18.18.43.29.71.29s.53-.11.71-.29l4-4a1.003 1.003 0 00-1.42-1.42L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4zM12 8c-.28 0-.53.11-.71.29L8 11.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 8z" fill-rule="evenodd"></path>
-                    </svg>
-                </span>
-            </button>
+            
         </div>
     </div>
 </div>`)
