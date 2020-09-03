@@ -201,7 +201,7 @@ async function roamMonkey_initVue(packages) {
         <br>
         <div class="bp3-dialog-footer-actions">
             <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
-                <span class="bp3-button-text">Cancel</span>
+                <span class="bp3-button-text">Close</span>
             </button>
 
             <button type="button" class="bp3-button bp3-intent-success"  @click="save">
