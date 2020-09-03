@@ -194,8 +194,9 @@ async function roamMonkey_initVue(packages) {
             <div class="bp3-tab-panel" v-show="panel_tab == 'packages'">
                 <h3 class="bp3-heading">Packages</h3>
 
-                <textarea>https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json</textarea>
-                <textarea>https://roammonkey-test.vercel.app/roam_packages(roamhacker).json</textarea>
+                <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json">
+                <br>
+                <input value="https://roammonkey-test.vercel.app/roam_packages(roamhacker).json">
             </div>
         </div>
 
