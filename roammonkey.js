@@ -175,6 +175,7 @@ async function roamMonkey_initVue(packages) {
                 <li class="bp3-tab" role="tab" aria-selected="true">Selected tab</li>
                 <li class="bp3-tab" role="tab">Another tab</li>
             </ul>
+
             <div class="bp3-tab-panel" role="tabpanel">Selected panel
                 <label class="bp3-control bp3-switch">
                     <input type="checkbox" />
@@ -182,6 +183,7 @@ async function roamMonkey_initVue(packages) {
                     Switch
                 </label>
             </div>
+            
             <div class="bp3-tab-panel" role="tabpanel" aria-hidden="true">Another panel</div>
         </div>
 
@@ -189,12 +191,12 @@ async function roamMonkey_initVue(packages) {
         <p>Click the "Make me scroll" button below to make this overlay's content really tall, which will make the overlay's container (but not the page) scrollable</p>
         <br>
         <div class="bp3-dialog-footer-actions">
-            <button type="button" class="bp3-button bp3-intent-danger">
-                <span class="bp3-button-text">Close</span>
+            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
+                <span class="bp3-button-text">Cancel</span>
             </button>
 
-            <button type="button" class="bp3-button">
-                <span class="bp3-button-text">Focus button</span>
+            <button type="button" class="bp3-button bp3-intent-success"  @click="save">
+                <span class="bp3-button-text">Save & Refresh</span>
             </button>
             
         </div>
@@ -218,7 +220,9 @@ async function roamMonkey_initVue(packages) {
             // }
         },
         methods: {
-
+            save() {
+                alert('"save" placeholder')
+            }
 
         },
         mounted() {
