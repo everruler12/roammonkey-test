@@ -166,29 +166,39 @@ async function roamMonkey_initVue(packages) {
     let panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-    <div class="bp3-card bp3-elevation-4 docs-overlay-example-transition bp3-overlay-content bp3-overlay-enter-done" tabindex="0">
-        <h3 class="bp3-heading">I'm an Overlay!</h3>
+    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0">
         <p>This is a simple container with some inline styles to position it on the screen. Its CSS transitions are customized for this example only to demonstrate how easily custom transitions can be implemented.</p>
 
         <div class="bp3-tabs">
-            <ul class="bp3-tab-list" role="tablist">
-                <li class="bp3-tab" role="tab" aria-selected="true">Selected tab</li>
-                <li class="bp3-tab" role="tab">Another tab</li>
+            <ul class="bp3-tab-list">
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'scripts'">Scripts</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'packages'">Packages</li>
             </ul>
 
-            <div class="bp3-tab-panel" role="tabpanel">Selected panel
+            <div class="bp3-tab-panel" v-show="panel_tab == 'scripts'">
+                <h3 class="bp3-heading">Scripts</h3>
+            
                 <label class="bp3-control bp3-switch">
-                    <input type="checkbox" />
+                    <input type="checkbox"/>
                     <span class="bp3-control-indicator"></span>
-                    Switch
+                    Viktor Tabori's Roam Gallery and Roam Templates
+                </label>
+
+                <label class="bp3-control bp3-switch">
+                    <input type="checkbox"/>
+                    <span class="bp3-control-indicator"></span>
+                    roam42
                 </label>
             </div>
-            
-            <div class="bp3-tab-panel" role="tabpanel" aria-hidden="true">Another panel</div>
+
+            <div class="bp3-tab-panel" v-show="panel_tab == 'packages'">
+                <h3 class="bp3-heading">Packages</h3>
+
+                <textarea>https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json</textarea>
+                <textarea>https://roammonkey-test.vercel.app/roam_packages(roamhacker).json</textarea>
+            </div>
         </div>
 
-        <p>Click the "Focus button" below to transfer focus to the "Show overlay" trigger button outside of this overlay. If persistent focus is enabled, focus will be constrained to the overlay. Use the <code class="bp3-code">tab</code> key to move to the next focusable element to illustrate this effect.</p>
-        <p>Click the "Make me scroll" button below to make this overlay's content really tall, which will make the overlay's container (but not the page) scrollable</p>
         <br>
         <div class="bp3-dialog-footer-actions">
             <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
@@ -221,7 +231,12 @@ async function roamMonkey_initVue(packages) {
         },
         methods: {
             save() {
-                alert('"save" placeholder')
+                function refreshAfterSync() {
+                    const syncing = document.getElementsByClassName('rm-saving-remote').length
+                    if (syncing) setTimeout(refreshAfterSync, 50)
+                    else location.reload(true) // refresh page
+                }
+                setTimeout(refreshAfterSync, 100)
             }
 
         },
