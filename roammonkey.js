@@ -164,15 +164,13 @@ async function roamMonkey_initVue(packages) {
 </span>`)
 
     let panel = $( /* html */ `
-<div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel">
+<div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
     <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0">
-        <p>This is a simple container with some inline styles to position it on the screen. Its CSS transitions are customized for this example only to demonstrate how easily custom transitions can be implemented.</p>
-
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'">Scripts</li>
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'">Packages</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
             </ul>
 
             <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
