@@ -166,7 +166,38 @@ async function roamMonkey_initVue(packages) {
     let panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
+    <div class="bp3-card bp3-elevation-4 docs-overlay-example-transition bp3-overlay-content bp3-overlay-enter-done" tabindex="0">
+        <h3 class="bp3-heading">I'm an Overlay!</h3>
+        <p>This is a simple container with some inline styles to position it on the screen. Its CSS transitions are customized for this example only to demonstrate how easily custom transitions can be implemented.</p>
 
+        <div class="bp3-tabs">
+            <ul class="bp3-tab-list" role="tablist">
+                <li class="bp3-tab" role="tab" aria-selected="true">Selected tab</li>
+                <li class="bp3-tab" role="tab">Another tab</li>
+            </ul>
+            <div class="bp3-tab-panel" role="tabpanel">Selected panel
+                <label class="bp3-control bp3-switch">
+                    <input type="checkbox" />
+                    <span class="bp3-control-indicator"></span>
+                    Switch
+                </label>
+            </div>
+            <div class="bp3-tab-panel" role="tabpanel" aria-hidden="true">Another panel</div>
+        </div>
+
+        <p>Click the "Focus button" below to transfer focus to the "Show overlay" trigger button outside of this overlay. If persistent focus is enabled, focus will be constrained to the overlay. Use the <code class="bp3-code">tab</code> key to move to the next focusable element to illustrate this effect.</p>
+        <p>Click the "Make me scroll" button below to make this overlay's content really tall, which will make the overlay's container (but not the page) scrollable</p>
+        <br>
+        <div class="bp3-dialog-footer-actions">
+            <button type="button" class="bp3-button bp3-intent-danger">
+                <span class="bp3-button-text">Close</span>
+            </button>
+
+            <button type="button" class="bp3-button">
+                <span class="bp3-button-text">Focus button</span>
+            </button>
+            
+        </div>
     </div>
 </div>`)
 
