@@ -166,7 +166,7 @@ async function roamMonkey_initVue(packages) {
     let panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0">
+    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
                 <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
@@ -192,9 +192,9 @@ async function roamMonkey_initVue(packages) {
             <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
                 <h3 class="bp3-heading">Packages</h3>
 
-                <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json">
+                <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json" style="width: 100%;">
                 <br>
-                <input value="https://roammonkey-test.vercel.app/roam_packages(roamhacker).json">
+                <input value="https://roammonkey-test.vercel.app/roam_packages(roamhacker).json" style="width: 100%;">
             </div>
         </div>
 
