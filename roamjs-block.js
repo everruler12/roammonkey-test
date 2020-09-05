@@ -6,6 +6,9 @@ https://roammonkey-test.vercel.app/roam_packages/roam_packages(ViktorTabori).jso
 appendScript("https://roammonkey-test.vercel.app/roammonkey.js")
 
 function appendScript(url) {
+  // stop if roam-to-git
+  if (!!navigator.userAgent.match('Headless')) return
+  
   // refresh if roam/js script is stopped then restarted
   const els = Array.from(document.getElementsByTagName('script'))
   const duplicates = els.filter(el => el.src.match('roammonkey.js'))
