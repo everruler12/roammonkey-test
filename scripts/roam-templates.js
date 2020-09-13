@@ -20,12 +20,12 @@
 
 function replace_variables(tmp) {
     const variables = [{
-        syntax: "::current_time::",
+        syntax: "{{current_time}}",
         fn() {
             return moment().format('HH:mm')
         }
     }, {
-        syntax: "::today::",
+        syntax: "{{today}}",
         fn() {
             return `[[${moment().format('MMMM Do, YYYY')}]]`
         }
