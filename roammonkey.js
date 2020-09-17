@@ -92,12 +92,12 @@ window.roamMonkey = window.roamMonkey || new Vue({
 
         }
 
-        let packages2 = await Promise.all(this.package_manager_library.map(loadPackage))
-        packages2 = packages2.reduce((a, b) => a.concat(b), []) // flatten array
-        console.log('packages', packages2)
+        let packages = Promise.all(this.package_manager_library.map(loadPackage))
+        packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+        console.log('packages', packages)
 
         // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-        packages2.forEach(parsePackage) // only if enabled
+        packages.forEach(parsePackage) // only if enabled
 
 
         // add button
