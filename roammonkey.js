@@ -4,8 +4,11 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 console.log('RoamMonkey: loaded')
 
-window.roamMonkey = window.roamMonkey || new Vue({
+if (window.roamMonkey) window.roamMonkey.$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
+
+window.roamMonkey = new Vue({
     data: {
+        appId: 'roamMonkey-app',
         package_manager_library: ['https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json'],
         showPanel: false,
         panel_tab: "Scripts"
@@ -17,7 +20,7 @@ window.roamMonkey = window.roamMonkey || new Vue({
         // }
     },
     methods: {
-        appendFile = function(url, attr) {
+        appendFile(url, attr) {
             attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
             const ext = url.split('.').pop() // extension "js" or "css"
@@ -68,9 +71,12 @@ window.roamMonkey = window.roamMonkey || new Vue({
     mounted() {
         console.log('RoamMonkey: mounted')
     },
-    created() {
-        const appId = 'roamMonkey-app'
 
+    destroyed() {
+        $(`#${roamMonkey.appId}`).remove()
+    },
+
+    created() {
         async function loadPackage(url) {
             let res = await fetch(url) // fetch is built in on most popular browsers
             let json = await res.json()
@@ -100,12 +106,12 @@ window.roamMonkey = window.roamMonkey || new Vue({
         packages.forEach(parsePackage) // only if enabled
 
 
-        // add button
+        // mount button
         const searchBar = $('.rm-find-or-create-wrapper').eq(0)
         const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
         const roamMonkey_button = $( /* html */ `
-<span id="${appId}" class="bp3-popover-wrapper">
+<span id="${roamMonkey.appId}" class="bp3-popover-wrapper">
 <span class="bp3-popover-target">
     <span class="bp3-popover-target">
         <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
@@ -165,8 +171,7 @@ window.roamMonkey = window.roamMonkey || new Vue({
         searchBar.after(roamMonkey_button)
         roamMonkey_button.append(panel)
         roamMonkey_button.before(divider)
-
-        roamMonkey.$mount(`#${appId}`)
+        roamMonkey.$mount(`#${roamMonkey.appId}`)
     }
 })
 
