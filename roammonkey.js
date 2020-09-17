@@ -73,10 +73,12 @@ window.roamMonkey = new Vue({
     },
 
     destroyed() {
-        $(`#${roamMonkey.appId}`).remove()
+        const appEl = $(`#${roamMonkey.appId}`)
+        appEl.prev('div').remove() // divider
+        appEl.remove()
     },
 
-    created() {
+    async created() {
         async function loadPackage(url) {
             let res = await fetch(url) // fetch is built in on most popular browsers
             let json = await res.json()
@@ -98,7 +100,7 @@ window.roamMonkey = new Vue({
 
         }
 
-        let packages = Promise.all(this.package_manager_library.map(loadPackage))
+        let packages = await Promise.all(this.package_manager_library.map(loadPackage))
         packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
         console.log('packages', packages)
 
