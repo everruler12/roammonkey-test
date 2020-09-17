@@ -1,15 +1,15 @@
-console.log('RoamMonkey: loaded')
-
-// If a module is evaluated once, then imported again, it's second evaluation is skipped and the resolved already exports are used.
+// Using imports to prevent duplicates and to wait for jQuery to initialzie before continuing
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
+console.log('RoamMonkey: loaded')
 
 window.roamMonkey = window.roamMonkey || new Vue({
     data: {
+        package_manager_library: ['https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json'],
         showPanel: false,
-        packages: packages || [],
         panel_tab: "Scripts"
+
     },
     computed: {
         // tags: function () {
@@ -19,12 +19,12 @@ window.roamMonkey = window.roamMonkey || new Vue({
     methods: {
         appendFile = function(url, attr) {
             attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
-        
+
             const ext = url.split('.').pop() // extension "js" or "css"
-        
+
             let tag // html tag <script> or <link>
             let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
-        
+
             if (ext == "js") {
                 tag = 'script'
                 urlAttr = 'src'
@@ -38,7 +38,7 @@ window.roamMonkey = window.roamMonkey || new Vue({
                 console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
                 return
             }
-        
+
             // stop if file already exists
             const els = Array.from(document.getElementsByTagName(tag))
             const duplicates = els.filter(el => el[urlAttr] == url)
@@ -46,7 +46,7 @@ window.roamMonkey = window.roamMonkey || new Vue({
                 console.log(`RoamMonkey: already exists, not appended ${url}`)
                 return
             }
-        
+
             // add file
             attr[urlAttr] = url
             const el = document.createElement(tag)
@@ -66,56 +66,46 @@ window.roamMonkey = window.roamMonkey || new Vue({
 
     },
     mounted() {
-        
-
+        console.log('RoamMonkey: mounted')
     },
     created() {
-        const packages_list = window.roamMonkey_packages_list.trim().split('\n')
+        const appId = 'roamMonkey-app'
 
-    let packages = await Promise.all(packages_list.map(loadPackage))
-    packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
-    console.log('packages', packages)
-
-    // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-    packages.map(parsePackage) // only if enabled
-
-    async function loadPackage(url) {
-        let res = await fetch(url) // fetch is built in on most popular browsers
-        let json = await res.json()
-        return json.packages //.forEach(pack => packages.push(pack))
-    }
-
-    function parsePackage(pack) {
-        // check enabled
-
-        if (pack.dependencies) {
-            if (typeof pack.dependencies == "string") roamMonkey_appendFile(pack.dependencies)
-            else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey_appendFile)
+        async function loadPackage(url) {
+            let res = await fetch(url) // fetch is built in on most popular browsers
+            let json = await res.json()
+            return json.packages //.forEach(pack => packages.push(pack))
         }
 
-        if (pack.source) {
-            if (typeof pack.source == "string") roamMonkey_appendFile(pack.source)
-            else if (Array.isArray(pack.source)) pack.source.map(roamMonkey_appendFile)
+        function parsePackage(pack) {
+            // check enabled
+
+            if (pack.dependencies) {
+                if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
+                else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
+            }
+
+            if (pack.source) {
+                if (typeof pack.source == "string") roamMonkey.appendFile(pack.source)
+                else if (Array.isArray(pack.source)) pack.source.map(roamMonkey.appendFile)
+            }
+
         }
 
-    }
+        let packages = await Promise.all(this.package_manager_library.map(loadPackage))
+        packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+        console.log('packages', packages)
 
-    roamMonkey_initVue(packages)
+        // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
+        packages.forEach(parsePackage) // only if enabled
 
 
+        // add button
+        const searchBar = $('.rm-find-or-create-wrapper').eq(0)
+        const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
-
-
-
-// remove duplicate button
-$('#roamMonkey-app').remove()
-
-// add button
-const searchBar = $('.rm-find-or-create-wrapper').eq(0)
-const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
-
-const roamMonkey_button = $( /* html */ `
-<span id="roamMonkey-app" class="bp3-popover-wrapper">
+        const roamMonkey_button = $( /* html */ `
+<span id="${appId}" class="bp3-popover-wrapper">
 <span class="bp3-popover-target">
     <span class="bp3-popover-target">
         <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
@@ -123,7 +113,7 @@ const roamMonkey_button = $( /* html */ `
 </span>
 </span>`)
 
-let panel = $( /* html */ `
+        const panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
 <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
 <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
@@ -172,12 +162,13 @@ let panel = $( /* html */ `
 </div>
 </div>`)
 
-searchBar.after(roamMonkey_button)
-roamMonkey_button.append(panel)
-roamMonkey_button.before(divider)
+        searchBar.after(roamMonkey_button)
+        roamMonkey_button.append(panel)
+        roamMonkey_button.before(divider)
 
-        // el: '#roamMonkey-app',
+        roamMonkey.$mount(`#${appId}`)
     }
 })
 
-roamMonkey_init()
+// on panel, have one tab for pacakage manager, which is a library of all packages, with the option to add to list, then on list tab, each have toggle, option to delete
+// way to save list in roam instead of local storage?
