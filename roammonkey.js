@@ -1,4 +1,4 @@
-// Using imports to prevent duplicates and to wait for jQuery to initialzie before continuing
+// Using imports to prevent duplicates and to wait for jQuery to initialize before continuing
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
@@ -9,16 +9,23 @@ if (window.roamMonkey) window.roamMonkey.$destroy() // what about when other roa
 window.roamMonkey = new Vue({
     data: {
         appId: 'roamMonkey-app',
-        package_manager_library: ['https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json'],
+        package_registry_link: 'https://roammonkey-test.vercel.app/roam_package_registry.json',
+        // package_registry: [
+        //     'https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json',
+        //     'https://roammonkey-test.vercel.app/roam_packages(roamhacker).json'
+        // ],
+        package_registry: [],
         showPanel: false,
         panel_tab: "Scripts"
 
     },
+
     computed: {
         // tags: function () {
         //     return articles.reduce
         // }
     },
+
     methods: {
         appendFile(url, attr) {
             attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
@@ -58,7 +65,7 @@ window.roamMonkey = new Vue({
             console.log(`RoamMonkey: appended ${url}`)
         },
 
-        save() {
+        refresh() {
             function refreshAfterSync() {
                 const syncing = document.getElementsByClassName('rm-saving-remote').length
                 if (syncing) setTimeout(refreshAfterSync, 50)
@@ -100,12 +107,12 @@ window.roamMonkey = new Vue({
 
         }
 
-        let packages = await Promise.all(this.package_manager_library.map(loadPackage))
-        packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+        let packages = await Promise.all(roamMonkey.package_registry_link.map(loadPackage))
         console.log('packages', packages)
+        roamMonkey.package_registry = packages.reduce((a, b) => a.concat(b), []) // flatten array
 
         // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-        packages.forEach(parsePackage) // only if enabled
+        // packages.forEach(parsePackage) // only if enabled
 
 
         // mount button
@@ -150,9 +157,10 @@ window.roamMonkey = new Vue({
         <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
             <h3 class="bp3-heading">Packages</h3>
 
-            <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json" style="width: 100%;">
-            <br>
-            <input value="https://roammonkey-test.vercel.app/roam_packages(roamhacker).json" style="width: 100%;">
+            <div v-for="package in package_registry">
+                <input :value="package" style="width: 100%;">
+                <br>
+            </div>
         </div>
     </div>
 
@@ -162,7 +170,7 @@ window.roamMonkey = new Vue({
             <span class="bp3-button-text">Close</span>
         </button>
 
-        <button type="button" class="bp3-button bp3-intent-success"  @click="save">
+        <button type="button" class="bp3-button bp3-intent-success"  @click="refresh">
             <span class="bp3-button-text">Save & Refresh</span>
         </button>
         
@@ -177,5 +185,10 @@ window.roamMonkey = new Vue({
     }
 })
 
-// on panel, have one tab for pacakage manager, which is a library of all packages, with the option to add to list, then on list tab, each have toggle, option to delete
-// way to save list in roam instead of local storage?
+// on panel, have one tab for pacakage registry, which lists all packages, with the option to add to ac, then on list tab, each have toggle, option to delete
+// Need to sync between PC and mobile! way to save list in roam instead of local storage?
+// have option to sync ls and settings in cloud, based on cutomer number and database name
+// ls needs to cache scripts, so can be used offline
+
+// have way to export ls to json, which can be saved in ```javascript block, then copy block reference to settings
+// block ref on first block on [[roamMonkey/settings]] page
