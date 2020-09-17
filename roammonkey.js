@@ -4,48 +4,73 @@ console.log('RoamMonkey: loaded')
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-window.roamMonkey_appendFile = function(url, attr) {
-    attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
-    const ext = url.split('.').pop() // extension "js" or "css"
+window.roamMonkey = window.roamMonkey || new Vue({
+    data: {
+        showPanel: false,
+        packages: packages || [],
+        panel_tab: "Scripts"
+    },
+    computed: {
+        // tags: function () {
+        //     return articles.reduce
+        // }
+    },
+    methods: {
+        appendFile = function(url, attr) {
+            attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
+        
+            const ext = url.split('.').pop() // extension "js" or "css"
+        
+            let tag // html tag <script> or <link>
+            let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+        
+            if (ext == "js") {
+                tag = 'script'
+                urlAttr = 'src'
+            } else if (ext == "css") {
+                tag = 'link'
+                urlAttr = 'href'
+                attr.rel = 'stylesheet'
+                attr.type = 'text/css'
+            } else {
+                alert(`Unhandled file extension: ${ext}`)
+                console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
+                return
+            }
+        
+            // stop if file already exists
+            const els = Array.from(document.getElementsByTagName(tag))
+            const duplicates = els.filter(el => el[urlAttr] == url)
+            if (duplicates.length > 0) {
+                console.log(`RoamMonkey: already exists, not appended ${url}`)
+                return
+            }
+        
+            // add file
+            attr[urlAttr] = url
+            const el = document.createElement(tag)
+            Object.assign(el, attr)
+            document.head.appendChild(el)
+            console.log(`RoamMonkey: appended ${url}`)
+        },
 
-    let tag // html tag <script> or <link>
-    let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+        save() {
+            function refreshAfterSync() {
+                const syncing = document.getElementsByClassName('rm-saving-remote').length
+                if (syncing) setTimeout(refreshAfterSync, 50)
+                else location.reload(true) // refresh page
+            }
+            setTimeout(refreshAfterSync, 100)
+        }
 
-    if (ext == "js") {
-        tag = 'script'
-        urlAttr = 'src'
-    } else if (ext == "css") {
-        tag = 'link'
-        urlAttr = 'href'
-        attr.rel = 'stylesheet'
-        attr.type = 'text/css'
-    } else {
-        alert(`Unhandled file extension: ${ext}`)
-        console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
-        return
-    }
+    },
+    mounted() {
+        
 
-    // stop if file already exists
-    const els = Array.from(document.getElementsByTagName(tag))
-    const duplicates = els.filter(el => el[urlAttr] == url)
-    if (duplicates.length > 0) {
-        console.log(`RoamMonkey: already exists ${url}`)
-        return
-    }
-
-    // add file
-    attr[urlAttr] = url
-    const el = document.createElement(tag)
-    Object.assign(el, attr)
-    document.head.appendChild(el)
-    console.log(`RoamMonkey: appended ${url}`)
-}
-
-roamMonkey_init()
-
-async function roamMonkey_init() {
-    const packages_list = window.roamMonkey_packages_list.trim().split('\n')
+    },
+    created() {
+        const packages_list = window.roamMonkey_packages_list.trim().split('\n')
 
     let packages = await Promise.all(packages_list.map(loadPackage))
     packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
@@ -76,173 +101,83 @@ async function roamMonkey_init() {
     }
 
     roamMonkey_initVue(packages)
-}
 
-function roamMonkey_wait(condition) {
-    return new Promise(resolve => {
-        function wait() {
-            // console.log(condition())
-            if (!condition()) setTimeout(wait, 50)
-            else resolve('wait done')
-        }
-        wait()
-    })
-}
 
-async function $roamMonkey_appendFile(url, attr) {
-    return new Promise(resolve => {
-        async function importModule(url) {
-            try {
-                await import(url)
-                return true
-            } catch (err) {
-                return err
-            }
-        }
 
-        attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
-        const ext = url.split('.').pop() // extension "js" or "css"
 
-        let tag // html tag <script> or <link>
-        let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
 
-        if (ext == "js") {
-            // try importing as module first
-            const result = importModule(url)
-            if (result === true) {
-                console.log(`RoamMonkey: imported\n${url}`)
-                resolve(true)
-            } else console.error(`RoamMonkey: import error\n${url}\n${result}`)
+// remove duplicate button
+$('#roamMonkey-app').remove()
 
-            tag = 'script'
-            urlAttr = 'src'
-            // attr.onload = resolve('script loaded')
-        } else if (ext == "css") {
-            tag = 'link'
-            urlAttr = 'href'
-            attr.rel = 'stylesheet'
-            attr.type = 'text/css'
-        } else {
-            alert(`Unhandled file extension: ${ext}`)
-            console.log(`RoamMonkey: Unhandled file, not '.js' or '.css' extension\n${url}`)
-            return
-        }
+// add button
+const searchBar = $('.rm-find-or-create-wrapper').eq(0)
+const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
-        // stop if file already exists
-        const duplicates = $(tag).filter((i, el) => el[urlAttr] == url)
-        if (duplicates.length > 0) {
-            console.log(`RoamMonkey: already appended\n${url}`)
-            resolve(true)
-        }
-
-        // add file
-        attr[urlAttr] = url
-        attr.onload = function() {
-            console.log(`RoamMonkey: appended\n${url}`)
-            resolve(true)
-        }
-        $(`<${tag}>`, attr).appendTo('head')
-    })
-}
-
-async function roamMonkey_initVue(packages) {
-    // remove duplicate button
-    $('#roamMonkey-app').remove()
-
-    // add button
-    const searchBar = $('.rm-find-or-create-wrapper').eq(0)
-    const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
-
-    const roamMonkey_button = $( /* html */ `
+const roamMonkey_button = $( /* html */ `
 <span id="roamMonkey-app" class="bp3-popover-wrapper">
+<span class="bp3-popover-target">
     <span class="bp3-popover-target">
-        <span class="bp3-popover-target">
-            <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
-        </span>
+        <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
     </span>
+</span>
 </span>`)
 
-    let panel = $( /* html */ `
+let panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
-    <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
-        <div class="bp3-tabs">
-            <ul class="bp3-tab-list">
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
-            </ul>
+<div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
+<div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
+    <div class="bp3-tabs">
+        <ul class="bp3-tab-list">
+            <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
+            <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
+        </ul>
 
-            <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
-                <h3 class="bp3-heading">Scripts</h3>
-            
-                <label class="bp3-control bp3-switch">
-                    <input type="checkbox"/>
-                    <span class="bp3-control-indicator"></span>
-                    Viktor Tabori's Roam Gallery and Roam Templates
-                </label>
+        <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
+            <h3 class="bp3-heading">Scripts</h3>
+        
+            <label class="bp3-control bp3-switch">
+                <input type="checkbox"/>
+                <span class="bp3-control-indicator"></span>
+                Viktor Tabori's Roam Gallery and Roam Templates
+            </label>
 
-                <label class="bp3-control bp3-switch">
-                    <input type="checkbox"/>
-                    <span class="bp3-control-indicator"></span>
-                    roam42
-                </label>
-            </div>
-
-            <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
-                <h3 class="bp3-heading">Packages</h3>
-
-                <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json" style="width: 100%;">
-                <br>
-                <input value="https://roammonkey-test.vercel.app/roam_packages(roamhacker).json" style="width: 100%;">
-            </div>
+            <label class="bp3-control bp3-switch">
+                <input type="checkbox"/>
+                <span class="bp3-control-indicator"></span>
+                roam42
+            </label>
         </div>
 
-        <br>
-        <div class="bp3-dialog-footer-actions">
-            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
-                <span class="bp3-button-text">Close</span>
-            </button>
+        <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
+            <h3 class="bp3-heading">Packages</h3>
 
-            <button type="button" class="bp3-button bp3-intent-success"  @click="save">
-                <span class="bp3-button-text">Save & Refresh</span>
-            </button>
-            
+            <input value="https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json" style="width: 100%;">
+            <br>
+            <input value="https://roammonkey-test.vercel.app/roam_packages(roamhacker).json" style="width: 100%;">
         </div>
     </div>
+
+    <br>
+    <div class="bp3-dialog-footer-actions">
+        <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
+            <span class="bp3-button-text">Close</span>
+        </button>
+
+        <button type="button" class="bp3-button bp3-intent-success"  @click="save">
+            <span class="bp3-button-text">Save & Refresh</span>
+        </button>
+        
+    </div>
+</div>
 </div>`)
 
-    searchBar.after(roamMonkey_button)
-    roamMonkey_button.append(panel)
-    roamMonkey_button.before(divider)
+searchBar.after(roamMonkey_button)
+roamMonkey_button.append(panel)
+roamMonkey_button.before(divider)
 
-    // start Vue
-    window.roamMonkey = new Vue({
-        el: '#roamMonkey-app',
-        data: {
-            showPanel: false,
-            packages: packages || [],
-            panel_tab: "Scripts"
-        },
-        computed: {
-            // tags: function () {
-            //     return articles.reduce
-            // }
-        },
-        methods: {
-            save() {
-                function refreshAfterSync() {
-                    const syncing = document.getElementsByClassName('rm-saving-remote').length
-                    if (syncing) setTimeout(refreshAfterSync, 50)
-                    else location.reload(true) // refresh page
-                }
-                setTimeout(refreshAfterSync, 100)
-            }
+        // el: '#roamMonkey-app',
+    }
+})
 
-        },
-        mounted() {
-
-        }
-    })
-
-}
+roamMonkey_init()

@@ -1,0 +1,7 @@
+// ==RoamScript==
+// @name        Emojis
+// @namespace   https://roam.davidvargas.me/
+// @version     1.0
+// @author      @dvargas92495
+// @description The Roam Emoji extension allows users to use familiar colon syntax to insert emojis into the text block.
+// ==/RoamScript==
