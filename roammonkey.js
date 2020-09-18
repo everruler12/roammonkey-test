@@ -62,7 +62,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 new Vue({
     data: {
         VUE_APP_NAME: 'roamMonkeyVue',
-        package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_package_registry.json',
+        package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_packages(ViktorTabori).json',
+        // package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_package_registry.json',
         // package_registry: [
         //     'https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json',
         //     'https://roammonkey-test.vercel.app/roam_packages(roamhacker).json'
