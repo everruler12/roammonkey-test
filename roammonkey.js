@@ -9,7 +9,7 @@ if (window.roamMonkey) window.roamMonkey.$destroy() // what about when other roa
 window.roamMonkey = new Vue({
     data: {
         appId: 'roamMonkey-app',
-        package_registry_link: 'https://roammonkey-test.vercel.app/roam_package_registry.json',
+        package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_package_registry.json',
         // package_registry: [
         //     'https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json',
         //     'https://roammonkey-test.vercel.app/roam_packages(roamhacker).json'
@@ -107,7 +107,8 @@ window.roamMonkey = new Vue({
 
         }
 
-        let packages = await Promise.all(roamMonkey.package_registry_link.map(loadPackage))
+        let packages = await loadPackage(roamMonkey.package_registry_link)
+        // let packages = await Promise.all(roamMonkey.package_registry.map(loadPackage))
         console.log('packages', packages)
         packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
         roamMonkey.package_registry = packages
