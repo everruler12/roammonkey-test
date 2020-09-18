@@ -92,7 +92,7 @@ new Vue({
 
     created() {
         // console.log(`${this.VUE_APP_NAME}: created`)
-        const appName = this.VUE_APPNAME
+        const appName = this.VUE_APP_NAME
         if (!!window[appName]) // already exists
             window[appName].$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
 
