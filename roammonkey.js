@@ -109,10 +109,11 @@ window.roamMonkey = new Vue({
 
         let packages = await Promise.all(roamMonkey.package_registry_link.map(loadPackage))
         console.log('packages', packages)
-        roamMonkey.package_registry = packages.reduce((a, b) => a.concat(b), []) // flatten array
+        packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+        roamMonkey.package_registry = packages
 
         // load localStorage, go through roamMonkey.packages and overwrite each setting property if it exists in ls
-        // packages.forEach(parsePackage) // only if enabled
+        packages.forEach(parsePackage) // only if enabled
 
 
         // mount button
@@ -181,7 +182,7 @@ window.roamMonkey = new Vue({
         searchBar.after(roamMonkey_button)
         roamMonkey_button.append(panel)
         roamMonkey_button.before(divider)
-        roamMonkey.$mount(`#${roamMonkey.appId}`)
+        this.$mount(`#${roamMonkey.appId}`)
     }
 })
 
@@ -192,3 +193,9 @@ window.roamMonkey = new Vue({
 
 // have way to export ls to json, which can be saved in ```javascript block, then copy block reference to settings
 // block ref on first block on [[roamMonkey/settings]] page
+
+
+// nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", 'RoamMonkey/settings')
+// dbId = window.roamAlphaAPI.pull("[*]", nodeId[0][0])[":block/children"][0][":db/id"]
+// node = window.roamAlphaAPI.pull("[*]", dbId)[":block/string"]
+// settings = JSON.parse(node.replace(/^```javascript/,'').replace(/```$/,''))
