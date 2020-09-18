@@ -221,3 +221,6 @@ window.roamMonkeyVue = new Vue({
 
 // have way to export ls to json, which can be saved in ```javascript block, then copy block reference to settings
 // block ref on first block on [[roamMonkey/settings]] page
+
+//live preview, open url with ?roamMonkey=true
+//roammonkey detect url change, and when ?roamMonkey=true query exists, focus on textarea and change the value, then unfocus to save
