@@ -1,12 +1,63 @@
+console.log('RoamMonkey: loaded')
+
+window.roamMonkey = function() {
+    return {
+        appendFile(url, attr) {
+            attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
+
+            const ext = url.split('.').pop() // extension "js" or "css"
+
+            let tag // html tag <script> or <link>
+            let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
+
+            if (ext == "js") {
+                tag = 'script'
+                urlAttr = 'src'
+            } else if (ext == "css") {
+                tag = 'link'
+                urlAttr = 'href'
+                attr.rel = 'stylesheet'
+                attr.type = 'text/css'
+            } else {
+                alert(`Unhandled file extension: ${ext}`)
+                console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
+                return
+            }
+
+            // stop if file already exists
+            const els = Array.from(document.getElementsByTagName(tag))
+            const duplicates = els.filter(el => el[urlAttr] == url)
+            if (duplicates.length > 0) {
+                console.log(`RoamMonkey: already exists, not appended ${url}`)
+                return
+            }
+
+            // add file
+            attr[urlAttr] = url
+            const el = document.createElement(tag)
+            Object.assign(el, attr)
+            document.head.appendChild(el)
+            console.log(`RoamMonkey: appended ${url}`)
+        },
+
+        refresh() {
+            function refreshAfterSync() {
+                const isSyncing = document.getElementsByClassName('rm-saving-remote').length
+                if (isSyncing) setTimeout(refreshAfterSync, 50)
+                else location.reload(true) // refresh page
+            }
+            setTimeout(refreshAfterSync, 100)
+        }
+    }
+}
+
 // Using imports to prevent duplicates and to wait for jQuery to initialize before continuing
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-console.log('RoamMonkey: loaded')
+if (window.roamMonkeyVue) window.roamMonkeyVue.$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
 
-if (window.roamMonkey) window.roamMonkey.$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
-
-window.roamMonkey = new Vue({
+window.roamMonkeyVue = new Vue({
     data: {
         vueAppId: 'roamMonkey-app',
         package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_package_registry.json',
@@ -116,13 +167,13 @@ window.roamMonkey = new Vue({
             // check enabled
 
             if (pack.dependencies) {
-                if (typeof pack.dependencies == "string") this.appendFile(pack.dependencies)
-                else if (Array.isArray(pack.dependencies)) pack.dependencies.map(this.appendFile)
+                if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
+                else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
             }
 
             if (pack.source) {
-                if (typeof pack.source == "string") this.appendFile(pack.source)
-                else if (Array.isArray(pack.source)) pack.source.map(this.appendFile)
+                if (typeof pack.source == "string") roamMonkey.appendFile(pack.source)
+                else if (Array.isArray(pack.source)) pack.source.map(roamMonkey.appendFile)
             }
 
         }
@@ -138,57 +189,12 @@ window.roamMonkey = new Vue({
     },
 
     methods: {
-        appendFile(url, attr) {
-            attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
 
-            const ext = url.split('.').pop() // extension "js" or "css"
-
-            let tag // html tag <script> or <link>
-            let urlAttr // attribute that contains url: 'src' for <script> and 'href' for <link>
-
-            if (ext == "js") {
-                tag = 'script'
-                urlAttr = 'src'
-            } else if (ext == "css") {
-                tag = 'link'
-                urlAttr = 'href'
-                attr.rel = 'stylesheet'
-                attr.type = 'text/css'
-            } else {
-                alert(`Unhandled file extension: ${ext}`)
-                console.log(`The file at ${url} does not have '.js' or '.css' extension.`)
-                return
-            }
-
-            // stop if file already exists
-            const els = Array.from(document.getElementsByTagName(tag))
-            const duplicates = els.filter(el => el[urlAttr] == url)
-            if (duplicates.length > 0) {
-                console.log(`RoamMonkey: already exists, not appended ${url}`)
-                return
-            }
-
-            // add file
-            attr[urlAttr] = url
-            const el = document.createElement(tag)
-            Object.assign(el, attr)
-            document.head.appendChild(el)
-            console.log(`RoamMonkey: appended ${url}`)
-        },
-
-        refresh() {
-            function refreshAfterSync() {
-                const isSyncing = document.getElementsByClassName('rm-saving-remote').length
-                if (isSyncing) setTimeout(refreshAfterSync, 50)
-                else location.reload(true) // refresh page
-            }
-            setTimeout(refreshAfterSync, 100)
-        },
 
         save() {
 
 
-            refresh()
+            roamMonkey.refresh()
         },
 
         loadSettings() {
