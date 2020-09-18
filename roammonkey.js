@@ -112,7 +112,7 @@ window.roamMonkey = new Vue({
             return json.packages //.forEach(pack => packages.push(pack))
         }
 
-        function parsePackage(pack) {
+        const parsePackage = (pack) => {
             // check enabled
 
             if (pack.dependencies) {
@@ -129,8 +129,8 @@ window.roamMonkey = new Vue({
 
         let packages = await loadPackage(this.package_registry_link)
         // let packages = await Promise.all(this.package_registry.map(loadPackage))
+        // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
         console.log('packages', packages)
-        packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
         this.package_registry = packages
 
         // load localStorage, go through this.packages and overwrite each setting property if it exists in ls
