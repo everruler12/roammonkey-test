@@ -1,6 +1,6 @@
 console.log('RoamMonkey: loaded')
 
-window.roamMonkey = function() {
+window.roamMonkey = (function() {
     return {
         appendFile(url, attr) {
             attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
@@ -49,7 +49,7 @@ window.roamMonkey = function() {
             setTimeout(refreshAfterSync, 100)
         }
     }
-}
+})()
 
 // Using imports to prevent duplicates and to wait for jQuery to initialize before continuing
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
