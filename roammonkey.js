@@ -61,9 +61,9 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 if (window.roamMonkeyVue) window.roamMonkeyVue.$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
 
-window.roamMonkeyVue = new Vue({
+new Vue({
     data: {
-        vueAppId: 'roamMonkey-app',
+        VUE_APP_NAME: 'roamMonkeyVue',
         package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_package_registry.json',
         // package_registry: [
         //     'https://roammonkey-test.vercel.app/roam_packages(ViktorTabori).json',
@@ -76,124 +76,133 @@ window.roamMonkeyVue = new Vue({
     },
 
     computed: {
-        // tags: function () {
-        //     return articles.reduce
-        // }
+        VUE_APP_ID() {
+            return this.VUE_APP_NAME + '-app'
+        },
+
+
     },
 
     destroyed() {
-        // remove Vue app el
-        const appEl = $('#' + this.vueAppId)
-        appEl.prev('div').remove() // divider
-        appEl.remove()
+        console.log(`${this.VUE_APP_NAME}: destroyed`)
+        // remove mounted Vue app el
+        const vueAppEl = $('#' + this.VUE_APP_ID)
+        vueAppEl.prev('div').remove() // divider
+        vueAppEl.remove()
     },
 
     created() {
-        // mount Vue app el
-        const searchBar = $('.rm-find-or-create-wrapper').eq(0)
-        const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
-
-        const vueAppEl = $( /* html */ `
-<span id="${this.vueAppId}" class="bp3-popover-wrapper">
-<span class="bp3-popover-target">
-    <span class="bp3-popover-target">
-        <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
-    </span>
-</span>
-</span>`)
-
-        const panel = $( /* html */ `
-<div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
-<div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-<div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
-    <div class="bp3-tabs">
-        <ul class="bp3-tab-list">
-            <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
-            <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
-        </ul>
-
-        <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
-            <h3 class="bp3-heading">Scripts</h3>
-        
-            <label class="bp3-control bp3-switch">
-                <input type="checkbox"/>
-                <span class="bp3-control-indicator"></span>
-                Viktor Tabori's Roam Gallery and Roam Templates
-            </label>
-
-            <label class="bp3-control bp3-switch">
-                <input type="checkbox"/>
-                <span class="bp3-control-indicator"></span>
-                roam42
-            </label>
-        </div>
-
-        <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
-            <h3 class="bp3-heading">Packages</h3>
-
-            <div v-for="package in package_registry">
-                <input :value="package" style="width: 100%;">
-                <br>
-            </div>
-        </div>
-    </div>
-
-    <br>
-    <div class="bp3-dialog-footer-actions">
-        <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
-            <span class="bp3-button-text">Close</span>
-        </button>
-
-        <button type="button" class="bp3-button bp3-intent-success"  @click="save">
-            <span class="bp3-button-text">Save & Refresh</span>
-        </button>
-        
-    </div>
-</div>
-</div>`)
-
-        searchBar.after(vueAppEl)
-        vueAppEl.append(panel)
-        vueAppEl.before(divider)
-        this.$mount('#' + this.vueAppId)
+        console.log(`${this.VUE_APP_NAME}: created`)
+        window[this.VUE_APP_NAME] = this // to test in DevTools
+        this.mountVueApp()
     },
 
     async mounted() {
-        console.log('RoamMonkey: mounted')
-
-        async function loadPackage(url) {
-            let res = await fetch(url) // fetch is built in on most popular browsers
-            let json = await res.json()
-            return json.packages //.forEach(pack => packages.push(pack))
-        }
-
-        const parsePackage = (pack) => {
-            // check enabled
-
-            if (pack.dependencies) {
-                if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
-                else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
-            }
-
-            if (pack.source) {
-                if (typeof pack.source == "string") roamMonkey.appendFile(pack.source)
-                else if (Array.isArray(pack.source)) pack.source.map(roamMonkey.appendFile)
-            }
-
-        }
-
-        let packages = await loadPackage(this.package_registry_link)
-        // let packages = await Promise.all(this.package_registry.map(loadPackage))
-        // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
-        console.log('packages', packages)
-        this.package_registry = packages
-
-        // load localStorage, go through this.packages and overwrite each setting property if it exists in ls
-        packages.forEach(parsePackage) // only if enabled
+        console.log(`${this.VUE_APP_NAME}: mounted`)
+        this.loadPackages()
     },
 
     methods: {
+        mountVueApp() {
+            const searchBar = $('.rm-find-or-create-wrapper').eq(0)
+            const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
+            const vueAppEl = $( /* html */ `
+<span id="${this.vueAppId}" class="bp3-popover-wrapper">
+<span class="bp3-popover-target">
+<span class="bp3-popover-target">
+<button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
+</span>
+</span>
+</span>`)
+
+            const panel = $( /* html */ `
+<div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
+<div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
+<div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
+<div class="bp3-tabs">
+<ul class="bp3-tab-list">
+    <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
+    <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
+</ul>
+
+<div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
+    <h3 class="bp3-heading">Scripts</h3>
+
+    <label class="bp3-control bp3-switch">
+        <input type="checkbox"/>
+        <span class="bp3-control-indicator"></span>
+        Viktor Tabori's Roam Gallery and Roam Templates
+    </label>
+
+    <label class="bp3-control bp3-switch">
+        <input type="checkbox"/>
+        <span class="bp3-control-indicator"></span>
+        roam42
+    </label>
+</div>
+
+<div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
+    <h3 class="bp3-heading">Packages</h3>
+
+    <div v-for="package in package_registry">
+        <input :value="package" style="width: 100%;">
+        <br>
+    </div>
+</div>
+</div>
+
+<br>
+<div class="bp3-dialog-footer-actions">
+<button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
+    <span class="bp3-button-text">Close</span>
+</button>
+
+<button type="button" class="bp3-button bp3-intent-success"  @click="save">
+    <span class="bp3-button-text">Save & Refresh</span>
+</button>
+
+</div>
+</div>
+</div>`)
+
+            searchBar.after(vueAppEl)
+            vueAppEl.append(panel)
+            vueAppEl.before(divider)
+            this.$mount('#' + this.VUE_APP_ID)
+        },
+
+        loadPackages() {
+            async function loadPackage(url) {
+                let res = await fetch(url) // fetch is built in on most popular browsers
+                let json = await res.json()
+                return json.packages //.forEach(pack => packages.push(pack))
+            }
+
+            const parsePackage = (pack) => {
+                // check enabled
+
+                if (pack.dependencies) {
+                    if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
+                    else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
+                }
+
+                if (pack.source) {
+                    if (typeof pack.source == "string") roamMonkey.appendFile(pack.source)
+                    else if (Array.isArray(pack.source)) pack.source.map(roamMonkey.appendFile)
+                }
+
+            }
+
+            let packages = await loadPackage(this.package_registry_link)
+            // let packages = await Promise.all(this.package_registry.map(loadPackage))
+            // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+            console.log('packages', packages)
+            this.package_registry = packages
+
+            // load localStorage, go through this.packages and overwrite each setting property if it exists in ls
+            packages.forEach(parsePackage) // only if enabled
+        },
 
         save() {
 
