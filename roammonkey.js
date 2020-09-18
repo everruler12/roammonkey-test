@@ -33,7 +33,7 @@ window.roamMonkey = new Vue({
         appEl.remove()
     },
 
-    async created() {
+    created() {
         // mount Vue app el
         const searchBar = $('.rm-find-or-create-wrapper').eq(0)
         const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
@@ -89,7 +89,7 @@ window.roamMonkey = new Vue({
             <span class="bp3-button-text">Close</span>
         </button>
 
-        <button type="button" class="bp3-button bp3-intent-success"  @click="refresh">
+        <button type="button" class="bp3-button bp3-intent-success"  @click="save">
             <span class="bp3-button-text">Save & Refresh</span>
         </button>
         
@@ -103,7 +103,7 @@ window.roamMonkey = new Vue({
         this.$mount('#' + this.vueAppId)
     },
 
-    mounted() {
+    async mounted() {
         console.log('RoamMonkey: mounted')
 
         async function loadPackage(url) {
@@ -178,11 +178,24 @@ window.roamMonkey = new Vue({
 
         refresh() {
             function refreshAfterSync() {
-                const syncing = document.getElementsByClassName('rm-saving-remote').length
-                if (syncing) setTimeout(refreshAfterSync, 50)
+                const isSyncing = document.getElementsByClassName('rm-saving-remote').length
+                if (isSyncing) setTimeout(refreshAfterSync, 50)
                 else location.reload(true) // refresh page
             }
             setTimeout(refreshAfterSync, 100)
+        },
+
+        save() {
+
+
+            refresh()
+        },
+
+        loadSettings() {
+            nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", 'RoamMonkey/settings')
+            dbId = window.roamAlphaAPI.pull("[*]", nodeId[0][0])[":block/children"][0][":db/id"]
+            node = window.roamAlphaAPI.pull("[*]", dbId)[":block/string"]
+            settings = JSON.parse(node.replace(/^```javascript/, '').replace(/```$/, ''))
         }
 
     },
@@ -198,9 +211,3 @@ window.roamMonkey = new Vue({
 
 // have way to export ls to json, which can be saved in ```javascript block, then copy block reference to settings
 // block ref on first block on [[roamMonkey/settings]] page
-
-
-// nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", 'RoamMonkey/settings')
-// dbId = window.roamAlphaAPI.pull("[*]", nodeId[0][0])[":block/children"][0][":db/id"]
-// node = window.roamAlphaAPI.pull("[*]", dbId)[":block/string"]
-// settings = JSON.parse(node.replace(/^```javascript/,'').replace(/```$/,''))
