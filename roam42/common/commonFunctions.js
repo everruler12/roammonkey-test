@@ -1,7 +1,7 @@
 // updates an empty text area with a new value. This function does some additional work
 // because the textarea in roam is managed by React component, and it wasn't being triggered to 
 // update when inserting a value
-const setEmptyNodeValue = (element, value) => {
+var setEmptyNodeValue = (element, value) => {
     const e = new Event('input', { bubbles: true })
     const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set
     const prototype = Object.getPrototypeOf(element)
