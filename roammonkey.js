@@ -85,17 +85,18 @@ new Vue({
     destroyed() {
         console.log(`${this.VUE_APP_NAME}: destroyed`)
         // remove mounted Vue app el
-        const vueAppEl = $('#' + this.VUE_APP_ID)
-        vueAppEl.prev('div').remove() // divider
-        vueAppEl.remove()
+        const appEl = $('#' + this.VUE_APP_ID)
+        appEl.prev('div').remove() // divider
+        appEl.remove()
     },
 
     created() {
         // console.log(`${this.VUE_APP_NAME}: created`)
-        if (!!window[this.VUE_APP_NAME]) // already exists
-            window[this.VUE_APP_NAME].$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
+        const appName = this.VUE_APPNAME
+        if (!!window[appName]) // already exists
+            window[appName].$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
 
-        window[this.VUE_APP_NAME] = this // to test in DevTools
+        window[appName] = this // to test in DevTools
         this.mountVueApp()
     },
 
@@ -106,11 +107,12 @@ new Vue({
 
     methods: {
         mountVueApp() {
+            const appId = this.VUE_APP_ID
             const searchBar = $('.rm-find-or-create-wrapper').eq(0)
             const divider = $( /* html */ `<div style="flex: 0 0 4px"></div>`)
 
-            const vueAppEl = $( /* html */ `
-<span id="${this.vueAppId}" class="bp3-popover-wrapper">
+            const appEl = $( /* html */ `
+<span id="${appId}" class="bp3-popover-wrapper">
 <span class="bp3-popover-target">
 <span class="bp3-popover-target">
 <button class="bp3-button bp3-minimal bp3-icon-comparison bp3-small" tabindex="0" title="RoamMonkey" @click="showPanel=!showPanel"></button>
@@ -168,10 +170,10 @@ new Vue({
 </div>
 </div>`)
 
-            searchBar.after(vueAppEl)
-            vueAppEl.append(panel)
-            vueAppEl.before(divider)
-            this.$mount('#' + this.VUE_APP_ID)
+            searchBar.after(appEl)
+            appEl.append(panel)
+            appEl.before(divider)
+            this.$mount('#' + appId)
         },
 
         async loadPackages() {
