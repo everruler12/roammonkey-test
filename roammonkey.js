@@ -83,7 +83,7 @@ new Vue({
     },
 
     destroyed() {
-        console.log(`${this.VUE_APP_NAME}: destroyed`)
+        console.log(this.VUE_APP_NAME + ': destroyed')
         // remove mounted Vue app el
         const appEl = $('#' + this.VUE_APP_ID)
         appEl.prev('div').remove() // divider
@@ -91,7 +91,7 @@ new Vue({
     },
 
     created() {
-        // console.log(`${this.VUE_APP_NAME}: created`)
+        // console.log(this.VUE_APP_NAME + ': created')
         const appName = this.VUE_APP_NAME
         if (!!window[appName]) // already exists
             window[appName].$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
@@ -101,7 +101,7 @@ new Vue({
     },
 
     mounted() {
-        console.log(`${this.VUE_APP_NAME}: mounted`)
+        console.log(this.VUE_APP_NAME + ': mounted')
         this.loadPackages()
     },
 
