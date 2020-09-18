@@ -1,6 +1,6 @@
 console.log('RoamMonkey: loaded')
 
-window.roamMonkey = (function() {
+window.roamMonkey = (function() { // shared functions
 
     function appendFile(url, attr) {
         attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {} // attr is an optional object containing attributes for <script> and <link>
@@ -59,8 +59,6 @@ window.roamMonkey = (function() {
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-if (window.roamMonkeyVue) window.roamMonkeyVue.$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
-
 new Vue({
     data: {
         VUE_APP_NAME: 'roamMonkeyVue',
@@ -92,12 +90,15 @@ new Vue({
     },
 
     created() {
-        console.log(`${this.VUE_APP_NAME}: created`)
+        // console.log(`${this.VUE_APP_NAME}: created`)
+        if (!!window[this.VUE_APP_NAME]) // already exists
+            window[this.VUE_APP_NAME].$destroy() // what about when other roam/js loaded? Keep refresh in this roam/js?
+
         window[this.VUE_APP_NAME] = this // to test in DevTools
         this.mountVueApp()
     },
 
-    async mounted() {
+    mounted() {
         console.log(`${this.VUE_APP_NAME}: mounted`)
         this.loadPackages()
     },
@@ -172,7 +173,7 @@ new Vue({
             this.$mount('#' + this.VUE_APP_ID)
         },
 
-        loadPackages() {
+        async loadPackages() {
             async function loadPackage(url) {
                 let res = await fetch(url) // fetch is built in on most popular browsers
                 let json = await res.json()
