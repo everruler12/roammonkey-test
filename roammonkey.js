@@ -62,6 +62,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 new Vue({
     data: {
         VUE_APP_NAME: 'roamMonkeyVue',
+        titleOfSettingsPage: 'RoamMonkey/settings',
         package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_packages(ViktorTabori).json',
         // package_registry_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_package_registry.json',
         // package_registry: [
@@ -215,10 +216,42 @@ new Vue({
         },
 
         loadSettings() {
-            nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", 'RoamMonkey/settings')
-            dbId = window.roamAlphaAPI.pull("[*]", nodeId[0][0])[":block/children"][0][":db/id"]
-            node = window.roamAlphaAPI.pull("[*]", dbId)[":block/string"]
-            settings = JSON.parse(node.replace(/^```javascript/, '').replace(/```$/, ''))
+            function returnIdOfPageTitle(title) {
+                nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", title)
+
+                if (nodeId.length) {
+                    return nodeId[0][0]
+                } else {
+                    console.log(this.VUE_APP_NAME + `: Error! [[${title}]] not found`)
+                    return false
+                }
+            }
+
+            const title = this.titleOfSettingsPage
+
+            const id = returnIdOfPageTitle(title)
+
+            if (!id) {
+                alert('Error! No settings page found')
+                return
+            }
+
+            const abc = window.roamAlphaAPI.pull("[*]", id)
+            const def = abc[":block/children"]
+            const dbId = def[0][":db/id"]
+            const ghi = window.roamAlphaAPI.pull("[*]", dbId)
+            const blockString = ghi[":block/string"]
+            // console.log(blockString)
+            const settings_str = blockString.replace(/^\u0060\u0060\u0060javascript/, '').replace(/\u0060\u0060\u0060$/, '') // \u0060 is `
+
+            let settings_json
+
+            try {
+                return JSON.parse(settings_str)
+            } catch (err) {
+                alert('Error! RoamMonkey/settings are not valid json')
+                return false
+            }
         }
 
     },
