@@ -217,7 +217,7 @@ new Vue({
 
         loadSettings() {
             function returnIdOfPageTitle(title) {
-                nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", title)
+                const nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", title)
 
                 if (nodeId.length) {
                     return nodeId[0][0]
@@ -227,29 +227,43 @@ new Vue({
                 }
             }
 
-            const title = this.titleOfSettingsPage
+            const titleId = returnIdOfPageTitle(this.titleOfSettingsPage)
 
-            const id = returnIdOfPageTitle(title)
-
-            if (!id) {
+            if (!titleId) {
                 alert('Error! No settings page found')
                 return
             }
 
-            const abc = window.roamAlphaAPI.pull("[*]", id)
-            const def = abc[":block/children"]
-            const dbId = def[0][":db/id"]
-            const ghi = window.roamAlphaAPI.pull("[*]", dbId)
-            const blockString = ghi[":block/string"]
-            // console.log(blockString)
-            const settings_str = blockString.replace(/^\u0060\u0060\u0060javascript/, '').replace(/\u0060\u0060\u0060$/, '') // \u0060 is `
+            const titleNode = window.roamAlphaAPI.pull("[*]", titleId)
 
-            let settings_json
+            if (!titleNode) {
+                alert('Error! No settings page found')
+                return
+            }
+
+            // for backup purposes, go to settings page
+            // const blockUid = titleNode[":block/uid"]
+            // settings_page = 'https://roamresearch.com/#/app/everruler/page/' + blockUid
+            // window.location = settings_page
+
+            const titleChildren = titleNode[":block/children"]
+
+            if (titleChildren.length > 1) {
+                alert(`Error! There should only be one block on RoamMonkey/settings, but there are ${titleChildren.length} blocks`)
+                return
+            }
+
+            const firstChildId = titleChildren[0][":db/id"]
+            const firstChildNode = window.roamAlphaAPI.pull("[*]", firstChildId)
+            const firstChildContent = firstChildNode[":block/string"]
+            // console.log(blockString)
+            const settings_str = firstChildContent.replace(/^\u0060\u0060\u0060javascript/, '').replace(/\u0060\u0060\u0060$/, '') // \u0060 is backtick: `
 
             try {
                 return JSON.parse(settings_str)
             } catch (err) {
-                alert('Error! RoamMonkey/settings are not valid json')
+                console.log(this.VUE_APP_NAME + `: ${settings_str} is not valid json`)
+                alert('Error! Content of first block in RoamMonkey/settings is not valid json')
                 return false
             }
         }
