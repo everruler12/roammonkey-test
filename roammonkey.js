@@ -2,8 +2,9 @@
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
-// Detect if already loaded. Helpful to prevent duplicates on roam/js start/stop.
-if (!!$('script[src$="/roammonkey.js"]').length) // Detect RoamMonkey already loaded.
+// Every time a roam/js block is started or stopped, all other roam/js blocks are reloaded.
+// This detects whether RoamMonkey is already loaded, and will prevent further execution if duplicated.
+if ($('script[src$="/roammonkey.js"]').length > 1) // RoamMonkey is duplicated
     throw new Error('RoamMonkey: already loaded. Please refresh the page to load again.')
 else
     console.log('RoamMonkey: loaded')
