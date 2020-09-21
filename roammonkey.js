@@ -1,4 +1,12 @@
-console.log('RoamMonkey: loaded')
+// Using imports to prevent duplicates and to wait for jQuery to initialize before continuing
+import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+
+// Detect if already loaded. Helpful to prevent duplicates on roam/js start/stop.
+if (!!$('script[src$="/roammonkey.js"]').length) // Detect RoamMonkey already loaded.
+    throw new Error('RoamMonkey: already loaded. Please refresh the page to load again.')
+else
+    console.log('RoamMonkey: loaded')
 
 window.roamMonkey = (function() { // shared functions
 
@@ -26,8 +34,8 @@ window.roamMonkey = (function() { // shared functions
 
         // stop if file already exists
         const els = Array.from(document.getElementsByTagName(tag))
-        const duplicates = els.filter(el => el[urlAttr] == url)
-        if (duplicates.length > 0) {
+        const duplicate = !!els.find(el => el[urlAttr] == url)
+        if (duplicate) {
             console.log(`RoamMonkey: already exists, not appended ${url}`)
             return
         }
@@ -44,7 +52,7 @@ window.roamMonkey = (function() { // shared functions
         function refreshAfterSync() {
             const isSyncing = document.getElementsByClassName('rm-saving-remote').length
             if (isSyncing) setTimeout(refreshAfterSync, 50)
-            else location.reload(true) // refresh page
+            else location.reload() // refresh page
         }
         setTimeout(refreshAfterSync, 100)
     }
@@ -55,9 +63,7 @@ window.roamMonkey = (function() { // shared functions
     }
 })()
 
-// Using imports to prevent duplicates and to wait for jQuery to initialize before continuing
-import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
+
 
 new Vue({
     data: {
