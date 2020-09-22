@@ -3,11 +3,17 @@ import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 (function() {
-    // Every time a roam/js block is started or stopped, all other roam/js blocks are reloaded.
-    // This detects whether RoamMonkey is already loaded, and will prevent further execution if duplicated.
+     // Checks to stop execution of whole script
+    
     if ($('script[src$="/roammonkey.js"]').length > 1) { // RoamMonkey is duplicated
+        // Every time a roam/js block is started or stopped, all other roam/js blocks are reloaded.
+        // This detects whether RoamMonkey is already loaded, and will prevent further execution if duplicated.
         console.log('RoamMonkey: already loaded. Please refresh the page to load again.')
-        return // will stop exectuion of whole script
+        return
+    } else if (!!navigator.userAgent.match('Headless')) { // stop if roam-to-git
+        // This will prevent loading other scripts if Roam is being fetched for an automatic backup
+        console.log('RoamMonkey: Headless user agent detected. Stopped script.')
+        return
     } else {
         console.log('RoamMonkey: loaded')
     }
