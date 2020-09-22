@@ -1,17 +1,18 @@
 // Using imports to prevent duplicates and to wait for jQuery to initialize before continuing
 import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
-alert('hi');
+// maybe import only if not detected
+
 (function() {
     // Checks to stop execution of whole script
-    if ($('script[src$="/roammonkey.js"]').length > 1) { // RoamMonkey is duplicated
-        // Every time a roam/js block is started or stopped, all other roam/js blocks are reloaded.
-        // This detects whether RoamMonkey is already loaded, and will prevent further execution if duplicated.
-        console.log('RoamMonkey: already loaded. Please refresh the page to load again.')
-        return
-    } else if (!!navigator.userAgent.match('Headless')) { // stop if roam-to-git
+    if (!!navigator.userAgent.match('Headless')) { // stop if roam-to-git
         // This will prevent loading other scripts if Roam is being fetched for an automatic backup
         console.log('RoamMonkey: Headless user agent detected. Stopped script.')
+        return
+    } else if ($('script[src$="/roammonkey.js"]').length > 1) { // RoamMonkey is duplicated
+        // Every time a roam/js block is started or stopped, all other roam/js blocks are reloaded. But script isn't run if already appended?
+        // This detects whether RoamMonkey is already loaded, and will prevent further execution if duplicated.
+        console.log('RoamMonkey: already loaded. Please refresh the page to load again.')
         return
     } else {
         console.log('RoamMonkey: loaded')
@@ -21,7 +22,35 @@ alert('hi');
 
     window.roamMonkey = (function() { // shared functions
 
-        function appendFile(url, attr) {
+        function appendFile(url, {
+            attr,
+            wait
+        }) {
+            // change imports to normal loading, and add shared function of waiting for script to load with my waiting function
+            // maybe pass object to append file with props: url (which can also be a string without other settings), attr, ext (to use in case url doesn't end with extension), wait (which is an object containing condition funciton, optional timeout settings with defaults)
+
+
+            ({
+                condition, // function
+                timeoutStep, // optional positive integer, default 50
+                timeoutLimit //optional positive integer, default 1000
+            } = wait)
+
+            function typeIsObjNotArr(test) {
+                return typeof test == 'object' && !Array.isArray(test)
+            }
+
+            if (!settings) {
+                console.log('appendFile: Error!  Missing parameters.')
+                return
+            }
+            if (typeof settings == 'string') {
+                url = settings
+            }
+            if (typeIsObjNotArr(settings)) {
+
+            }
+
             // url must end with .js or .css
             // attr is an optional object containing attributes for <script> and <link>
 
