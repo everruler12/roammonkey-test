@@ -22,24 +22,25 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
     window.roamMonkey = (function() { // shared functions
 
-        function appendFile(url, {
-            attr,
-            wait
-        }) {
+        function appendFile(url, attr) {
+            // function appendFile(url, {
+            //     attr,
+            //     wait
+            // }) {
             // change imports to normal loading, and add shared function of waiting for script to load with my waiting function
             // maybe pass object to append file with props: url (which can also be a string without other settings), attr, ext (to use in case url doesn't end with extension), wait (which is an object containing condition funciton, optional timeout settings with defaults)
 
-            if (wait) {
-                ({
-                    condition, // function
-                    timeoutStep, // optional positive integer, default 50
-                    timeoutLimit //optional positive integer, default 1000
-                } = wait)
-            }
+            // if (wait) {
+            //     ({
+            //         condition, // function
+            //         timeoutStep, // optional positive integer, default 50
+            //         timeoutLimit //optional positive integer, default 1000
+            //     } = wait)
+            // }
 
-            function typeIsObjNotArr(test) {
-                return typeof test == 'object' && !Array.isArray(test)
-            }
+            // function typeIsObjNotArr(test) {
+            //     return typeof test == 'object' && !Array.isArray(test)
+            // }
 
             // url must end with .js or .css
             // attr is an optional object containing attributes for <script> and <link>
