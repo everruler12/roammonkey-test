@@ -41,19 +41,9 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 return typeof test == 'object' && !Array.isArray(test)
             }
 
-            if (!settings) {
-                console.log('appendFile: Error!  Missing parameters.')
-                return
-            }
-            if (typeof settings == 'string') {
-                url = settings
-            }
-            if (typeIsObjNotArr(settings)) {
-
-            }
-
             // url must end with .js or .css
             // attr is an optional object containing attributes for <script> and <link>
+            // wait is a delay for a condition
 
             attr = typeof attr == 'object' && !Array.isArray(attr) ? attr : {}
 
