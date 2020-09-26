@@ -1,2 +1,2 @@
 
-now rm non-prod deployments.bat
+vercel rm non-prod deployments.bat
