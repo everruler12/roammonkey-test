@@ -164,25 +164,21 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
                 <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
-                <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Placeholder'" :aria-hidden="panel_tab != 'Placeholder'" :aria-selected="panel_tab == 'Placeholder'">Placeholder</li>
             </ul>
 
             <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
                 <h3 class="bp3-heading">Scripts</h3>
                 
-                <label class="bp3-control bp3-switch" v-for="package in roam_packages.packages">
+                <label class="bp3-control bp3-switch" v-for="pack in registry.packages">
                     <input type="checkbox" />
                     <span class="bp3-control-indicator"></span>
-                    {{package.name}}
+                    {{pack.name}}
                 </label>
             </div>
 
-            <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
-                <h3 class="bp3-heading">Packages</h3>
-                <div v-for="package in package_registry">
-                    <input :value="package" style="width: 100%;">
-                    <br>
-                </div>
+            <div class="bp3-tab-panel" v-show="panel_tab == 'Placeholder'">
+                <h3 class="bp3-heading">Placeholder</h3>
             </div>
         </div>
         <br>
@@ -211,11 +207,11 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 let registry = await res.json()
                 console.log(this.VUE_APP_NAME + ': registry', registry)
 
-                this.settings = registry.packages.map(package => {
-                    ls = _this.settings.find(x => x.id == package.id)
+                this.settings = registry.packages.map(pack => {
+                    ls = _this.settings.find(x => x.id == pack.id)
 
                     return {
-                        package_id = package.id,
+                        package_id = pack.id,
                         enabled = ls ? ls.enabled : false
                     }
                 })
@@ -228,8 +224,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
                 this.settings.map(setting => {
                     if (setting.enabled) {
-                        let package = _this.registry.packages.find(setting.id)
-                        roamMonkey.appendFile(package.src)
+                        let pack = _this.registry.packages.find(setting.id)
+                        roamMonkey.appendFile(pack.src)
                     }
                 })
 
