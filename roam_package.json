@@ -1,0 +1,40 @@
+{
+    "authors": [{
+        "id": "dvargas92495",
+        "name": "David Vargas",
+        "website": "https://roam.davidvargas.me/",
+        "github": "https://github.com/dvargas92495/roam-js-extensions/",
+        "twitter": "https://twitter.com/dvargas92495"
+    }],
+    "packages": [{
+        "name": "Sort Linked References",
+        "src": "https://roam.davidvargas.me/master/sort-references.js",
+        "id": "sort-references",
+        "author_id": "dvargas92495",
+        "description": "Adds an icon button to the user's page that could be used to sort linked references.",
+        "link_to_webpage": "https://roam.davidvargas.me/extensions/sort-references/",
+        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/sort-references.ts",
+        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/7l5v9WCg9",
+        "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-references"
+    }, {
+        "name": "Query Tools",
+        "src": "https://roam.davidvargas.me/master/query-tools.js",
+        "id": "sort-queries",
+        "author_id": "dvargas92495",
+        "description": "Adds various tools on top of traditional Roam queries to make them more powerful.",
+        "link_to_webpage": "https://roam.davidvargas.me/extensions/query-tools/",
+        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/query-tools.ts",
+        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/TJGj-KfaB",
+        "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-queries"
+    }, {
+        "name": "Image Tagging",
+        "src": "https://roam.davidvargas.me/master/image-tagging.js",
+        "id": "image-ocr",
+        "author_id": "dvargas92495",
+        "description": "Extracts the text from an image and outputs it into Roam.",
+        "link_to_webpage": "https://roam.davidvargas.me/extensions/image-tagging/",
+        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/image-tagging.ts",
+        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/3fGX8Hbfa",
+        "link_to_roamdepotdevs": "https://roamdepotdevs.com/image-ocr"
+    }]
+}
