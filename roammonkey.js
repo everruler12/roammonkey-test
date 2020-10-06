@@ -161,7 +161,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 const panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
+    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%; background-color: black;">
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
                 <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
@@ -172,7 +172,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 <h3 class="bp3-heading">Scripts</h3>
                 
                 <label class="bp3-control bp3-switch" v-for="pack in registry.packages">
-                    <input type="checkbox" />
+                    <input type="checkbox" :checked="pack.enabled"/>
                     <span class="bp3-control-indicator"></span>
                     {{pack.name}}
                 </label>
@@ -208,24 +208,19 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 let registry = await res.json()
                 console.log(this.VUE_APP_NAME + ': registry', registry)
 
-                this.settings = registry.packages.map(pack => {
+                // add enabled setting to registry
+                this.registry = registry.packages.map(pack => {
                     ls = _this.settings.find(x => x.id == pack.id)
-
-                    return {
-                        package_id: pack.id,
-                        enabled: ls ? ls.enabled : false
-                    }
+                    pack.enabled = ls ? ls.enabled : false
+                    return pack
                 })
 
                 this.loadScripts()
             },
 
             async loadScripts() {
-                let _this = this
-
-                this.settings.map(setting => {
-                    if (setting.enabled) {
-                        let pack = _this.registry.packages.find(setting.id)
+                this.registry.packages.map(pack => {
+                    if (pack.enabled) {
                         roamMonkey.appendFile(pack.src)
                     }
                 })
@@ -253,7 +248,12 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
             save() {
 
-                window.localStorage.roamMonkey = JSON.stringify(this.settings)
+                window.localStorage.roamMonkey = JSON.stringify(this.registry.map(pack => {
+                    return {
+                        id: pack.id,
+                        enabled: pack.enabled
+                    }
+                }))
 
                 roamMonkey.refresh()
             },
