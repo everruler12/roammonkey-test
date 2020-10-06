@@ -105,7 +105,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             VUE_APP_NAME: 'roamMonkeyVue',
             titleOfSettingsPage: 'RoamMonkey/settings',
             registry_link: 'https://roammonkey-test.vercel.app/roammonkey_registry.json',
-            roam_packages: [],
+            registry: [],
+            settings: [],
             showPanel: false,
             panel_tab: 'Scripts',
             saved: []
