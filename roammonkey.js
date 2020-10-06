@@ -211,8 +211,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                     ls = _this.settings.find(x => x.id == pack.id)
 
                     return {
-                        package_id = pack.id,
-                        enabled = ls ? ls.enabled : false
+                        package_id: pack.id,
+                        enabled: ls ? ls.enabled : false
                     }
                 })
 
