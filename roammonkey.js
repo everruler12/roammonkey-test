@@ -173,7 +173,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 <label class="bp3-control bp3-switch" v-for="pack in registry_packages">
                     <input type="checkbox" v-model="pack.enabled"/>
                     <span class="bp3-control-indicator"></span>
-                    {{pack.name}}
+                    {{pack.name}} by {{pack.author_id}}
                 </label>
             </div>
 
@@ -219,8 +219,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
             async loadScripts() {
                 function loadDependencies(dependencies) {
-                    if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
-                    else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
+                    if (typeof dependencies == "string") roamMonkey.appendFile(dependencies)
+                    else if (Array.isArray(dependencies)) dependencies.map(roamMonkey.appendFile)
                 }
 
                 this.registry_packages.map(pack => {
