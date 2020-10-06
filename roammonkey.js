@@ -167,8 +167,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 <li class="bp3-tab" role="tab" @click="panel_tab = 'Placeholder'" :aria-hidden="panel_tab != 'Placeholder'" :aria-selected="panel_tab == 'Placeholder'">Placeholder</li>
             </ul>
 
-            <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
-                <h3 class="bp3-heading">Scripts</h3>
+            <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'" style="text-align: left;">
+                <h3 class="bp3-heading">RoamMonkey Scripts</h3>
                 
                 <label class="bp3-control bp3-switch" v-for="pack in registry_packages">
                     <input type="checkbox" v-model="pack.enabled"/>
