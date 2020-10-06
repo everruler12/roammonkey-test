@@ -104,7 +104,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
         data: {
             VUE_APP_NAME: 'roamMonkeyVue',
             titleOfSettingsPage: 'RoamMonkey/settings',
-            roam_packages_link: 'https://roammonkey-test.vercel.app/roam_packages.json',
+            registry_link: 'https://roammonkey-test.vercel.app/roam_packages.json',
             roam_packages: [],
             showPanel: false,
             panel_tab: 'Scripts',
@@ -139,7 +139,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
         mounted() {
             console.log(this.VUE_APP_NAME + ': mounted')
-            this.updateRoamPackages()
+            this.loadRegistry()
         },
 
         methods: {
@@ -232,14 +232,14 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 roamMonkey.refresh()
             },
 
-            updateRoamPackages() {
-                async function loadRoamPackagesLink(url) {
-                    let res = await fetch(url) // fetch is built in on most popular browsers
-                    let json = await res.json()
-                    return json //.forEach(pack => packages.push(pack))
-                }
+            async loadRegistry() {
+                let url = this.registry_link
+                let res = await fetch(url) // fetch is built in on most popular browsers
+                let registry = await res.json()
 
-                let roam_packages = await loadRoamPackagesLink(this.roam_packages_link)
+registry.map()
+
+                let roam_packages = await loadRoamPackagesLink(this.registry_link)
                 // let packages = await Promise.all(this.roam_packages.map(loadPackage))
                 // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
                 console.log('roam_packages', roam_packages)
