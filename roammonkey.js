@@ -218,7 +218,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 roam_packages.packages.forEach(loadScript)
 
                 // load localStorage, go through this.packages and overwrite each setting property if it exists in ls
-                packages.forEach(loadScript) // only if enabled
+                roam_packages.forEach(loadScript) // only if enabled
             },
 
             save() {
