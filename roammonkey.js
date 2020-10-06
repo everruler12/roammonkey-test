@@ -160,25 +160,40 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 <div class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container" v-show="showPanel" style="margin: 250px;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
     <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
+        <div class="bp3-tabs">
+            <ul class="bp3-tab-list">
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
+                <li class="bp3-tab" role="tab" @click="panel_tab = 'Packages'" :aria-hidden="panel_tab != 'Packages'" :aria-selected="panel_tab == 'Packages'">Packages</li>
+            </ul>
 
-        <label class="bp3-control bp3-switch" v-for="package in roam_packages.packages">
-            <input type="checkbox" />
-            <span class="bp3-control-indicator"></span>
-            {{package.name}}
-        </label>
+            <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
+                <h3 class="bp3-heading">Scripts</h3>
+                
+                <label class="bp3-control bp3-switch" v-for="package in roam_packages.packages">
+                    <input type="checkbox" />
+                    <span class="bp3-control-indicator"></span>
+                    {{package.name}}
+                </label>
+            </div>
+
+            <div class="bp3-tab-panel" v-show="panel_tab == 'Packages'">
+                <h3 class="bp3-heading">Packages</h3>
+                <div v-for="package in package_registry">
+                    <input :value="package" style="width: 100%;">
+                    <br>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="bp3-dialog-footer-actions">
+            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
+                <span class="bp3-button-text">Close</span>
+            </button>
+            <button type="button" class="bp3-button bp3-intent-success" @click="save">
+                <span class="bp3-button-text">Save & Refresh</span>
+            </button>
+        </div>
     </div>
-</div>
-
-<br>
-<div class="bp3-dialog-footer-actions">
-    <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
-        <span class="bp3-button-text">Close</span>
-    </button>
-
-    <button type="button" class="bp3-button bp3-intent-success" @click="save">
-        <span class="bp3-button-text">Save & Refresh</span>
-    </button>
-
 </div>`)
 
                 searchBar.after(appEl)
