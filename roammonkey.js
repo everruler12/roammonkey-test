@@ -107,7 +107,8 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             roam_packages_link: 'https://roammonkey-test.vercel.app/roam_packages.json',
             roam_packages: [],
             showPanel: false,
-
+            panel_tab: 'Scripts',
+            saved: []
         },
 
         computed: {
@@ -138,7 +139,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
         mounted() {
             console.log(this.VUE_APP_NAME + ': mounted')
-            this.loadPackages()
+            this.updateRoamPackages()
         },
 
         methods: {
@@ -203,12 +204,6 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             },
 
             async loadPackages() {
-                async function loadRoamPackagesLink(url) {
-                    let res = await fetch(url) // fetch is built in on most popular browsers
-                    let json = await res.json()
-                    return json //.forEach(pack => packages.push(pack))
-                }
-
                 const loadScript = (pack) => {
                     // check enabled
 
@@ -224,12 +219,6 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
                 }
 
-                let roam_packages = await loadRoamPackagesLink(this.roam_packages_link)
-                // let packages = await Promise.all(this.roam_packages.map(loadPackage))
-                // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
-                console.log('roam_packages', roam_packages)
-                this.roam_packages = roam_packages
-
                 roam_packages.packages.forEach(loadScript)
 
                 // load localStorage, go through this.packages and overwrite each setting property if it exists in ls
@@ -238,11 +227,41 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
             save() {
 
+                window.localStorage.roamMonkey = JSON.stringify(this.saved)
 
                 roamMonkey.refresh()
             },
 
-            loadSettings() {
+            updateRoamPackages() {
+                async function loadRoamPackagesLink(url) {
+                    let res = await fetch(url) // fetch is built in on most popular browsers
+                    let json = await res.json()
+                    return json //.forEach(pack => packages.push(pack))
+                }
+
+                let roam_packages = await loadRoamPackagesLink(this.roam_packages_link)
+                // let packages = await Promise.all(this.roam_packages.map(loadPackage))
+                // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
+                console.log('roam_packages', roam_packages)
+                this.roam_packages = roam_packages
+                this.saved = roam_packages.packages.map(x => {
+                    if (roamMonkeyVue.saved.find(y > y.id == x.id))
+                        return {
+                            x.id,
+                        }
+                })
+            },
+
+            loadLocalStorage() {
+                let ls = localStorage.getItem('roamMonkeyLS')
+                if (ls) {
+                    this.compareRoamPackagesToLocalStorage()
+                } else {
+                    this.downloadRoamPackagesToLocalStorage()
+                }
+            },
+
+            loadSettingsFromPage() {
                 function returnIdOfPageTitle(title) {
                     const nodeId = window.roamAlphaAPI.q("[:find ?e :in $ ?a :where [?e :node/title ?a]]", title)
 
