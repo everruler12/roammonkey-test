@@ -105,7 +105,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             VUE_APP_NAME: 'roamMonkeyVue',
             titleOfSettingsPage: 'RoamMonkey/settings',
             registry_link: 'https://roammonkey-test.vercel.app/roammonkey_registry.json',
-            registry: [],
+            registry_packages: [],
             settings: [],
             showPanel: false,
             panel_tab: 'Scripts',
@@ -209,7 +209,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 console.log(this.VUE_APP_NAME + ': registry', registry)
 
                 // add enabled setting to registry
-                this.registry = registry.packages.map(pack => {
+                this.registry_packages = registry.packages.map(pack => {
                     ls = _this.settings.find(x => x.id == pack.id)
                     pack.enabled = ls ? ls.enabled : false
                     return pack
@@ -219,7 +219,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             },
 
             async loadScripts() {
-                this.registry.packages.map(pack => {
+                this.registry_packages.map(pack => {
                     if (pack.enabled) {
                         roamMonkey.appendFile(pack.src)
                     }
