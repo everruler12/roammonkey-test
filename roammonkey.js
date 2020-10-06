@@ -171,7 +171,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'">
                 <h3 class="bp3-heading">Scripts</h3>
                 
-                <label class="bp3-control bp3-switch" v-for="pack in registry.packages">
+                <label class="bp3-control bp3-switch" v-for="pack in registry_packages">
                     <input type="checkbox" :checked="pack.enabled"/>
                     <span class="bp3-control-indicator"></span>
                     {{pack.name}}
@@ -248,7 +248,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
             save() {
 
-                window.localStorage.roamMonkey = JSON.stringify(this.registry.map(pack => {
+                window.localStorage.roamMonkey = JSON.stringify(this.registry_packages.map(pack => {
                     return {
                         id: pack.id,
                         enabled: pack.enabled
