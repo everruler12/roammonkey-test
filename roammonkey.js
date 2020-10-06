@@ -109,7 +109,6 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             settings: [],
             showPanel: false,
             panel_tab: 'Scripts',
-            saved: []
         },
 
         computed: {
@@ -172,7 +171,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 <h3 class="bp3-heading">Scripts</h3>
                 
                 <label class="bp3-control bp3-switch" v-for="pack in registry_packages">
-                    <input type="checkbox" :checked="pack.enabled"/>
+                    <input type="checkbox" v-model="pack.enabled"/>
                     <span class="bp3-control-indicator"></span>
                     {{pack.name}}
                 </label>
@@ -247,13 +246,14 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             },
 
             save() {
-
-                window.localStorage.roamMonkey = JSON.stringify(this.registry_packages.map(pack => {
+                this.settings = this.registry_packages.map(pack => {
                     return {
                         id: pack.id,
                         enabled: pack.enabled
                     }
-                }))
+                })
+
+                window.localStorage.roamMonkey = JSON.stringify(this.settings)
 
                 roamMonkey.refresh()
             },
