@@ -205,7 +205,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 let _this = this
                 let res = await fetch(this.registry_link) // fetch is built in on most popular browsers
                 let registry = await res.json()
-                console.log(this.VUE_APP_NAME + ': registry', registry)
+                // console.log(this.VUE_APP_NAME + ': registry', registry)
 
                 // add enabled setting to registry
                 this.registry_packages = registry.packages.map(pack => {
