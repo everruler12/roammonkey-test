@@ -218,8 +218,17 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             },
 
             async loadScripts() {
+                function loadDependencies(dependencies) {
+                    if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
+                    else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
+                }
+
                 this.registry_packages.map(pack => {
                     if (pack.enabled) {
+                        if (pack.dependencies) {
+                            loadDependencies(pack.dependencies)
+                        }
+
                         roamMonkey.appendFile(pack.src)
                     }
                 })
@@ -227,10 +236,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 // const loadScript = (pack) => {
                 // check enabled
 
-                // if (pack.dependencies) {
-                //     if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
-                //     else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
-                // }
+
 
                 // if (pack.src) {
                 //     if (typeof pack.src == "string") roamMonkey.appendFile(pack.src)

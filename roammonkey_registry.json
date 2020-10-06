@@ -5,6 +5,10 @@
         "website": "https://roam.davidvargas.me/",
         "github": "https://github.com/dvargas92495/roam-js-extensions/",
         "twitter": "https://twitter.com/dvargas92495"
+    }, {
+        "id": "ViktorTabori",
+        "name": "Viktor Tabori",
+        "twitter": "@ViktorTabori"
     }],
     "packages": [{
         "name": "Sort Linked References",
@@ -36,5 +40,23 @@
         "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/image-tagging.ts",
         "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/3fGX8Hbfa",
         "link_to_roamdepotdevs": "https://roamdepotdevs.com/image-ocr"
+    }, {
+        "name": "Roam Templates",
+        "author_id": "ViktorTabori",
+        "src": "https://roammonkey-test.vercel.app/scripts/roam-templates.js",
+        "dependencies": [
+            "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js",
+            "https://roam42.glitch.me/common/commonFunctions.js"
+        ]
+    }, {
+        "name": "Roam Gallery",
+        "author_id": "ViktorTabori",
+        "src": "https://roammonkey-test.vercel.app/scripts/roam-gallery.js",
+        "dependencies": [
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.css"
+        ]
     }]
 }
