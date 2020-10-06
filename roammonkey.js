@@ -104,7 +104,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
         data: {
             VUE_APP_NAME: 'roamMonkeyVue',
             titleOfSettingsPage: 'RoamMonkey/settings',
-            registry_link: 'https://roammonkey-test.vercel.app/roam_packages.json',
+            registry_link: 'https://roammonkey-test.vercel.app/roammonkey_registry.json',
             roam_packages: [],
             showPanel: false,
             panel_tab: 'Scripts',
@@ -203,23 +203,52 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 this.$mount('#' + appId)
             },
 
-            async loadPackages() {
-                const loadScript = (pack) => {
-                    // check enabled
+            async loadRegistry() {
+                this.loadLocalStorage()
 
-                    // if (pack.dependencies) {
-                    //     if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
-                    //     else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
-                    // }
+                let _this = this
+                let res = await fetch(this.registry_link) // fetch is built in on most popular browsers
+                let registry = await res.json()
+                console.log(this.VUE_APP_NAME + ': registry', registry)
 
-                    if (pack.src) {
-                        if (typeof pack.src == "string") roamMonkey.appendFile(pack.src)
-                        else if (Array.isArray(pack.src)) pack.src.map(roamMonkey.appendFile)
+                this.settings = registry.packages.map(package => {
+                    ls = _this.settings.find(x => x.id == package.id)
+
+                    return {
+                        package_id = package.id,
+                        enabled = ls ? ls.enabled : false
                     }
+                })
 
-                }
+                this.loadScripts()
+            },
 
-                roam_packages.packages.forEach(loadScript)
+            async loadScripts() {
+                let _this = this
+
+                this.settings.map(setting => {
+                    if (setting.enabled) {
+                        let package = _this.registry.packages.find(setting.id)
+                        roamMonkey.appendFile(package.src)
+                    }
+                })
+
+                // const loadScript = (pack) => {
+                // check enabled
+
+                // if (pack.dependencies) {
+                //     if (typeof pack.dependencies == "string") roamMonkey.appendFile(pack.dependencies)
+                //     else if (Array.isArray(pack.dependencies)) pack.dependencies.map(roamMonkey.appendFile)
+                // }
+
+                // if (pack.src) {
+                //     if (typeof pack.src == "string") roamMonkey.appendFile(pack.src)
+                //     else if (Array.isArray(pack.src)) pack.src.map(roamMonkey.appendFile)
+                // }
+
+                // }
+
+                // roam_packages.packages.forEach(loadScript)
 
                 // load localStorage, go through this.packages and overwrite each setting property if it exists in ls
                 // roam_packages.forEach(loadScript) // only if enabled
@@ -227,38 +256,15 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
             save() {
 
-                window.localStorage.roamMonkey = JSON.stringify(this.saved)
+                window.localStorage.roamMonkey = JSON.stringify(this.settings)
 
                 roamMonkey.refresh()
             },
 
-            async loadRegistry() {
-                let url = this.registry_link
-                let res = await fetch(url) // fetch is built in on most popular browsers
-                let registry = await res.json()
 
-registry.map()
-
-                let roam_packages = await loadRoamPackagesLink(this.registry_link)
-                // let packages = await Promise.all(this.roam_packages.map(loadPackage))
-                // packages = packages.reduce((a, b) => a.concat(b), []) // flatten array
-                console.log('roam_packages', roam_packages)
-                this.roam_packages = roam_packages
-                this.saved = roam_packages.packages.map(x => {
-                    if (roamMonkeyVue.saved.find(y > y.id == x.id))
-                        return {
-                            x.id,
-                        }
-                })
-            },
 
             loadLocalStorage() {
-                let ls = localStorage.getItem('roamMonkeyLS')
-                if (ls) {
-                    this.compareRoamPackagesToLocalStorage()
-                } else {
-                    this.downloadRoamPackagesToLocalStorage()
-                }
+                this.settings = localStorage.roamMonkey ? JSON.parse(localStorage.roamMonkey) : []
             },
 
             loadSettingsFromPage() {
