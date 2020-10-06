@@ -104,10 +104,9 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
         data: {
             VUE_APP_NAME: 'roamMonkeyVue',
             titleOfSettingsPage: 'RoamMonkey/settings',
-            roam_packages_link: 'https://roammonkey-test.vercel.app/roam_packages/roam_packages.json',
+            roam_packages_link: 'https://roammonkey-test.vercel.app/roam_packages.json',
             roam_packages: [],
             showPanel: false,
-            panel_tab: "Scripts"
 
         },
 
