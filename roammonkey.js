@@ -259,7 +259,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                     }
                 })
 
-                window.localStorage.roamMonkey = JSON.stringify(this.settings)
+                localStorage.roamMonkey = JSON.stringify(this.settings)
 
                 roamMonkey.refresh()
             },
