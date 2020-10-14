@@ -183,10 +183,10 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
         </div>
         <br>
         <div class="bp3-dialog-footer-actions">
-            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false" v-if="(false)">
+            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
                 <span class="bp3-button-text">Close</span>
             </button>
-            <button type="button" class="bp3-button bp3-intent-danger" @click="registry_reload">
+            <button type="button" class="bp3-button bp3-intent-danger" @click="registry_reload" v-if="(false)">
                 <span class="bp3-button-text">Reload registry</span>
             </button>
             <button type="button" class="bp3-button bp3-intent-success" @click="save">
