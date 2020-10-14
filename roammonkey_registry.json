@@ -9,6 +9,10 @@
         "id": "ViktorTabori",
         "name": "Viktor Tabori",
         "twitter": "@ViktorTabori"
+    }, {
+        "id": "roamhacker",
+        "name": "Chris",
+        "twitter": "@roamhacker"
     }],
     "packages": [{
         "name": "Sort Linked References",
@@ -60,5 +64,12 @@
             "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.css",
             "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.css"
         ]
+    }, {
+        "name": "roam42",
+        "src": "https://roammonkey-test.vercel.app/scripts/roam42.js",
+        "id": "roam42",
+        "author_id": "roamhacker",
+        "description": "lots of stuff",
+        "link_to_webpage": "https://roamresearch.com/#/app/roamhacker/page/UeoxCm8rm"
     }]
 }
