@@ -160,7 +160,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 const panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open" v-show="showPanel" style="position: fixed; z-index: 9001;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;" :style="bgcolor">
+    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;" :style="{ background-color: bgcolor }">
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
                 <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
