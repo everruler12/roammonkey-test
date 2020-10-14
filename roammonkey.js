@@ -271,6 +271,10 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 return getComputedStyle($('.roam-app')[0]).backgroundColor
             },
 
+            registry_reload() {
+
+            },
+
 
             loadLocalStorage() {
                 this.settings = localStorage.roamMonkey ? JSON.parse(localStorage.roamMonkey) : []
