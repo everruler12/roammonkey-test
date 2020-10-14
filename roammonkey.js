@@ -200,6 +200,9 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 appEl.append(panel)
                 appEl.before(divider)
                 this.$mount('#' + appId)
+                // NOTE: need to separate panel and button from the same container.
+                // Put panel at end of page, so z-index works over code block language selection dropdown.
+                // But how do I get 2 vue components to communicate with each other?
             },
 
             async loadRegistry() {
