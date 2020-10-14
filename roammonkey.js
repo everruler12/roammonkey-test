@@ -160,7 +160,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                 const panel = $( /* html */ `
 <div class="bp3-overlay bp3-overlay-open" v-show="showPanel" style="position: fixed;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
-    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;">
+    <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;" :style="getComputedStyle($('.roam-app')[0]).backgroundColor">
         <div class="bp3-tabs">
             <ul class="bp3-tab-list">
                 <li class="bp3-tab" role="tab" @click="panel_tab = 'Scripts'" :aria-hidden="panel_tab != 'Scripts'" :aria-selected="panel_tab == 'Scripts'">Scripts</li>
@@ -183,8 +183,11 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
         </div>
         <br>
         <div class="bp3-dialog-footer-actions">
-            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false">
+            <button type="button" class="bp3-button bp3-intent-danger" @click="showPanel=false" v-if="(false)">
                 <span class="bp3-button-text">Close</span>
+            </button>
+            <button type="button" class="bp3-button bp3-intent-danger" @click="registry_reload">
+                <span class="bp3-button-text">Reload registry</span>
             </button>
             <button type="button" class="bp3-button bp3-intent-success" @click="save">
                 <span class="bp3-button-text">Save & Refresh</span>
