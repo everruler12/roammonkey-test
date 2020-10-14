@@ -268,7 +268,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             },
 
             bgcolor() {
-                return getComputedStyle($('.roam-app')[0]).backgroundColor
+                return getComputedStyle($('.roam-app')[0]).backgroundColor || "white"
             },
 
             registry_reload() {
