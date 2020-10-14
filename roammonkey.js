@@ -158,7 +158,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 </span>`)
 
                 const panel = $( /* html */ `
-<div class="bp3-overlay bp3-overlay-open" v-show="showPanel" style="position: fixed;">
+<div class="bp3-overlay bp3-overlay-open" v-show="showPanel" style="position: fixed; z-index: 9001;">
     <div class="bp3-overlay-backdrop bp3-overlay-enter-done" tabindex="0"></div>
     <div class="bp3-card bp3-elevation-4 bp3-overlay-content bp3-overlay-enter-done" tabindex="0" style="width: 100%;" :style="getComputedStyle($('.roam-app')[0]).backgroundColor">
         <div class="bp3-tabs">
