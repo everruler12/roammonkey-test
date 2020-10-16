@@ -16,7 +16,7 @@
     }],
     "packages": [{
         "name": "Sort Linked References",
-        "src": "https://roam.davidvargas.me/master/sort-references.js",
+        "src": "https://roamjs.com/sort-references.js",
         "id": "sort-references",
         "author_id": "dvargas92495",
         "description": "Adds an icon button to the user's page that could be used to sort linked references.",
@@ -26,7 +26,7 @@
         "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-references"
     }, {
         "name": "Query Tools",
-        "src": "https://roam.davidvargas.me/master/query-tools.js",
+        "src": "https://roamjs.com/query-tools.js",
         "id": "sort-queries",
         "author_id": "dvargas92495",
         "description": "Adds various tools on top of traditional Roam queries to make them more powerful.",
@@ -36,7 +36,7 @@
         "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-queries"
     }, {
         "name": "Image Tagging",
-        "src": "https://roam.davidvargas.me/master/image-tagging.js",
+        "src": "https://roamjs.com/image-tagging.js",
         "id": "image-ocr",
         "author_id": "dvargas92495",
         "description": "Extracts the text from an image and outputs it into Roam.",
