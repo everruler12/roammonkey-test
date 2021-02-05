@@ -1,0 +1,38 @@
+{
+    "author": {
+        "id": "dvargas92495",
+        "name": "David Vargas",
+        "website": "https://roamjs.com/",
+        "github": "https://github.com/dvargas92495/roam-js-extensions/",
+        "twitter": "https://twitter.com/dvargas92495"
+    },
+    "packages": [{
+        "name": "Sort Linked References",
+        "src": "https://roamjs.com/sort-references.js",
+        "author_id": "dvargas92495",
+        "version": "",
+        "description": "Adds an icon button to the user's page that could be used to sort linked references.",
+        "links": {
+            "Documentation": "https://roamjs.com/docs/extensions/sort-references/",
+            "Source Code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/sort-references.ts"
+        }
+    }, {
+        "name": "Query Tools",
+        "src": "https://roamjs.com/query-tools.js",
+        "author_id": "dvargas92495",
+        "description": "Adds various tools on top of traditional Roam queries to make them more powerful.",
+        "links": {
+            "Documentation": "https://roamjs.com/docs/extensions/query-tools/",
+            "Source Code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/query-tools.ts"
+        }
+    }, {
+        "name": "Image Tagging",
+        "src": "https://roamjs.com/image-tagging.js",
+        "author_id": "dvargas92495",
+        "description": "Extracts the text from an image and outputs it into Roam.",
+        "links": {
+            "Documentation": "https://roamjs.com/docs/extensions/image-tagging/",
+            "Source Code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/image-tagging.ts"
+        }
+    }]
+}
