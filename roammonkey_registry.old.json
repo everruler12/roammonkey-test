@@ -1,0 +1,75 @@
+{
+    "authors": [{
+        "id": "dvargas92495",
+        "name": "David Vargas",
+        "website": "https://roam.davidvargas.me/",
+        "github": "https://github.com/dvargas92495/roam-js-extensions/",
+        "twitter": "https://twitter.com/dvargas92495"
+    }, {
+        "id": "ViktorTabori",
+        "name": "Viktor Tabori",
+        "twitter": "@ViktorTabori"
+    }, {
+        "id": "roamhacker",
+        "name": "Chris",
+        "twitter": "@roamhacker"
+    }],
+    "packages": [{
+        "name": "Sort Linked References",
+        "src": "https://roamjs.com/sort-references.js",
+        "id": "sort-references",
+        "author_id": "dvargas92495",
+        "description": "Adds an icon button to the user's page that could be used to sort linked references.",
+        "link_to_webpage": "https://roam.davidvargas.me/extensions/sort-references/",
+        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/sort-references.ts",
+        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/7l5v9WCg9",
+        "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-references"
+    }, {
+        "name": "Query Tools",
+        "src": "https://roamjs.com/query-tools.js",
+        "id": "sort-queries",
+        "author_id": "dvargas92495",
+        "description": "Adds various tools on top of traditional Roam queries to make them more powerful.",
+        "link_to_webpage": "https://roam.davidvargas.me/extensions/query-tools/",
+        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/query-tools.ts",
+        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/TJGj-KfaB",
+        "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-queries"
+    }, {
+        "name": "Image Tagging",
+        "src": "https://roamjs.com/image-tagging.js",
+        "id": "image-tagging",
+        "author_id": "dvargas92495",
+        "description": "Extracts the text from an image and outputs it into Roam.",
+        "links": {
+            "Documentation": "https://roam.davidvargas.me/extensions/image-tagging/",
+            "Source Code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/image-tagging.ts"
+        }
+    }, {
+        "name": "Roam Templates",
+        "author_id": "ViktorTabori",
+        "src": "https://roammonkey-test.vercel.app/scripts/roam-templates.js",
+        "id": "roam-templates",
+        "dependencies": [
+            "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js",
+            "https://roammonkey-test.vercel.app/scripts/commonFunctions.js"
+        ]
+    }, {
+        "name": "Roam Gallery",
+        "author_id": "ViktorTabori",
+        "src": "https://roammonkey-test.vercel.app/scripts/roam-gallery.js",
+        "id": "roam-gallery",
+        "dependencies": [
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.css"
+        ]
+    }, {
+        "name": "roam42",
+        "src": "https://roammonkey-test.vercel.app/scripts/roam42.js",
+        "id": "roam42",
+        "author_id": "roamhacker",
+        "description": "lots of stuff",
+        "link_to_webpage": "https://roamresearch.com/#/app/roamhacker/page/UeoxCm8rm"
+    }]
+}

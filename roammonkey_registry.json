@@ -1,75 +1,347 @@
 {
-    "authors": [{
-        "id": "dvargas92495",
-        "name": "David Vargas",
-        "website": "https://roam.davidvargas.me/",
-        "github": "https://github.com/dvargas92495/roam-js-extensions/",
-        "twitter": "https://twitter.com/dvargas92495"
-    }, {
-        "id": "ViktorTabori",
-        "name": "Viktor Tabori",
-        "twitter": "@ViktorTabori"
-    }, {
-        "id": "roamhacker",
-        "name": "Chris",
-        "twitter": "@roamhacker"
-    }],
-    "packages": [{
-        "name": "Sort Linked References",
-        "src": "https://roamjs.com/sort-references.js",
-        "id": "sort-references",
-        "author_id": "dvargas92495",
-        "description": "Adds an icon button to the user's page that could be used to sort linked references.",
-        "link_to_webpage": "https://roam.davidvargas.me/extensions/sort-references/",
-        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/sort-references.ts",
-        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/7l5v9WCg9",
-        "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-references"
-    }, {
-        "name": "Query Tools",
-        "src": "https://roamjs.com/query-tools.js",
-        "id": "sort-queries",
-        "author_id": "dvargas92495",
-        "description": "Adds various tools on top of traditional Roam queries to make them more powerful.",
-        "link_to_webpage": "https://roam.davidvargas.me/extensions/query-tools/",
-        "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/query-tools.ts",
-        "link_to_roamdepotdevs_graph": "https://roamresearch.com/#/app/roam-depot-developers/page/TJGj-KfaB",
-        "link_to_roamdepotdevs": "https://roamdepotdevs.com/sort-queries"
-    }, {
-        "name": "Image Tagging",
-        "src": "https://roamjs.com/image-tagging.js",
-        "id": "image-tagging",
-        "author_id": "dvargas92495",
-        "description": "Extracts the text from an image and outputs it into Roam.",
-        "links": {
-            "Documentation": "https://roam.davidvargas.me/extensions/image-tagging/",
-            "Source Code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/image-tagging.ts"
+    "authors": [
+        {
+            "id": "dvargas92495",
+            "name": "David Vargas",
+            "website": "https://roam.davidvargas.me/",
+            "github": "https://github.com/dvargas92495/roam-js-extensions/",
+            "twitter": "https://twitter.com/dvargas92495"
+        },
+        {
+            "id": "ViktorTabori",
+            "name": "Viktor Tabori",
+            "twitter": "@ViktorTabori"
+        },
+        {
+            "id": "roamhacker",
+            "name": "Chris",
+            "twitter": "@roamhacker"
         }
-    }, {
-        "name": "Roam Templates",
-        "author_id": "ViktorTabori",
-        "src": "https://roammonkey-test.vercel.app/scripts/roam-templates.js",
-        "id": "roam-templates",
-        "dependencies": [
-            "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js",
-            "https://roammonkey-test.vercel.app/scripts/commonFunctions.js"
-        ]
-    }, {
-        "name": "Roam Gallery",
-        "author_id": "ViktorTabori",
-        "src": "https://roammonkey-test.vercel.app/scripts/roam-gallery.js",
-        "id": "roam-gallery",
-        "dependencies": [
-            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.css"
-        ]
-    }, {
-        "name": "roam42",
-        "src": "https://roammonkey-test.vercel.app/scripts/roam42.js",
-        "id": "roam42",
-        "author_id": "roamhacker",
-        "description": "lots of stuff",
-        "link_to_webpage": "https://roamresearch.com/#/app/roamhacker/page/UeoxCm8rm"
-    }]
+    ],
+    "packages": [
+        {
+            "name": "Alert",
+            "src": "https://roamjs.com/alert.js",
+            "id": "alert",
+            "author_id": "dvargas92495",
+            "description": "Schedule alerts to appear while working in RoamAlert",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/alert",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/alert.ts"
+        },
+        {
+            "name": "Article",
+            "src": "https://roamjs.com/article.js",
+            "id": "article",
+            "author_id": "dvargas92495",
+            "description": "The Article extension allows users to import articles into their Roam DB!Article",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/article",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/article.ts"
+        },
+        {
+            "name": "Attr Tables",
+            "src": "https://roamjs.com/attr-tables.js",
+            "id": "attr-tables",
+            "author_id": "dvargas92495",
+            "description": "The Attr Tables extensions adds various features to attribute tables.Attr Tables",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/attr-tables",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/attr-tables.ts"
+        },
+        {
+            "name": "Charts",
+            "src": "https://roamjs.com/charts.js",
+            "id": "charts",
+            "author_id": "dvargas92495",
+            "description": "The Charts extension allows users to render excel-esque charts in Roam!Charts",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/charts",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/charts.ts"
+        },
+        {
+            "name": "Emojis",
+            "src": "https://roamjs.com/emojis.js",
+            "id": "emojis",
+            "author_id": "dvargas92495",
+            "description": "The Roam Emoji extension allows users to use familiar colon syntax to insert emojis into the text block.Emojis",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/emojis",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/emojis.ts"
+        },
+        {
+            "name": "Filter Embeds",
+            "src": "https://roamjs.com/filter-embeds.js",
+            "id": "filter-embeds",
+            "author_id": "dvargas92495",
+            "description": "Filter tags from embedded blocks using the page filters from aboveFilter Embeds",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/filter-embeds",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/filter-embeds.ts"
+        },
+        {
+            "name": "Giphy",
+            "src": "https://roamjs.com/giphy.js",
+            "id": "giphy",
+            "author_id": "dvargas92495",
+            "description": "This extension allows quickly inserting GIFs from Giphy into Roam!Giphy",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/giphy",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/giphy.ts"
+        },
+        {
+            "name": "Github",
+            "src": "https://roamjs.com/github.js",
+            "id": "github",
+            "author_id": "dvargas92495",
+            "description": "The Github to Roam Integration allows users to import various types of data from Github and bring into their Roam Database.Github",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/github",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/github.ts"
+        },
+        {
+            "name": "Google Calendar",
+            "src": "https://roamjs.com/google-calendar.js",
+            "id": "google-calendar",
+            "author_id": "dvargas92495",
+            "description": "The Google Calendar to Roam Integration allows users to import the list of events on a given day into their daily notes page.Google Calendar",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/google-calendar",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/google-calendar.ts"
+        },
+        {
+            "name": "Hex Color Preview",
+            "src": "https://roamjs.com/hex-color-preview.js",
+            "id": "hex-color-preview",
+            "author_id": "dvargas92495",
+            "description": "The Hex Color Preview extension renders a preview square of the color next to valid tagged hex codes.Hex Color Preview",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/hex-color-preview",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/hex-color-preview.ts"
+        },
+        {
+            "name": "Image Tagging",
+            "src": "https://roamjs.com/image-tagging.js",
+            "id": "image-tagging",
+            "author_id": "dvargas92495",
+            "description": "The Image Tagging extension extracts the text from an image and outputs it into Roam!Image Tagging",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/image-tagging",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/image-tagging.ts"
+        },
+        {
+            "name": "Maps",
+            "src": "https://roamjs.com/maps.js",
+            "id": "maps",
+            "author_id": "dvargas92495",
+            "description": "The Maps extension will render interactive maps directly in your graph!Maps",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/maps",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/maps.ts"
+        },
+        {
+            "name": "Mindmap",
+            "src": "https://roamjs.com/mindmap.js",
+            "id": "mindmap",
+            "author_id": "dvargas92495",
+            "description": "Use the Mindmap extension to visualize pieces of your Roam graph as a mindmap.Mindmap",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/mindmap",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/mindmap.ts"
+        },
+        {
+            "name": "Mobile Todos",
+            "src": "https://roamjs.com/mobile-todos.js",
+            "id": "mobile-todos",
+            "author_id": "dvargas92495",
+            "description": "The Mobile TODO extension provides users with the TODO/DONE shortcut previously only accessible to keyboard shortcuts.Mobile Todos",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/mobile-todos",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/mobile-todos.ts"
+        },
+        {
+            "name": "Mouseless",
+            "src": "https://roamjs.com/mouseless.js",
+            "id": "mouseless",
+            "author_id": "dvargas92495",
+            "description": "The Mouseless Roam extension aims to create a fully keyboard accessible experience in Roam!Mouseless",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/mouseless",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/mouseless.ts"
+        },
+        {
+            "name": "Oura Ring",
+            "src": "https://roamjs.com/oura-ring.js",
+            "id": "oura-ring",
+            "author_id": "dvargas92495",
+            "description": "The Oura Ring to Roam Integration allows users to import their daily summaries on a given day into their daily notes page.Oura Ring",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/oura-ring",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/oura-ring.ts"
+        },
+        {
+            "name": "Page Synonyms",
+            "src": "https://roamjs.com/page-synonyms.js",
+            "id": "page-synonyms",
+            "author_id": "dvargas92495",
+            "description": "The Page Synonyms extension allows you to define synonyms for pages to allow for easier referencing between common terms.Page Synonyms",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/page-synonyms",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/page-synonyms.ts"
+        },
+        {
+            "name": "Postman",
+            "src": "https://roamjs.com/postman.js",
+            "id": "postman",
+            "author_id": "dvargas92495",
+            "description": "Send Roam Blocks data to any third party API!Postman",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/postman",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/postman.ts"
+        },
+        {
+            "name": "Presentation",
+            "src": "https://roamjs.com/presentation.js",
+            "id": "presentation",
+            "author_id": "dvargas92495",
+            "description": "Use this extension to build slideshow presentations from within Roam!Presentation",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/presentation",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/presentation.ts"
+        },
+        {
+            "name": "Pull References",
+            "src": "https://roamjs.com/pull-references.js",
+            "id": "pull-references",
+            "author_id": "dvargas92495",
+            "description": "The Pull References gives user the ability to pull references to the page.Pull References",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/pull-references",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/pull-references.ts"
+        },
+        {
+            "name": "Query Builder",
+            "src": "https://roamjs.com/query-builder.js",
+            "id": "query-builder",
+            "author_id": "dvargas92495",
+            "description": "The Query Builder extension introduces a new user interface for building queries and outputting the query syntax into the block.Query Builder",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/query-builder",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/query-builder.ts"
+        },
+        {
+            "name": "Query Tools",
+            "src": "https://roamjs.com/query-tools.js",
+            "id": "query-tools",
+            "author_id": "dvargas92495",
+            "description": "The Query Tools extension adds various tools on top of traditional Roam queries to make them more powerfulQuery Tools",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/query-tools",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/query-tools.ts"
+        },
+        {
+            "name": "Slack",
+            "src": "https://roamjs.com/slack.js",
+            "id": "slack",
+            "author_id": "dvargas92495",
+            "description": "The Slack extension helps connect Roam to a Slack organization!Slack",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/slack",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/slack.ts"
+        },
+        {
+            "name": "Sort References",
+            "src": "https://roamjs.com/sort-references.js",
+            "id": "sort-references",
+            "author_id": "dvargas92495",
+            "description": "The Sort Linked References extension adds an icon button to the user page that could be used to sort linked references.Sort References",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/sort-references",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/sort-references.ts"
+        },
+        {
+            "name": "Tag Cycle",
+            "src": "https://roamjs.com/tag-cycle.js",
+            "id": "tag-cycle",
+            "author_id": "dvargas92495",
+            "description": "The Tag Cycle Extension allows users to define custom cycles tied to a keyboard shortcut!Tag Cycle",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/tag-cycle",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/tag-cycle.ts"
+        },
+        {
+            "name": "Tally",
+            "src": "https://roamjs.com/tally.js",
+            "id": "tally",
+            "author_id": "dvargas92495",
+            "description": "The Tally extension introduces a tally button component to use directly in your Roam database!Tally",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/tally",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/tally.ts"
+        },
+        {
+            "name": "Timeline",
+            "src": "https://roamjs.com/timeline.js",
+            "id": "timeline",
+            "author_id": "dvargas92495",
+            "description": "Create a Timeline View From Your Roam Graph!Timeline",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/timeline",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/timeline.ts"
+        },
+        {
+            "name": "Todo Trigger",
+            "src": "https://roamjs.com/todo-trigger.js",
+            "id": "todo-trigger",
+            "author_id": "dvargas92495",
+            "description": "The TODO Trigger extension allows the user to tie an action upon converting a TODO to DONE.Todo Trigger",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/todo-trigger",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/todo-trigger.ts"
+        },
+        {
+            "name": "Todont",
+            "src": "https://roamjs.com/todont.js",
+            "id": "todont",
+            "author_id": "dvargas92495",
+            "description": "The Archiving TODOs extension allows users to use the CTRL+SHIFT+ENTER keyboard shortcut to archive a TODO.Todont",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/todont",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/todont.ts"
+        },
+        {
+            "name": "Twitter",
+            "src": "https://roamjs.com/twitter.js",
+            "id": "twitter",
+            "author_id": "dvargas92495",
+            "description": "The Twitter integration connects your Roam graph to Twitter!Twitter",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/twitter",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/twitter.ts"
+        },
+        {
+            "name": "Video",
+            "src": "https://roamjs.com/video.js",
+            "id": "video",
+            "author_id": "dvargas92495",
+            "description": "Inline Video Uploads!Video",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/video",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/video.ts"
+        },
+        {
+            "name": "Wiki Data",
+            "src": "https://roamjs.com/wiki-data.js",
+            "id": "wiki-data",
+            "author_id": "dvargas92495",
+            "description": "The Wiki Data Integration allows importing wikipedia data into Roam!Wiki Data",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/wiki-data",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/wiki-data.ts"
+        },
+        {
+            "name": "Wysiwyg Mode",
+            "src": "https://roamjs.com/wysiwyg-mode.js",
+            "id": "wysiwyg-mode",
+            "author_id": "dvargas92495",
+            "description": "The WYSIWYG mode extension allows users to edit blocks in it's readable, rendered state!Wysiwyg Mode",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/wysiwyg-mode",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/wysiwyg-mode.ts"
+        },
+        {
+            "name": "Calculate",
+            "src": "https://roamjs.com/calculate.js",
+            "id": "calculate",
+            "author_id": "dvargas92495",
+            "description": "The Calculate extension adds calculating capabilities that will hopefully one day be integrated with calc!Calculate",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/calculate",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/calculate.ts"
+        },
+        {
+            "name": "Marketplace",
+            "src": "https://roamjs.com/marketplace.js",
+            "id": "marketplace",
+            "author_id": "dvargas92495",
+            "description": "The Marketplace extension adds an extension marketplace directly in Roam to browse and install new extensions!Marketplace",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/marketplace",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/marketplace.ts"
+        },
+        {
+            "name": "Repl",
+            "src": "https://roamjs.com/repl.js",
+            "id": "repl",
+            "author_id": "dvargas92495",
+            "description": "Develop Roam Extensions quickly without reloading!Repl",
+            "link_to_webpage": "https://roamjs.com/docs/extensions/repl",
+            "link_to_source_code": "https://github.com/dvargas92495/roam-js-extensions/blob/master/src/entries/repl.ts"
+        }
+    ]
 }
