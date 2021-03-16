@@ -176,7 +176,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
                         <span class="bp3-control-indicator"></span>
                         {{pack.name}}
                     </label>
-                    <span>(<a :href="pack.link_to_webpage">Webpage</a>) (<a :href="link_to_source_code">Source code</a>)</span>
+                    <span style="font-size: 0.8em;">(<a :href="pack.link_to_webpage">Webpage</a>) (<a :href="pack.link_to_source_code">Source code</a>)</span>
                 </div>
             </div>
 
