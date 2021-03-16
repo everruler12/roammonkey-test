@@ -3,7 +3,7 @@ import "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 // maybe import only if not detected
 
-(function() {
+(function () {
     // Checks to stop execution of whole script
     if (!!navigator.userAgent.match('Headless')) { // stop if roam-to-git
         // This will prevent loading other scripts if Roam is being fetched for an automatic backup
@@ -20,7 +20,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
 
 
-    window.roamMonkey = (function() { // shared functions
+    window.roamMonkey = (function () { // shared functions
 
         function appendFile(url, attr) {
             // function appendFile(url, {
@@ -215,7 +215,7 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
 
                 // add enabled setting to registry
                 this.registry_packages = registry.packages.map(pack => {
-                    ls = _this.settings.find(x => x.id == pack.id)
+                    const ls = _this.settings.find(x => x.id == pack.id)
                     pack.enabled = ls ? ls.enabled : false
                     return pack
                 })
