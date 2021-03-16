@@ -170,12 +170,14 @@ import "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"
             <div class="bp3-tab-panel" v-show="panel_tab == 'Scripts'" style="text-align: left;">
                 <h3 class="bp3-heading">RoamMonkey Scripts</h3>
                 
-                <label class="bp3-control bp3-switch" v-for="pack in registry_packages">
-                    <input type="checkbox" v-model="pack.enabled"/>
-                    <span class="bp3-control-indicator"></span>
-                    {{pack.name}}
-                </label>
-                <span> by {{pack.author_id}} (<a :href="pack.link_to_webpage">Webpage</a>) (<a :href="link_to_source_code">Source code</a>)</span>
+                <div v-for="pack in registry_packages">
+                    <label class="bp3-control bp3-switch">
+                        <input type="checkbox" v-model="pack.enabled"/>
+                        <span class="bp3-control-indicator"></span>
+                        {{pack.name}}
+                    </label>
+                    <span> by {{pack.author_id}} (<a :href="pack.link_to_webpage">Webpage</a>) (<a :href="link_to_source_code">Source code</a>)</span>
+                </div>
             </div>
 
             <div class="bp3-tab-panel" v-show="panel_tab == 'Placeholder'">
